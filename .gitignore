@@ -1,0 +1,6 @@
+*.exe
+*.asm
+objs/*
+old_stuf/
+files_hash.txt
+temp.*
