@@ -63,11 +63,11 @@ print("--Compiling--")  # inizio la fase di compilazione
 for i in files:
 	temp = i.split(".")
 
-	if temp[-1] == "cpp":  # distinguo eventuali file cpp o h
+	if temp[-1] == "c":  # distinguo eventuali file cpp o h
 
 		if ismodified(i):  # controllo che non sia gia stato compilato / non modificato
 
-			command = f"g++ -g3 -std=c++2a -Iinclude -Iext -c -Wconversion -Wshadow -Wextra -o ./objs/{temp[0]}.o ./src/{temp[0]}.cpp"
+			command = f"gcc -ansi -Wpedantic -pedantic-error -g3 -Iinclude -Iext -c -Wconversion -Wshadow -Wextra -o ./objs/{temp[0]}.o ./src/{temp[0]}.c"
 
 			print(command)  # stampo il comando per eventuale debug
 
@@ -99,12 +99,12 @@ if out[1] == "/":
 else:
 	files = os.listdir("objs")
 
-	command = f"g++ -g3 -o bin/Game.exe -Lext/raylib/lib"
+	command = f"gcc -g3 -o bin/Game" # -Lext/raylib/lib"
 
 	for i in files:
 		if [i.split(".")[-1] == "o"]:
 			command += f" objs/{i}"
-	command += " -lraylib"
+	#command += " -lraylib"
 
 	print("\n--Linking--")
 	print(command)
