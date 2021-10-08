@@ -7,6 +7,9 @@
 				"ext"
 			],
 			"compilerArgs": [
+				"-ansi",
+				"-Wpedantic",
+				"-pedantic-errors",
 				"-Wconversion",
 				"-Wshadow",
 				"-Wextra"
