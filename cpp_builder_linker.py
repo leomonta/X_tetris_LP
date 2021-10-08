@@ -67,7 +67,7 @@ for i in files:
 
 		if ismodified(i):  # controllo che non sia gia stato compilato / non modificato
 
-			command = f"gcc -ansi -Wpedantic -pedantic-error -g3 -Iinclude -Iext -c -Wconversion -Wshadow -Wextra -o ./objs/{temp[0]}.o ./src/{temp[0]}.c"
+			command = f"gcc -ansi -Wpedantic -pedantic-errors -g3 -Iinclude -Iext -c -Wconversion -Wshadow -Wextra -o ./objs/{temp[0]}.o ./src/{temp[0]}.c"
 
 			print(command)  # stampo il comando per eventuale debug
 
