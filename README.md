@@ -39,4 +39,3 @@ un tetramino fuori dal campo di gioco, dovrà aggiornare il punteggio e l lista 
 passi si ripetono fino alla fine della partita.
 Nel caso multiplayer, il programma dovrà visualizzare entrambi i campi di gioco e chiedere ai due giocatori
 a turno le loro mosse.
-1
