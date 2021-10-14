@@ -99,7 +99,7 @@ if out[1] == "/":
 else:
 	files = os.listdir("objs")
 
-	command = f"gcc -g3 -o bin/Game" # -Lext/raylib/lib"
+	command = f"gcc -g3 -o bin/Game.bin" # -Lext/raylib/lib"
 
 	for i in files:
 		if [i.split(".")[-1] == "o"]:
