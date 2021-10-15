@@ -4,7 +4,7 @@
   - Single Player
   - Local (or Network se sono pazzo abbastanza) Multiplayer
 
-- rappresentare i singoli tetramini
+- [X] rappresentare i singoli tetramini
 - metodo per inserire i tetramini nel campo ad una posizione e rotazione specifica controllando gli estremi
 - decidere i 20 (o più) tetramini iniziali
 - far cadere i tetramini

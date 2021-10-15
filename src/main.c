@@ -11,10 +11,27 @@
 */
 
 int main() {
+	int			 i	 = 1;
+	struct IVec2 pos = {5, 6};
 
 	setup();
 
-	drawScreen();
+	while (1) {
+		clearscreen();
+
+		insert(tetr_T, pos, i);
+		screen[5][6] = '@';
+
+		drawScreen();
+
+		printf("\n");
+		i++;
+		if (i > 4) {
+			i = 1;
+		}
+
+		getchar();
+	}
 
 	cleanup();
 	return 0;
@@ -22,20 +39,9 @@ int main() {
 
 void setup() {
 
-	struct IVec2 pos = {11, 11};
-	char		 i, j;
-
 	g_old_locale = setlocale(LC_ALL, NULL);
 
 	setlocale(LC_ALL, "C.UTF-8");
-
-	for (i = 0; i < screenWidth; ++i) {
-		for (j = 0; j < screenHeight; ++j) {
-			screen[i][j] = ' ';
-		}
-	}
-
-	insert(tetr_L, pos);
 }
 
 void cleanup() {
@@ -55,19 +61,60 @@ void drawScreen() {
 	}
 }
 
-void insert(char *tetramino, struct IVec2 pos) {
+void clearscreen() {
 
-	struct IVec2 index = pos;
-	int			 i	   = 0;
+	char i, j;
+
+	for (i = 0; i < screenWidth; ++i) {
+		for (j = 0; j < screenHeight; ++j) {
+			screen[i][j] = ' ';
+		}
+	}
+}
+
+void insert(char *tetramino, struct IVec2 pos, int rot) {
+
+	struct IVec2 index	  = pos;
+	int			 i		  = 0;
+	char		 advanceX = 1;
+	char		 advanceY = 1;
+
+	int *pt_x = nullptr;
+	int *pt_y = nullptr;
+
+	switch (rot) {
+	case 1:
+		pt_x	 = &index.y;
+		pt_y	 = &index.x;
+		advanceY = -1;
+		break;
+
+	case 2:
+		pt_x = &index.x;
+		pt_y = &index.y;
+		break;
+
+	case 3:
+		pt_x	 = &index.y;
+		pt_y	 = &index.x;
+		advanceX = -1;
+		break;
+
+	case 4:
+		pt_x	 = &index.x;
+		pt_y	 = &index.y;
+		advanceX = -1;
+		advanceY = -1;
+	}
 
 	while (boundCheck(index) && tetramino[i] != '*') {
 
 		if (tetramino[i] == '/') {
-			index.x = pos.x;
-			index.y++;
+			index.y = pos.y;
+			index.x += advanceX;
 		} else {
-			screen[index.y][index.x] = tetramino[i];
-			index.x++;
+			screen[*pt_x][*pt_y] = tetramino[i];
+			index.y += advanceY;
 		}
 
 		i++;

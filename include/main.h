@@ -3,7 +3,7 @@
 #include "constants.h"
 
 struct IVec2 {
-	char x, y;
+	int x, y;
 };
 
 /* Indico con '#' il quadrato pieno e con '_' il quadrato vuoto
@@ -53,7 +53,18 @@ char screen[screenWidth][screenHeight];
 void setup();
 void cleanup();
 void drawScreen();
-void insert(char *tetramino, struct IVec2 pos);
+void clearscreen();
+
+/**
+ * Inserisce il tetramino dato alla posizione specificata nello schermo ed alla rotazione specificata
+ * 
+ * rotazione:
+ * 1 -> su
+ * 2 -> destra
+ * 3 -> giu
+ * 4 -> sinistra
+ */
+void insert(char *tetramino, struct IVec2 pos, int rot);
 /*
 Ritorna 1 se pos risiede nei limiti dello schermo 0 altrimenti
 */
