@@ -1,14 +1,17 @@
-#include <locale.h>
+#include <locale.h> /*Usato per scrivere caratteri unicode*/
 #include <stdio.h>
-#include <wchar.h>
+#include <stdlib.h> /*Random*/
+#include <time.h>	/*Seme per il random*/
+#include <wchar.h>	/*Usato per scrivere caratteri unicode*/
 
 #include "constants.h"
 #include "main.h"
 
-/*0x2550 -> 0x256C
-0x2550 ═ ║ ╒ ╓ ╔ ╕ ╖ ╗ ╘ ╙ ╚ ╛ ╜ ╝ ╞ ╟ 
-0x2560 ╠ ╡ ╢ ╣ ╤ ╥ ╦ ╧ ╨ ╩ ╪ ╫ ╬ 
-*/
+/**
+ * 0x2550 -> 0x256C
+ * 0x2550 ═ ║ ╒ ╓ ╔ ╕ ╖ ╗ ╘ ╙ ╚ ╛ ╜ ╝ ╞ ╟ 
+ * 0x2560 ╠ ╡ ╢ ╣ ╤ ╥ ╦ ╧ ╨ ╩ ╪ ╫ ╬ 
+ */
 
 int main() {
 	int			 i	 = 1;
@@ -17,7 +20,7 @@ int main() {
 	setup();
 
 	while (1) {
-		clearscreen();
+		clearScreen();
 
 		insert(tetr_T, pos, i);
 		screen[5][6] = '@';
@@ -39,7 +42,14 @@ int main() {
 
 void setup() {
 
+	unsigned i = 0;
+
 	g_old_locale = setlocale(LC_ALL, NULL);
+	srand(time(0));
+
+	for (i = 0; i < INITIAL_TETRAMINOS; i++) {
+		runtimeTetraminos[i] = (char)(rand() % NUM_TETRAMINOS);
+	}
 
 	setlocale(LC_ALL, "C.UTF-8");
 }
@@ -61,7 +71,7 @@ void drawScreen() {
 	}
 }
 
-void clearscreen() {
+void clearScreen() {
 
 	char i, j;
 
