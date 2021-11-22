@@ -29,7 +29,7 @@ int main() {
 	drawRemainingTetraminos();
 	drawScreen();
 
-	printf("\n");
+	wprintf(L"\n");
 	i++;
 	if (i > 4) {
 		i = 1;
@@ -64,12 +64,12 @@ void drawScreen() {
 	char i, j;
 
 	for (i = 0; i < screenWidth; ++i) {
-		printf("%c", '<');
+		wprintf(L"%c", L'<');
 		for (j = 0; j < screenHeight; ++j) {
-			printf("%c", screen[i][j]);
+			wprintf(L"%c", screen[i][j]);
 		}
-		printf("%c", '>');
-		printf("\n");
+		wprintf(L"%c", L'>');
+		wprintf(L"\n");
 	}
 }
 
@@ -180,11 +180,11 @@ void drawRemainingTetraminos() {
 
 		for (col = 0; col < 2; ++col) {
 			for (index = 0; index < 50; ++index) {
-				wprintf(L"%c", row[index][col] == '#' ? L"▩" : L" ");
+				wprintf(L"%s", row[index][col] == '#' ? L"#" : L" ");
 			}
-			printf("\n");
+			wprintf(L"\n");
 		}
 
-		printf("\n\n");
+		wprintf(L"\n\n");
 	}
 }
