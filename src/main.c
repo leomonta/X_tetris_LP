@@ -1,8 +1,9 @@
-#include <locale.h> /*Usato per scrivere caratteri unicode*/
+#include <locale.h> /* Usato per scrivere caratteri unicode */
 #include <stdio.h>
-#include <stdlib.h> /*Random*/
-#include <time.h>	/*Seme per il random*/
-#include <wchar.h>	/*Usato per scrivere caratteri unicode*/
+#include <stdlib.h> /* Random */
+#include <string.h> /* memset() */
+#include <time.h>	/* Seme per il random */
+#include <wchar.h>	/* Usato per scrivere caratteri unicode */
 
 #include "constants.h"
 #include "main.h"
@@ -11,6 +12,7 @@
  * 0x2550 -> 0x256C
  * 0x2550 ═ ║ ╒ ╓ ╔ ╕ ╖ ╗ ╘ ╙ ╚ ╛ ╜ ╝ ╞ ╟ 
  * 0x2560 ╠ ╡ ╢ ╣ ╤ ╥ ╦ ╧ ╨ ╩ ╪ ╫ ╬ 
+ * 0x25a0 ■ □ ▢ ▣ ▤ ▥ ▦ ▧ ▨ ▩ 
  */
 
 int main() {
@@ -19,22 +21,21 @@ int main() {
 
 	setup();
 
-	while (1) {
-		clearScreen();
+	clearScreen();
 
-		insert(tetr_T, pos, i);
-		screen[5][6] = '@';
+	insert(tetr_T, pos, i);
+	screen[5][6] = '@';
 
-		drawScreen();
+	drawRemainingTetraminos();
+	drawScreen();
 
-		printf("\n");
-		i++;
-		if (i > 4) {
-			i = 1;
-		}
-
-		getchar();
+	printf("\n");
+	i++;
+	if (i > 4) {
+		i = 1;
 	}
+
+	getchar();
 
 	cleanup();
 	return 0;
@@ -50,6 +51,7 @@ void setup() {
 	for (i = 0; i < INITIAL_TETRAMINOS; i++) {
 		runtimeTetraminos[i] = (char)(rand() % NUM_TETRAMINOS);
 	}
+	runtimeTetraminos[0] = 2;
 
 	setlocale(LC_ALL, "C.UTF-8");
 }
@@ -133,4 +135,56 @@ void insert(char *tetramino, struct IVec2 pos, int rot) {
 
 int boundCheck(struct IVec2 pos) {
 	return pos.x < screenWidth && pos.x >= 0 && pos.y < screenHeight && pos.y >= 0;
+}
+
+void drawRemainingTetraminos() {
+	unsigned i			 = 0;
+	unsigned j			 = 0;
+	unsigned index		 = 0;
+	unsigned col		 = 0;
+	unsigned rowIndex	 = 0;
+	unsigned columnIndex = 0;
+	unsigned numCols	 = 5;
+	char *	 currTetramino;
+
+	char row[50][2];
+
+	for (i = 0; i < INITIAL_TETRAMINOS / numCols; ++i) {
+
+		memset(row, ' ', 50 * 2);
+
+		for (rowIndex = 0, j = 0; j < numCols; ++j) {
+			unsigned relOrg = 0;
+
+			/* Ottengo la stringa del tetramino */
+			currTetramino = allTetraminos[runtimeTetraminos[i + j]];
+
+			/* Fa il loop per ogni carattere della stringa */
+			for (index = 0, columnIndex = 0; currTetramino[index] != '*'; ++index) {
+
+				/* 
+				 Se il carattere corrente è un 'a capo' -> '/' non fa niente,
+				 altrimenti inserisce il carattere corrente 
+				*/
+				if (currTetramino[index] == '/') {
+					columnIndex = 1;
+					relOrg		= index + 1;
+				} else {
+					/* Se il carattere corrente e' '_' allora inserisci ' ' */
+					row[rowIndex * 5 + index - relOrg][columnIndex] = currTetramino[index] == '_' ? ' ' : currTetramino[index];
+				}
+			}
+
+			rowIndex++;
+		}
+
+		for (col = 0; col < 2; ++col) {
+			for (index = 0; index < 50; ++index) {
+				wprintf(L"%c", row[index][col] == '#' ? L"▩" : L" ");
+			}
+			printf("\n");
+		}
+
+		printf("\n\n");
+	}
 }

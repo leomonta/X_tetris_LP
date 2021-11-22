@@ -1,7 +1,8 @@
 {
 	"files.associations": {
 		"constants.h": "c",
-		"main.h": "c"
+		"main.h": "c",
+		"cstring": "c"
 	},
 	"python.pythonPath": "c:\\Program Files\\Python39\\python.exe"
 }

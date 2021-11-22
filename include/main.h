@@ -7,6 +7,12 @@ struct IVec2 {
 };
 
 /**
+ * 0x2550 -> 0x256C
+ * 0x2550 ═ ║ ╒ ╓ ╔ ╕ ╖ ╗ ╘ ╙ ╚ ╛ ╜ ╝ ╞ ╟ 
+ * 0x2560 ╠ ╡ ╢ ╣ ╤ ╥ ╦ ╧ ╨ ╩ ╪ ╫ ╬ 
+ */
+
+/**
  * Indico con '#' il quadrato pieno e con '_' il quadrato vuoto
  * ogni tetramino e' nel proprio array, ma per la larghezza di un tetramino uso '/' per indicare un "a capo"
  * inoltre uso il carattere '*' per indicare la fine 
@@ -18,13 +24,11 @@ struct IVec2 {
 char tetr_I[5] = {'#', '#', '#', '#', '*'};
 
 /**
- * # _ /
- * # # /
- * # _ * 
+ * _ # _ /
+ * # # # *
  */
-char tetr_T[9] = {'#', '_', '/',
-				  '#', '#', '/',
-				  '#', '_', '*'};
+char tetr_T[8] = {'_', '#', '_', '/',
+				  '#', '#', '#', '*'};
 
 /**
  * # # /
@@ -62,6 +66,7 @@ void setup();
 void cleanup();
 void drawScreen();
 void clearScreen();
+void drawRemainingTetraminos();
 
 /**
  * Inserisce il tetramino dato alla posizione specificata nello schermo ed alla rotazione specificata
