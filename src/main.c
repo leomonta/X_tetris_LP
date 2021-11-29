@@ -1,4 +1,4 @@
-#include <locale.h> /* Usato per scrivere caratteri unicode */
+/* #include <locale.h> /* Usato per scrivere caratteri unicode */
 #include <stdio.h>
 #include <stdlib.h> /* Random */
 #include <string.h> /* memset() */
@@ -17,7 +17,7 @@
 
 int main() {
 	int			 i	 = 1;
-	struct IVec2 pos = {5, 6};
+	IVec2 pos = {5, 6};
 
 	setup();
 
@@ -29,7 +29,7 @@ int main() {
 	drawRemainingTetraminos();
 	drawScreen();
 
-	wprintf(L"\n");
+	printf("\n");
 	i++;
 	if (i > 4) {
 		i = 1;
@@ -45,7 +45,7 @@ void setup() {
 
 	unsigned i = 0;
 
-	g_old_locale = setlocale(LC_ALL, NULL);
+/* 	g_old_locale = setlocale(LC_ALL, NULL); */
 	srand(time(0));
 
 	for (i = 0; i < INITIAL_TETRAMINOS; i++) {
@@ -53,23 +53,23 @@ void setup() {
 	}
 	runtimeTetraminos[0] = 2;
 
-	setlocale(LC_ALL, "C.UTF-8");
+/* 	setlocale(LC_ALL, "C.UTF-8"); */
 }
 
 void cleanup() {
-	setlocale(LC_ALL, g_old_locale);
+/* 	setlocale(LC_ALL, g_old_locale); */
 }
 
 void drawScreen() {
 	char i, j;
 
 	for (i = 0; i < screenWidth; ++i) {
-		wprintf(L"%c", L'<');
+		printf("%c", '<');
 		for (j = 0; j < screenHeight; ++j) {
-			wprintf(L"%c", screen[i][j]);
+			printf("%c", screen[i][j]);
 		}
-		wprintf(L"%c", L'>');
-		wprintf(L"\n");
+		printf("%c", '>');
+		printf("\n");
 	}
 }
 
@@ -84,7 +84,7 @@ void clearScreen() {
 	}
 }
 
-void insert(char *tetramino, struct IVec2 pos, int rot) {
+void insert(char *tetramino, IVec2 pos, int rot) {
 
 	struct IVec2 index	  = pos;
 	int			 i		  = 0;
@@ -133,7 +133,7 @@ void insert(char *tetramino, struct IVec2 pos, int rot) {
 	}
 }
 
-int boundCheck(struct IVec2 pos) {
+int boundCheck(IVec2 pos) {
 	return pos.x < screenWidth && pos.x >= 0 && pos.y < screenHeight && pos.y >= 0;
 }
 
@@ -180,11 +180,11 @@ void drawRemainingTetraminos() {
 
 		for (col = 0; col < 2; ++col) {
 			for (index = 0; index < 50; ++index) {
-				wprintf(L"%s", row[index][col] == '#' ? L"#" : L" ");
+				printf("%s", row[index][col] == '#' ? "#" : " ");
 			}
-			wprintf(L"\n");
+			printf("\n");
 		}
 
-		wprintf(L"\n\n");
+		printf("\n\n");
 	}
 }

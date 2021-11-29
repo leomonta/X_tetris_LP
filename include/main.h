@@ -2,9 +2,9 @@
 
 #include "constants.h"
 
-struct IVec2 {
+typedef struct IVec2 {
 	int x, y;
-};
+} IVec2;
 
 /**
  * 0x2550 -> 0x256C
