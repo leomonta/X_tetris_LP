@@ -5,8 +5,8 @@
   - [ ] Local (or Network se sono pazzo abbastanza) Multiplayer
 
 - [X] rappresentare i singoli tetramini
-- [X]metodo per inserire i tetramini nel campo ad una posizione e rotazione specifica controllando gli estremi
-- [ ] decidere i 20 (o più) tetramini iniziali
+- [X] metodo per inserire i tetramini nel campo ad una posizione e rotazione specifica controllando gli estremi
+- [X] decidere i 20 (o più) tetramini iniziali
 - [ ] far cadere i tetramini
 - [ ] riconoscere ed eliminare le linee complete + dare punti per esse 
   - [ ] punti = 2^(righe eliminate - 1) * 1.5f arrotondato per difetto

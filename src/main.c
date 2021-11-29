@@ -16,7 +16,7 @@
  */
 
 int main() {
-	int			 i	 = 1;
+	int	  i	  = 1;
 	IVec2 pos = {5, 6};
 
 	setup();
@@ -24,7 +24,8 @@ int main() {
 	clearScreen();
 
 	insert(tetr_T, pos, i);
-	screen[5][6] = '@';
+
+	fall();
 
 	drawRemainingTetraminos();
 	drawScreen();
@@ -45,7 +46,7 @@ void setup() {
 
 	unsigned i = 0;
 
-/* 	g_old_locale = setlocale(LC_ALL, NULL); */
+	/* 	g_old_locale = setlocale(LC_ALL, NULL); */
 	srand(time(0));
 
 	for (i = 0; i < INITIAL_TETRAMINOS; i++) {
@@ -53,11 +54,11 @@ void setup() {
 	}
 	runtimeTetraminos[0] = 2;
 
-/* 	setlocale(LC_ALL, "C.UTF-8"); */
+	/* 	setlocale(LC_ALL, "C.UTF-8"); */
 }
 
 void cleanup() {
-/* 	setlocale(LC_ALL, g_old_locale); */
+	/* 	setlocale(LC_ALL, g_old_locale); */
 }
 
 void drawScreen() {
@@ -138,14 +139,14 @@ int boundCheck(IVec2 pos) {
 }
 
 void drawRemainingTetraminos() {
-	unsigned i			 = 0;
-	unsigned j			 = 0;
-	unsigned index		 = 0;
-	unsigned col		 = 0;
-	unsigned rowIndex	 = 0;
-	unsigned columnIndex = 0;
-	unsigned numCols	 = 5;
-	char *	 currTetramino;
+	unsigned	   i		   = 0;
+	unsigned	   j		   = 0;
+	unsigned	   index	   = 0;
+	unsigned	   col		   = 0;
+	unsigned	   rowIndex	   = 0;
+	unsigned	   columnIndex = 0;
+	const unsigned numCols	   = 5;
+	char *		   currTetramino;
 
 	char row[50][2];
 

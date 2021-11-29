@@ -54,7 +54,7 @@ char tetr_S[8] = {'#', '#', '_', '/',
 char *allTetraminos[NUM_TETRAMINOS] = {tetr_I, tetr_L, tetr_Q, tetr_S, tetr_T};
 
 /**
- *Indice rispetto a allTetramino per indicare i tetramini disponibili al giocatore
+ * Indice rispetto a all Tetramino per indicare i tetramini disponibili al giocatore
  */
 char runtimeTetraminos[INITIAL_TETRAMINOS];
 
@@ -62,10 +62,34 @@ const char *g_old_locale = nullptr;
 
 char screen[screenWidth][screenHeight];
 
+/**
+ * Inizializza i tetramini iniziali
+ */
 void setup();
+
+/**
+ * Usato per restaurare il locale precedente
+ */
 void cleanup();
+
+/**
+ * Fa cadere i teramini fluttuanti fino al punto più basso che possono
+ */
+void fall();
+
+/**
+ * Stampa a schermo i tetramini alla posizione corretta
+ */
 void drawScreen();
+
+/**
+ * Svuota lo schermo dai caratteri precedenti
+ */
 void clearScreen();
+
+/**
+ * Stampa i tetramini rimanenti in righe da 5
+ */
 void drawRemainingTetraminos();
 
 /**
