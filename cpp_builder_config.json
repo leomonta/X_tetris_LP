@@ -1,0 +1,27 @@
+{
+	"projectDir": ".",
+	"exeName": "Game.bin",
+	"Directories": {
+		"includeDir": [
+			"include",
+			"ext"
+		],
+		"sourceDir": [
+			"src"
+		],
+		"libraryDir": [
+			"ext/raylib/lib"
+		],
+		"objectsDir": "objs",
+		"exeDir": "bin"
+	},
+	"libraries": [
+		"raylib",
+		"dl",
+		"pthread"
+	],
+	"Arguments": {
+		"Compiler": "-g3 -std=c++2a -Wno-missing-field-initializers -Wconversion -Wshadow -Wextra",
+		"Linker": "-g3"
+	}
+}
