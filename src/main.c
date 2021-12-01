@@ -17,56 +17,35 @@
  */
 
 int main() {
-	int	  i	  = 1;
-	IVec2 pos = {0, 0};
-	int	  res;
-	int	  points = 0;
+	int	  i			   = 1;
+	IVec2 inputPos	   = {0, 0};
+	int	  inputTetr	   = 0;
+	char *selectedTetr = nullptr;
+	int	  points	   = 0;
 
 	setup();
 
 	clearScreen();
 
 	/* loop 1 */
+	while (1) {
 
-	insert(tetr_I, pos, 1);
+		printf("Scegli il tetramino\n riga -> \n");
+		drawRemainingTetraminos();
 
-	fall();
+		scanf("%d", &inputPos.x);
+		printf("colonna -> ");
+		scanf("%d", &inputPos.y);
 
-	pos.x = 4;
+		insert(selectedTetr, inputPos, 1);
 
-	insert(tetr_I, pos, 1);
-	fall();
+		fall();
 
-	pos.x = 8;
+		points = calcPoints(clearLines());
 
-	insert(tetr_Q, pos, 1);
-	fall();
-	drawScreen();
-	printf("points -> %d\n\n", points);
-
-	/* loop 2 */
-
-	pos.x = 0;
-
-	insert(tetr_I, pos, 1);
-
-	fall();
-
-	pos.x = 4;
-
-	insert(tetr_I, pos, 1);
-	fall();
-
-	drawScreen();
-	printf("points -> %d\n\n", points);
-
-	res = clearLines();
-
-	points += calcPoints(res);
-
-	drawScreen();
-	printf("points -> %d\n\n", points);
-
+		drawScreen();
+		printf("points -> %d\n\n", points);
+	}
 	/* getchar(); */
 
 	return 0;
@@ -239,45 +218,77 @@ void drawRemainingTetraminos() {
 	const unsigned numCols	   = 5;
 	char *		   currTetramino;
 
-	char row[50][2];
+	char row[2][50];
 
 	/*
-	
-	
+
+	dato che ogni tetramino occupa un massimo di 4*2
+	faccio colonne grandi 5 (massima lunghezza + spazio)
+	per un arbitrario numero di righe
+
+	per fare ciò, prima 'stampo' i tetramini su un array, 
+	dopo stampo l'array
+
+			col1 col2 col3 col4 col5
+
+	riga 1  #### #### #### #### #### <- sottoriga superiore
+	        #### #### #### #### #### <- sottoriga inferiore
+
+	riga 2  #### #### #### #### ####
+	        #### #### #### #### ####
+
+	riga 3  #### #### #### #### ####
+	        #### #### #### #### ####
+
+	riga 4  #### #### #### #### ####
+	        #### #### #### #### ####
+			^
+			sottocolonna singola
 	*/
 
+	/* numero delle righe rispetto al numero di colonne */
 	for (i = 0; i < INITIAL_TETRAMINOS / numCols; ++i) {
 
+		/* svuoto la riga */
 		memset(row, ' ', 50 * 2);
 
-		for (rowIndex = 0, j = 0; j < numCols; ++j) {
+		/* per il numero di colonne in una singola riga */
+		for (columnIndex = 0; columnIndex < numCols; ++columnIndex) {
+			/* 
+			offset negativo per scrivere alla posizione corretta della riga inferiore quando
+			avviene il cambiamento della sottoriga
+			 */
 			unsigned relOrg = 0;
 
 			/* Ottengo la stringa del tetramino */
-			currTetramino = allTetraminos[runtimeTetraminos[i + j]];
+			currTetramino = allTetraminos[runtimeTetraminos[i + columnIndex]];
 
-			/* Fa il loop per ogni carattere della stringa */
-			for (index = 0, columnIndex = 0; currTetramino[index] != '*'; ++index) {
 
-				/* 
-				 Se il carattere corrente è un 'a capo' -> '/' non fa niente,
-				 altrimenti inserisce il carattere corrente 
-				*/
-				if (currTetramino[index] == '/') {
-					columnIndex = 1;
-					relOrg		= index + 1;
-				} else {
-					/* Se il carattere corrente e' '_' allora inserisci ' ' */
-					row[rowIndex * 5 + index - relOrg][columnIndex] = currTetramino[index] == '_' ? ' ' : currTetramino[index];
-				}
+			/* in caso di tetramino rimosso salta */
+			if (currTetramino == nullptr) {
+				continue;
 			}
 
-			rowIndex++;
+			/* Fa il loop per ogni carattere della stringa */
+			for (index = 0, rowIndex = 0; currTetramino[index] != '*'; ++index) {
+
+				/* 
+				Se il carattere corrente è un 'a capo' -> '/' mi sposto sulla riga inferiore, aggiorno l'offet di sottocolonna
+				altrimenti inserisce il carattere corrente 
+				*/
+				if (currTetramino[index] == '/') {
+					rowIndex = 1;
+					relOrg	 = index + 1;
+				} else {
+					/* Se il carattere corrente e' '_' allora inserisci ' ' */
+					row[rowIndex][columnIndex * 5 + index - relOrg] = currTetramino[index] == '_' ? ' ' : currTetramino[index];
+				}
+			}
 		}
 
 		for (col = 0; col < 2; ++col) {
 			for (index = 0; index < 50; ++index) {
-				printf("%s", row[index][col] == '#' ? "#" : " ");
+				printf("%s", row[col][index] == '#' ? "#" : " ");
 			}
 			printf("\n");
 		}
