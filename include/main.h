@@ -60,7 +60,7 @@ char runtimeTetraminos[INITIAL_TETRAMINOS];
 
 const char *g_old_locale = nullptr;
 
-char screen[screenWidth][screenHeight];
+char screen[SCREENHEIGHT][SCREENWIDTH];
 
 /**
  * Inizializza i tetramini iniziali

@@ -25,9 +25,26 @@ int main() {
 
 	insert(tetr_T, pos, i);
 
+	drawScreen();
+
 	fall();
 
-	drawRemainingTetraminos();
+	printf("\n\n");
+
+	drawScreen();
+
+	pos.x = 0;
+
+	printf("\n\n");
+
+	insert(tetr_I, pos, 1);
+
+	drawScreen();
+
+	fall();
+
+	printf("\n\n");
+
 	drawScreen();
 
 	printf("\n");
@@ -36,9 +53,8 @@ int main() {
 		i = 1;
 	}
 
-	getchar();
+	/* getchar(); */
 
-	cleanup();
 	return 0;
 }
 
@@ -61,12 +77,51 @@ void cleanup() {
 	/* 	setlocale(LC_ALL, g_old_locale); */
 }
 
+void fall() {
+	int i = 0;
+	int j = 0;
+
+	int _exit = 0;
+
+	while (!_exit) {
+
+		for (i = SCREENHEIGHT - 1; i >= 0 && !_exit; --i) {
+			for (j = 0; j < SCREENWIDTH && !_exit; ++j) {
+				if (screen[i][j] == '@') {
+					if (i == SCREENHEIGHT - 1) {
+						_exit = 1;
+					}
+					/* la prossima cella è libera? allora sposta! */
+					if (screen[i + 1][j] != ' ') {
+						_exit = 1;
+					}
+				}
+			}
+
+			for (j = 0; j < SCREENWIDTH && !_exit; ++j) {
+				if (screen[i][j] == '@') {
+					screen[i + 1][j] = '@';
+					screen[i][j]	 = ' ';
+				}
+			}
+		}
+	}
+
+	for (i = 0; i < SCREENHEIGHT; ++i) {
+		for (j = 0; j < SCREENWIDTH; ++j) {
+			if (screen[i][j] == '@') {
+				screen[i][j] = '#';
+			}
+		}
+	}
+}
+
 void drawScreen() {
 	char i, j;
 
-	for (i = 0; i < screenWidth; ++i) {
+	for (i = 0; i < SCREENHEIGHT; ++i) {
 		printf("%c", '<');
-		for (j = 0; j < screenHeight; ++j) {
+		for (j = 0; j < SCREENWIDTH; ++j) {
 			printf("%c", screen[i][j]);
 		}
 		printf("%c", '>');
@@ -78,22 +133,46 @@ void clearScreen() {
 
 	char i, j;
 
-	for (i = 0; i < screenWidth; ++i) {
-		for (j = 0; j < screenHeight; ++j) {
+	for (i = 0; i < SCREENHEIGHT; ++i) {
+		for (j = 0; j < SCREENWIDTH; ++j) {
 			screen[i][j] = ' ';
 		}
 	}
 }
 
+/**
+ * rot 1 = su
+ * rot 2 = destra
+ * rot 3 = giù
+ * rot 4 = sinistra
+ */
 void insert(char *tetramino, IVec2 pos, int rot) {
 
+	IVec2 currPos = {0, 0};
+	currPos.x = pos.y;
+	currPos.y = pos.x;
+
+	while (*tetramino != '*') {
+
+		if (*tetramino == '/') {
+			currPos.x = pos.y;
+			++currPos.y;
+		} else {
+			screen[currPos.y][currPos.x] = *tetramino == '#' ? '@' : ' ';
+			++currPos.x;
+		}
+
+		tetramino++;
+	}
+
+/* 
 	struct IVec2 index	  = pos;
 	int			 i		  = 0;
 	char		 advanceX = 1;
-	char		 advanceY = 1;
+	char		 advanceY = -1;
 
-	int *pt_x = nullptr;
-	int *pt_y = nullptr;
+	int *pt_x = &index.x;
+	int *pt_y = &index.y;
 
 	switch (rot) {
 	case 1:
@@ -126,16 +205,16 @@ void insert(char *tetramino, IVec2 pos, int rot) {
 			index.y = pos.y;
 			index.x += advanceX;
 		} else {
-			screen[*pt_x][*pt_y] = tetramino[i];
+			screen[*pt_x][*pt_y] = tetramino[i] == '#' ? '@' : ' ';
 			index.y += advanceY;
 		}
 
 		i++;
-	}
+	} */
 }
 
 int boundCheck(IVec2 pos) {
-	return pos.x < screenWidth && pos.x >= 0 && pos.y < screenHeight && pos.y >= 0;
+	return pos.x < SCREENWIDTH && pos.x >= 0 && pos.y < SCREENHEIGHT && pos.y >= 0;
 }
 
 void drawRemainingTetraminos() {
