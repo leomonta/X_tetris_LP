@@ -1,4 +1,5 @@
 /* #include <locale.h> /* Usato per scrivere caratteri unicode */
+#include <math.h> /* pow */
 #include <stdio.h>
 #include <stdlib.h> /* Random */
 #include <string.h> /* memset() */
@@ -17,41 +18,54 @@
 
 int main() {
 	int	  i	  = 1;
-	IVec2 pos = {5, 6};
+	IVec2 pos = {0, 0};
+	int	  res;
+	int	  points = 0;
 
 	setup();
 
 	clearScreen();
 
-	insert(tetr_T, pos, i);
-
-	drawScreen();
-
-	fall();
-
-	printf("\n\n");
-
-	drawScreen();
-
-	pos.x = 0;
-
-	printf("\n\n");
+	/* loop 1 */
 
 	insert(tetr_I, pos, 1);
 
+	fall();
+
+	pos.x = 4;
+
+	insert(tetr_I, pos, 1);
+	fall();
+
+	pos.x = 8;
+
+	insert(tetr_Q, pos, 1);
+	fall();
 	drawScreen();
+	printf("points -> %d\n\n", points);
+
+	/* loop 2 */
+
+	pos.x = 0;
+
+	insert(tetr_I, pos, 1);
 
 	fall();
 
-	printf("\n\n");
+	pos.x = 4;
+
+	insert(tetr_I, pos, 1);
+	fall();
 
 	drawScreen();
+	printf("points -> %d\n\n", points);
 
-	printf("\n");
-	i++;
-	if (i > 4) {
-		i = 1;
-	}
+	res = clearLines();
+
+	points += calcPoints(res);
+
+	drawScreen();
+	printf("points -> %d\n\n", points);
 
 	/* getchar(); */
 
@@ -120,9 +134,9 @@ void drawScreen() {
 	char i, j;
 
 	for (i = 0; i < SCREENHEIGHT; ++i) {
-		printf("%c", '<');
+		printf("%c ", '<');
 		for (j = 0; j < SCREENWIDTH; ++j) {
-			printf("%c", screen[i][j]);
+			printf("%c ", screen[i][j]);
 		}
 		printf("%c", '>');
 		printf("\n");
@@ -148,14 +162,12 @@ void clearScreen() {
  */
 void insert(char *tetramino, IVec2 pos, int rot) {
 
-	IVec2 currPos = {0, 0};
-	currPos.x = pos.y;
-	currPos.y = pos.x;
+	IVec2 currPos = pos;
 
 	while (*tetramino != '*') {
 
 		if (*tetramino == '/') {
-			currPos.x = pos.y;
+			currPos.x = pos.x;
 			++currPos.y;
 		} else {
 			screen[currPos.y][currPos.x] = *tetramino == '#' ? '@' : ' ';
@@ -165,7 +177,7 @@ void insert(char *tetramino, IVec2 pos, int rot) {
 		tetramino++;
 	}
 
-/* 
+	/* 
 	struct IVec2 index	  = pos;
 	int			 i		  = 0;
 	char		 advanceX = 1;
@@ -229,6 +241,11 @@ void drawRemainingTetraminos() {
 
 	char row[50][2];
 
+	/*
+	
+	
+	*/
+
 	for (i = 0; i < INITIAL_TETRAMINOS / numCols; ++i) {
 
 		memset(row, ' ', 50 * 2);
@@ -267,4 +284,43 @@ void drawRemainingTetraminos() {
 
 		printf("\n\n");
 	}
+}
+
+int clearLines() {
+	int i	 = 0;
+	int j	 = 0;
+	int temp = 1;
+
+	int res = 0;
+
+	for (i = 0; i < SCREENHEIGHT; ++i) {
+		for (j = 0; j < SCREENWIDTH; ++j) {
+			if (screen[i][j] == ' ') {
+				temp = 0;
+				break;
+			}
+		}
+		if (temp == 1) {
+			memset(screen[i], ' ', SCREENWIDTH);
+			fixLines(i);
+			++res;
+		}
+		temp = 1;
+	}
+
+	return res;
+}
+
+void fixLines(int row) {
+	int i = 0;
+	for (i = row; i > 0; --i) {
+		memcpy(screen[i], screen[i - 1], SCREENWIDTH);
+	}
+
+	memset(&screen, ' ', SCREENWIDTH);
+}
+
+int calcPoints(int num) {
+	/*2^(righe eliminate - 1) * 1.5f arrotondato per difetto*/
+	return (int)(pow(2, num - 1) * 1.5);
 }

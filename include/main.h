@@ -101,9 +101,25 @@ void drawRemainingTetraminos();
  * 3 -> giu
  * 4 -> sinistra
  */
-void insert(char *tetramino, struct IVec2 pos, int rot);
+void insert(char *tetramino, IVec2 pos, int rot);
 
 /**
  * Ritorna 1 se pos risiede nei limiti dello schermo 0 altrimenti
  */
-int checkBounds(struct IVec2 pos);
+int checkBounds(IVec2 pos);
+
+/**
+ * Cancella le righe piene e ritorna il numero di righe cancellate
+ */
+int clearLines();
+
+/**
+ * Sposta le linee minore (quindi sopra) al valore dato di uno un giù
+ * eliminando lo spazio vuoto
+ */
+void fixLines(int row);
+
+/**
+ * Calcola il numero di punti per riga elimincate insieme
+ */
+int calcPoints(int num);

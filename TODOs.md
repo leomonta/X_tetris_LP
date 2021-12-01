@@ -7,9 +7,9 @@
 - [X] rappresentare i singoli tetramini
 - [X] metodo per inserire i tetramini nel campo ad una posizione e rotazione specifica controllando gli estremi
 - [X] decidere i 20 (o più) tetramini iniziali
-- [ ] far cadere i tetramini
-- [ ] riconoscere ed eliminare le linee complete + dare punti per esse 
-  - [ ] punti = 2^(righe eliminate - 1) * 1.5f arrotondato per difetto
+- [X] far cadere i tetramini
+- [X] riconoscere ed eliminare le linee complete + dare punti per esse 
+  - [X] punti = 2^(righe eliminate - 1) * 1.5f arrotondato per difetto
 - [ ] capire quando il gioco finisce
   - [ ] non ci sono più tetramini
   - [ ] non c'è più posto per i tetramini
