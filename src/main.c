@@ -215,13 +215,12 @@ void drawRemainingTetraminos() {
 	unsigned	   i		   = 0;
 	unsigned	   j		   = 0;
 	unsigned	   index	   = 0;
-	unsigned	   col		   = 0;
 	unsigned	   rowIndex	   = 0;
 	unsigned	   columnIndex = 0;
 	const unsigned numCols	   = 5;
 	char *		   currTetramino;
 
-	char row[2][50];
+	char row[2][25];
 
 	/*
 
@@ -253,7 +252,7 @@ void drawRemainingTetraminos() {
 	for (i = 0; i < INITIAL_TETRAMINOS / numCols; ++i) {
 
 		/* svuoto la riga */
-		memset(row, ' ', 50 * 2);
+		memset(row, ' ', 25 * 2);
 
 		/* per il numero di colonne in una singola riga */
 		for (columnIndex = 0; columnIndex < numCols; ++columnIndex) {
@@ -288,9 +287,18 @@ void drawRemainingTetraminos() {
 			}
 		}
 
-		for (col = 0; col < 2; ++col) {
-			for (index = 0; index < 50; ++index) {
-				printf("%s", row[col][index] == '#' ? "#" : " ");
+		for (j = 0; j < 2; ++j) {
+			for (index = 0; index < 25; ++index) {
+
+				if (index % 5 == 0) {
+					if (j == 0) {
+						printf("%2d) ", index / 5 + i * 5);
+					} else {
+						printf("    ");
+					}
+				}
+
+				printf("%s ", row[j][index] == '#' ? "#" : " ");
 			}
 			printf("\n");
 		}
