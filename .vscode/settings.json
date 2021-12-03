@@ -2,7 +2,8 @@
 	"files.associations": {
 		"constants.h": "c",
 		"main.h": "c",
-		"cstring": "c"
+		"cstring": "c",
+		"utf8.h": "c"
 	},
 	"python.pythonPath": "c:\\Program Files\\Python39\\python.exe"
 }

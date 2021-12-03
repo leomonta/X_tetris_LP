@@ -1,4 +1,5 @@
 /* #include <locale.h> /* Usato per scrivere caratteri unicode */
+#include <locale.h>
 #include <math.h> /* pow */
 #include <stdio.h>
 #include <stdlib.h> /* Random */
@@ -8,6 +9,7 @@
 
 #include "constants.h"
 #include "main.h"
+#include "utf8.h"
 
 /**
  * 0x2550 -> 0x256C
@@ -58,19 +60,21 @@ int main() {
 void setup() {
 
 	unsigned i = 0;
+	unsigned temp;
 
-	/* 	g_old_locale = setlocale(LC_ALL, NULL); */
-	srand(time(0));
+	g_old_locale = setlocale(LC_ALL, NULL);
+	setlocale(LC_ALL, "C.UTF-8");
+
+	temp = (unsigned)(time(0));
+	srand(temp);
 
 	for (i = 0; i < INITIAL_TETRAMINOS; i++) {
 		runtimeTetraminos[i] = (char)(rand() % NUM_TETRAMINOS);
 	}
-
-	/* 	setlocale(LC_ALL, "C.UTF-8"); */
 }
 
 void cleanup() {
-	/* 	setlocale(LC_ALL, g_old_locale); */
+	setlocale(LC_ALL, g_old_locale);
 }
 
 void fall() {
@@ -158,53 +162,6 @@ void insert(char *tetramino, IVec2 pos, int rot) {
 
 		tetramino++;
 	}
-
-	/* 
-	struct IVec2 index	  = pos;
-	int			 i		  = 0;
-	char		 advanceX = 1;
-	char		 advanceY = -1;
-
-	int *pt_x = &index.x;
-	int *pt_y = &index.y;
-
-	switch (rot) {
-	case 1:
-		pt_x	 = &index.y;
-		pt_y	 = &index.x;
-		advanceY = -1;
-		break;
-
-	case 2:
-		pt_x = &index.x;
-		pt_y = &index.y;
-		break;
-
-	case 3:
-		pt_x	 = &index.y;
-		pt_y	 = &index.x;
-		advanceX = -1;
-		break;
-
-	case 4:
-		pt_x	 = &index.x;
-		pt_y	 = &index.y;
-		advanceX = -1;
-		advanceY = -1;
-	}
-
-	while (boundCheck(index) && tetramino[i] != '*') {
-
-		if (tetramino[i] == '/') {
-			index.y = pos.y;
-			index.x += advanceX;
-		} else {
-			screen[*pt_x][*pt_y] = tetramino[i] == '#' ? '@' : ' ';
-			index.y += advanceY;
-		}
-
-		i++;
-	} */
 }
 
 int boundCheck(IVec2 pos) {
