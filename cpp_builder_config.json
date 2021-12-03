@@ -21,7 +21,7 @@
 		"pthread"
 	],
 	"Arguments": {
-		"Compiler": "-g3 -ansi -pedantic-errors -Wno-missing-field-initializers -Wconversion -Wshadow -Wextra -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak",
+		"Compiler": "-g3 -ansi -pedantic-errors -Wno-missing-field-initializers -Wconversion -Wshadow -Wextra -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak -fno-stack-protector",
 		"Linker": "-fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak"
 	}
 }

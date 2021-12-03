@@ -19,11 +19,11 @@
  */
 
 int main() {
-	int	  i			   = 1;
-	IVec2 inputPos	   = {0, 0};
-	int	  inputTetr	   = 0;
-	char *selectedTetr = nullptr;
-	int	  points	   = 0;
+	int		 i			  = 1;
+	IVec2	 inputPos	  = {0, 0};
+	int		 inputTetr	  = 0;
+	wchar_t *selectedTetr = nullptr;
+	int		 points		  = 0;
 
 	setup();
 
@@ -119,14 +119,17 @@ void fall() {
 void drawScreen() {
 	char i, j;
 
+	u8_printf("╔═════════════════════╗\n");
+
 	for (i = 0; i < SCREENHEIGHT; ++i) {
-		printf("%c ", '<');
+		u8_printf("%lc ", L'║');
 		for (j = 0; j < SCREENWIDTH; ++j) {
-			printf("%c ", screen[i][j]);
+			u8_printf("%lc ", screen[i][j]);
 		}
-		printf("%c", '>');
+		u8_printf("%lc", L'║');
 		printf("\n");
 	}
+	u8_printf("╚═════════════════════╝\n");
 }
 
 void clearScreen() {
@@ -146,7 +149,7 @@ void clearScreen() {
  * rot 3 = giù
  * rot 4 = sinistra
  */
-void insert(char *tetramino, IVec2 pos, int rot) {
+void insert(wchar_t *tetramino, IVec2 pos, int rot) {
 
 	IVec2 currPos = pos;
 
@@ -156,7 +159,7 @@ void insert(char *tetramino, IVec2 pos, int rot) {
 			currPos.x = pos.x;
 			++currPos.y;
 		} else {
-			screen[currPos.y][currPos.x] = *tetramino == '#' ? '@' : ' ';
+			screen[currPos.y][currPos.x] = *tetramino == (wchar_t)('_') ? (wchar_t)(' ') : *tetramino;
 			++currPos.x;
 		}
 
@@ -175,9 +178,9 @@ void drawRemainingTetraminos() {
 	unsigned	   rowIndex	   = 0;
 	unsigned	   columnIndex = 0;
 	const unsigned numCols	   = 5;
-	char *		   currTetramino;
+	wchar_t *	   currTetramino;
 
-	char row[2][25];
+	wchar_t row[2][25];
 
 	/*
 
@@ -209,7 +212,7 @@ void drawRemainingTetraminos() {
 	for (i = 0; i < INITIAL_TETRAMINOS / numCols; ++i) {
 
 		/* svuoto la riga */
-		memset(row, ' ', 25 * 2);
+		wmemset(&row[0][0], L' ', 25 * 2);
 
 		/* per il numero di colonne in una singola riga */
 		for (columnIndex = 0; columnIndex < numCols; ++columnIndex) {
@@ -239,7 +242,7 @@ void drawRemainingTetraminos() {
 					relOrg	 = index + 1;
 				} else {
 					/* Se il carattere corrente e' '_' allora inserisci ' ' */
-					row[rowIndex][columnIndex * 5 + index - relOrg] = currTetramino[index] == '_' ? ' ' : currTetramino[index];
+					row[rowIndex][columnIndex * 5 + index - relOrg] = currTetramino[index] == L'_' ? L' ' : currTetramino[index];
 				}
 			}
 		}
@@ -255,13 +258,18 @@ void drawRemainingTetraminos() {
 					}
 				}
 
-				printf("%s ", row[j][index] == '#' ? "#" : " ");
+				u8_printf("%lc ", row[j][index]);
+				/*  printf("%c ", row[j][index] == L' ' ? ' ' : '#'); */
 			}
+
 			printf("\n");
 		}
 
-		printf("\n\n");
+		printf("\na\n");
 	}
+
+	printf("Le what\n");
+
 }
 
 int clearLines() {

@@ -10,6 +10,7 @@ typedef struct IVec2 {
  * 0x2550 -> 0x256C
  * 0x2550 ═ ║ ╒ ╓ ╔ ╕ ╖ ╗ ╘ ╙ ╚ ╛ ╜ ╝ ╞ ╟ 
  * 0x2560 ╠ ╡ ╢ ╣ ╤ ╥ ╦ ╧ ╨ ╩ ╪ ╫ ╬ 
+ * 0x25a0 ■ □ ▢ ▣ ▤ ▥ ▦ ▧ ▨ ▩ 
  */
 
 /**
@@ -21,60 +22,60 @@ typedef struct IVec2 {
 /**
  * # # # # *
  */
-char tetr_I[] = {'#', '#', '#', '#', '*'};
+wchar_t tetr_I[] = {L'▣', L'▣', L'▣', L'▣', L'*'};
 
 /**
  * _ # _ /
  * # # # *
  */
-char tetr_T[8] = {'_', '#', '_', '/',
-				  '#', '#', '#', '*'};
+wchar_t tetr_T[8] = {L'_', L'▤', L'_', L'/',
+					 L'▤', L'▤', L'▤', L'*'};
 
 /**
  * # # /
  * # # *
  */
-char tetr_Q[6] = {'#', '#', '/',
-				  '#', '#', '*'};
+wchar_t tetr_Q[6] = {L'▥', L'▥', L'/',
+					 L'▥', L'▥', L'*'};
 
 /**
  * # # # /
  * # _ _ *
  */
-char tetr_L[8] = {'#', '#', '#', '/',
-				  '#', '_', '_', '*'};
+wchar_t tetr_L[8] = {L'▩', L'▩', L'▩', L'/',
+					 L'▩', L'_', L'_', L'*'};
 
 /**
  * # # # /
  * _ _ # *
  */
-char tetr_J[8] = {'#', '#', '#', '/',
-				  '_', '_', '#', '*'};
+wchar_t tetr_J[8] = {L'▦', L'▦', L'▦', L'/',
+					 L'_', L'_', L'▦', L'*'};
 
 /**
  * # # _ /
  * _ # # *
  */
-char tetr_Z[8] = {'#', '#', '_', '/',
-				  '_', '#', '#', '*'};
+wchar_t tetr_Z[8] = {L'▨', L'▨', L'_', L'/',
+					 L'_', L'▨', L'▨', L'*'};
 
 /**
  * _ # # /
  * # # _ *
  */
-char tetr_S[8] = {'_', '#', '#', '/',
-				  '#', '#', '_', '*'};
+wchar_t tetr_S[8] = {L'_', L'▧', L'▧', L'/',
+					 L'▧', L'▧', L'_', L'*'};
 
-char *allTetraminos[NUM_TETRAMINOS] = {tetr_I, tetr_L, tetr_J, tetr_Q, tetr_Z, tetr_S, tetr_T};
+wchar_t *allTetraminos[NUM_TETRAMINOS] = {tetr_I, tetr_L, tetr_J, tetr_Q, tetr_Z, tetr_S, tetr_T};
 
 /**
  * Indice rispetto a all Tetramino per indicare i tetramini disponibili al giocatore
  */
-char runtimeTetraminos[INITIAL_TETRAMINOS];
+wchar_t runtimeTetraminos[INITIAL_TETRAMINOS];
 
 const char *g_old_locale = nullptr;
 
-char screen[SCREENHEIGHT][SCREENWIDTH];
+wchar_t screen[SCREENHEIGHT][SCREENWIDTH];
 
 /**
  * Inizializza i tetramini iniziali
@@ -115,7 +116,7 @@ void drawRemainingTetraminos();
  * 3 -> giu
  * 4 -> sinistra
  */
-void insert(char *tetramino, IVec2 pos, int rot);
+void insert(wchar_t *tetramino, IVec2 pos, int rot);
 
 /**
  * Ritorna 1 se pos risiede nei limiti dello schermo 0 altrimenti

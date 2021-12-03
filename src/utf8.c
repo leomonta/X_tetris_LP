@@ -81,7 +81,7 @@ int u8_toucs(u_int32_t *dest, int sz, char *src, int srcsz) {
 	return i;
 }
 
-int u8_vprintf(char *fmt, va_list ap) {
+int u8_vprintf(const char *fmt, va_list ap) {
 	int		   cnt, sz = 0;
 	char *	   buf;
 	u_int32_t *wcs;
@@ -105,7 +105,7 @@ int u8_vprintf(char *fmt, va_list ap) {
 	return cnt;
 }
 
-int u8_printf(char *fmt, ...) {
+int u8_printf(const char *fmt, ...) {
 	int		cnt;
 	va_list args;
 
