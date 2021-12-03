@@ -30,12 +30,16 @@ int main() {
 	/* loop 1 */
 	while (1) {
 
-		printf("Scegli il tetramino\n riga -> \n");
 		drawRemainingTetraminos();
+		printf("Scegli il tetramino\nnumero -> ");
 
+		scanf("%d", &inputTetr);
+		printf("riga -> ");
 		scanf("%d", &inputPos.x);
 		printf("colonna -> ");
 		scanf("%d", &inputPos.y);
+
+		selectedTetr = allTetraminos[runtimeTetraminos[inputTetr]];
 
 		insert(selectedTetr, inputPos, 1);
 
@@ -61,7 +65,6 @@ void setup() {
 	for (i = 0; i < INITIAL_TETRAMINOS; i++) {
 		runtimeTetraminos[i] = (char)(rand() % NUM_TETRAMINOS);
 	}
-	runtimeTetraminos[0] = 2;
 
 	/* 	setlocale(LC_ALL, "C.UTF-8"); */
 }
@@ -78,7 +81,7 @@ void fall() {
 
 	while (!_exit) {
 
-		for (i = SCREENHEIGHT - 1; i >= 0 && !_exit; --i) {
+		for (i = SCREENHEIGHT - 2; i >= 0 && !_exit; --i) {
 			for (j = 0; j < SCREENWIDTH && !_exit; ++j) {
 				if (screen[i][j] == '@') {
 					if (i == SCREENHEIGHT - 1) {
@@ -262,7 +265,6 @@ void drawRemainingTetraminos() {
 
 			/* Ottengo la stringa del tetramino */
 			currTetramino = allTetraminos[runtimeTetraminos[i + columnIndex]];
-
 
 			/* in caso di tetramino rimosso salta */
 			if (currTetramino == nullptr) {

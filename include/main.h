@@ -45,13 +45,27 @@ char tetr_L[8] = {'#', '#', '#', '/',
 				  '#', '_', '_', '*'};
 
 /**
+ * # # # /
+ * _ _ # *
+ */
+char tetr_J[8] = {'#', '#', '#', '/',
+				  '_', '_', '#', '*'};
+
+/**
  * # # _ /
  * _ # # *
  */
-char tetr_S[8] = {'#', '#', '_', '/',
+char tetr_Z[8] = {'#', '#', '_', '/',
 				  '_', '#', '#', '*'};
 
-char *allTetraminos[NUM_TETRAMINOS] = {tetr_I, tetr_L, tetr_Q, tetr_S, tetr_T};
+/**
+ * _ # # /
+ * # # _ *
+ */
+char tetr_S[8] = {'_', '#', '#', '/',
+				  '#', '#', '_', '*'};
+
+char *allTetraminos[NUM_TETRAMINOS] = {tetr_I, tetr_L, tetr_J, tetr_Q, tetr_Z, tetr_S, tetr_T};
 
 /**
  * Indice rispetto a all Tetramino per indicare i tetramini disponibili al giocatore

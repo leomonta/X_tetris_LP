@@ -21,7 +21,7 @@
 		"pthread"
 	],
 	"Arguments": {
-		"Compiler": "-g3 -std=c++2a -Wno-missing-field-initializers -Wconversion -Wshadow -Wextra",
-		"Linker": "-g3"
+		"Compiler": "-g3 -std=c++2a -Wno-missing-field-initializers -Wconversion -Wshadow -Wextra -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak",
+		"Linker": "-fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak"
 	}
 }
