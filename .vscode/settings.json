@@ -3,7 +3,8 @@
 		"constants.h": "c",
 		"main.h": "c",
 		"cstring": "c",
-		"utf8.h": "c"
+		"utf8.h": "c",
+		"graphics.h": "c"
 	},
 	"python.pythonPath": "c:\\Program Files\\Python39\\python.exe"
 }

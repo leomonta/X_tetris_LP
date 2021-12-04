@@ -7,66 +7,10 @@ typedef struct IVec2 {
 } IVec2;
 
 /**
- * 0x2550 -> 0x256C
- * 0x2550 ═ ║ ╒ ╓ ╔ ╕ ╖ ╗ ╘ ╙ ╚ ╛ ╜ ╝ ╞ ╟ 
- * 0x2560 ╠ ╡ ╢ ╣ ╤ ╥ ╦ ╧ ╨ ╩ ╪ ╫ ╬ 
- * 0x25a0 ■ □ ▢ ▣ ▤ ▥ ▦ ▧ ▨ ▩ 
- */
-
-/**
- * Indico con '#' il quadrato pieno e con '_' il quadrato vuoto
+ * Indico con un carattere il quadrato pieno e con '_' il quadrato vuoto
  * ogni tetramino e' nel proprio array, ma per la larghezza di un tetramino uso '/' per indicare un "a capo"
  * inoltre uso il carattere '*' per indicare la fine 
  */
-
-/**
- * # # # # *
- */
-wchar_t tetr_I[] = {L'▣', L'▣', L'▣', L'▣', L'*'};
-
-/**
- * _ # _ /
- * # # # *
- */
-wchar_t tetr_T[8] = {L'_', L'▤', L'_', L'/',
-					 L'▤', L'▤', L'▤', L'*'};
-
-/**
- * # # /
- * # # *
- */
-wchar_t tetr_Q[6] = {L'▥', L'▥', L'/',
-					 L'▥', L'▥', L'*'};
-
-/**
- * # # # /
- * # _ _ *
- */
-wchar_t tetr_L[8] = {L'▩', L'▩', L'▩', L'/',
-					 L'▩', L'_', L'_', L'*'};
-
-/**
- * # # # /
- * _ _ # *
- */
-wchar_t tetr_J[8] = {L'▦', L'▦', L'▦', L'/',
-					 L'_', L'_', L'▦', L'*'};
-
-/**
- * # # _ /
- * _ # # *
- */
-wchar_t tetr_Z[8] = {L'▨', L'▨', L'_', L'/',
-					 L'_', L'▨', L'▨', L'*'};
-
-/**
- * _ # # /
- * # # _ *
- */
-wchar_t tetr_S[8] = {L'_', L'▧', L'▧', L'/',
-					 L'▧', L'▧', L'_', L'*'};
-
-wchar_t *allTetraminos[NUM_TETRAMINOS] = {tetr_I, tetr_L, tetr_J, tetr_Q, tetr_Z, tetr_S, tetr_T};
 
 /**
  * Indice rispetto a all Tetramino per indicare i tetramini disponibili al giocatore
@@ -98,21 +42,6 @@ void fall();
 void replaceTempTetr(wchar_t replaceWith);
 
 /**
- * Stampa a schermo i tetramini alla posizione corretta
- */
-void drawScreen();
-
-/**
- * Svuota lo schermo dai caratteri precedenti
- */
-void clearScreen();
-
-/**
- * Stampa i tetramini rimanenti in righe da 5
- */
-void drawRemainingTetraminos();
-
-/**
  * Inserisce il tetramino dato alla posizione specificata nello schermo ed alla rotazione specificata
  * 
  * rotazione:
@@ -121,7 +50,7 @@ void drawRemainingTetraminos();
  * 3 -> giu
  * 4 -> sinistra
  */
-void insert(wchar_t *tetramino, IVec2 pos, int rot);
+void insert(const wchar_t *tetramino, IVec2 pos, int rot);
 
 /**
  * Ritorna 1 se pos risiede nei limiti dello schermo 0 altrimenti
