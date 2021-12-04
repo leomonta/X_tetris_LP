@@ -93,6 +93,11 @@ void cleanup();
 void fall();
 
 /**
+ * Rimpiazza i tetramini temporanei segnati da '@' con il wchar dato come parametro
+ */
+void replaceTempTetr(wchar_t replaceWith);
+
+/**
  * Stampa a schermo i tetramini alla posizione corretta
  */
 void drawScreen();

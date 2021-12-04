@@ -24,6 +24,7 @@ int main() {
 	int		 inputTetr	  = 0;
 	wchar_t *selectedTetr = nullptr;
 	int		 points		  = 0;
+	wchar_t	 charToDraw;
 
 	setup();
 
@@ -38,14 +39,14 @@ int main() {
 		scanf("%d", &inputTetr);
 		printf("riga -> ");
 		scanf("%d", &inputPos.x);
-		printf("colonna -> ");
-		scanf("%d", &inputPos.y);
 
 		selectedTetr = allTetraminos[runtimeTetraminos[inputTetr]];
 
 		insert(selectedTetr, inputPos, 1);
 
 		fall();
+
+		replaceTempTetr(selectedTetr[1]);
 
 		points = calcPoints(clearLines());
 
@@ -106,11 +107,16 @@ void fall() {
 			}
 		}
 	}
+}
+
+void replaceTempTetr(wchar_t replaceWith) {
+
+	int i, j;
 
 	for (i = 0; i < SCREENHEIGHT; ++i) {
 		for (j = 0; j < SCREENWIDTH; ++j) {
 			if (screen[i][j] == '@') {
-				screen[i][j] = '#';
+				screen[i][j] = replaceWith;
 			}
 		}
 	}
@@ -159,7 +165,7 @@ void insert(wchar_t *tetramino, IVec2 pos, int rot) {
 			currPos.x = pos.x;
 			++currPos.y;
 		} else {
-			screen[currPos.y][currPos.x] = *tetramino == (wchar_t)('_') ? (wchar_t)(' ') : *tetramino;
+			screen[currPos.y][currPos.x] = *tetramino == (wchar_t)('_') ? (wchar_t)(' ') : L'@';
 			++currPos.x;
 		}
 
@@ -265,10 +271,8 @@ void drawRemainingTetraminos() {
 			printf("\n");
 		}
 
-		printf("\na\n");
+		printf("\n\n");
 	}
-
-	printf("Le what\n");
 
 }
 
