@@ -55,7 +55,7 @@ void drawRemainingTetraminos(wchar_t *runtimeTetraminos) {
 			unsigned relOrg = 0;
 
 			/* Ottengo la stringa del tetramino */
-			currTetramino = allTetraminos[runtimeTetraminos[i + columnIndex]];
+			currTetramino = allTetraminos[runtimeTetraminos[i * numCols + columnIndex]];
 
 			/* in caso di tetramino rimosso salta */
 			if (currTetramino == nullptr) {
@@ -120,4 +120,20 @@ void drawScreen(wchar_t screen[SCREENHEIGHT][SCREENWIDTH]) {
 void clearScreen(wchar_t screen[SCREENHEIGHT][SCREENWIDTH]) {
 
 	wmemset(&screen[0][0], L' ', SCREENHEIGHT * SCREENWIDTH);
+}
+
+void drawSingleTetramino(const wchar_t *tetramino) {
+
+	wchar_t *curr = (wchar_t *)(tetramino);
+
+	while (*curr != L'*') {
+
+		if (*curr == L'/') {
+			printf("\n");
+		} else {
+			u8_printf("%lc ", *curr == L'_' ? L' ': *curr);
+		}
+
+		++curr;
+	}
 }

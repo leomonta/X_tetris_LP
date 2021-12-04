@@ -11,7 +11,6 @@
 #include "graphics.h"
 #include "main.h"
 
-
 int main() {
 	int			   i			= 1;
 	IVec2		   inputPos		= {0, 0};
@@ -31,10 +30,13 @@ int main() {
 		printf("Scegli il tetramino\nnumero -> ");
 
 		scanf("%d", &inputTetr);
-		printf("%d riga -> ", inputTetr);
-		scanf("%d", &inputPos.x);
 
 		selectedTetr = allTetraminos[runtimeTetraminos[inputTetr]];
+
+		drawSingleTetramino(selectedTetr);
+
+		printf("\n\nriga -> ");
+		scanf("%d", &inputPos.x);
 
 		insert(selectedTetr, inputPos, 1);
 
@@ -76,15 +78,17 @@ void fall() {
 	int i = 0;
 	int j = 0;
 
+	int found = 0;
 	int _exit = 0;
 
 	while (!_exit) {
 
-		for (i = SCREENHEIGHT - 2; i >= 0 && !_exit; --i) {
+		for (i = SCREENHEIGHT - 1; i >= 0 && !_exit; --i) {
 			for (j = 0; j < SCREENWIDTH && !_exit; ++j) {
 				if (screen[i][j] == '@') {
 					if (i == SCREENHEIGHT - 1) {
 						_exit = 1;
+						break;
 					}
 					/* la prossima cella è libera? allora sposta! */
 					if (screen[i + 1][j] != ' ') {
