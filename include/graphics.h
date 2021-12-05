@@ -17,7 +17,7 @@ void clearScreen(wchar_t screen[SCREENHEIGHT][SCREENWIDTH]);
 /**
  * Stampa i tetramini rimanenti in righe da 5
  */
-void drawRemainingTetraminos(wchar_t *runtimeTetraminos);
+void drawRemainingTetraminos(unsigned char *runtimeTetraminos);
 
 /**
  * Stampa un singolo tetramino

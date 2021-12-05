@@ -33,6 +33,8 @@ int main() {
 
 		selectedTetr = allTetraminos[runtimeTetraminos[inputTetr]];
 
+		runtimeTetraminos[inputTetr] = INVALID_TETRAMINO;
+
 		drawSingleTetramino(selectedTetr);
 
 		printf("\n\ncolonna -> ");

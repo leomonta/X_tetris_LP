@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void drawRemainingTetraminos(wchar_t *runtimeTetraminos) {
+void drawRemainingTetraminos(unsigned char *runtimeTetraminos) {
 	unsigned	   i		   = 0;
 	unsigned	   j		   = 0;
 	unsigned	   index	   = 0;
@@ -10,6 +10,7 @@ void drawRemainingTetraminos(wchar_t *runtimeTetraminos) {
 	unsigned	   columnIndex = 0;
 	const unsigned numCols	   = 5;
 	wchar_t const *currTetramino;
+	unsigned char  temp;
 
 	wchar_t row[2][25];
 
@@ -53,13 +54,15 @@ void drawRemainingTetraminos(wchar_t *runtimeTetraminos) {
 			 */
 			unsigned relOrg = 0;
 
-			/* Ottengo la stringa del tetramino */
-			currTetramino = allTetraminos[runtimeTetraminos[i * numCols + columnIndex]];
+			temp = runtimeTetraminos[i * numCols + columnIndex];
 
 			/* in caso di tetramino rimosso salta */
-			if (currTetramino == nullptr) {
+			if (temp == INVALID_TETRAMINO) {
 				continue;
 			}
+
+			/* Ottengo la stringa del tetramino */
+			currTetramino = allTetraminos[temp];
 
 			/* Fa il loop per ogni carattere della stringa */
 			for (index = 0, rowIndex = 0; currTetramino[index] != '*'; ++index) {
@@ -129,7 +132,7 @@ void drawSingleTetramino(const wchar_t *tetramino) {
 		if (*curr == L'/') {
 			printf("\n");
 		} else {
-			printf("%lc ", *curr == L'_' ? L' ': *curr);
+			printf("%lc ", *curr == L'_' ? L' ' : *curr);
 		}
 
 		++curr;

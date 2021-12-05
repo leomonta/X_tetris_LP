@@ -6,6 +6,7 @@
 
 #define NUM_TETRAMINOS	   7
 #define INITIAL_TETRAMINOS 20
+#define INVALID_TETRAMINO 0xff
 
 /**
  * 0x2550 -> 0x256C

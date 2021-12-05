@@ -13,9 +13,9 @@ typedef struct IVec2 {
  */
 
 /**
- * Indice rispetto a all Tetramino per indicare i tetramini disponibili al giocatore
+ * Indice rispetto a allTetramino per indicare i tetramini disponibili al giocatore
  */
-wchar_t runtimeTetraminos[INITIAL_TETRAMINOS];
+unsigned char runtimeTetraminos[INITIAL_TETRAMINOS];
 
 const char *g_old_locale = nullptr;
 
