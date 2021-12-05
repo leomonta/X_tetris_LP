@@ -35,7 +35,7 @@ int main() {
 
 		drawSingleTetramino(selectedTetr);
 
-		printf("\n\nriga -> ");
+		printf("\n\ncolonna -> ");
 		scanf("%d", &inputPos.x);
 
 		insert(selectedTetr, inputPos, 1);

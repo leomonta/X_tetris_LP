@@ -1,5 +1,4 @@
 #include "graphics.h"
-#include "utf8.h"
 
 #include <stdio.h>
 
@@ -90,8 +89,7 @@ void drawRemainingTetraminos(wchar_t *runtimeTetraminos) {
 					}
 				}
 
-				u8_printf("%lc ", row[j][index]);
-				/*  printf("%c ", row[j][index] == L' ' ? ' ' : '#'); */
+				printf("%lc ", row[j][index]);
 			}
 
 			printf("\n");
@@ -104,17 +102,17 @@ void drawRemainingTetraminos(wchar_t *runtimeTetraminos) {
 void drawScreen(wchar_t screen[SCREENHEIGHT][SCREENWIDTH]) {
 	char i, j;
 
-	u8_printf("╔═════════════════════╗\n");
+	printf("╔═════════════════════╗\n");
 
 	for (i = 0; i < SCREENHEIGHT; ++i) {
-		u8_printf("%lc ", L'║');
+		printf("%lc ", L'║');
 		for (j = 0; j < SCREENWIDTH; ++j) {
-			u8_printf("%lc ", screen[i][j]);
+			printf("%lc ", screen[i][j]);
 		}
-		u8_printf("%lc", L'║');
+		printf("%lc", L'║');
 		printf("\n");
 	}
-	u8_printf("╚═════════════════════╝\n");
+	printf("╚═════════════════════╝\n");
 }
 
 void clearScreen(wchar_t screen[SCREENHEIGHT][SCREENWIDTH]) {
@@ -131,7 +129,7 @@ void drawSingleTetramino(const wchar_t *tetramino) {
 		if (*curr == L'/') {
 			printf("\n");
 		} else {
-			u8_printf("%lc ", *curr == L'_' ? L' ': *curr);
+			printf("%lc ", *curr == L'_' ? L' ': *curr);
 		}
 
 		++curr;
