@@ -44,7 +44,7 @@ int main() {
 
 		replaceTempTetr(selectedTetr[1]);
 
-		points = calcPoints(clearLines());
+		points += calcPoints(clearLines());
 
 		drawScreen(screen);
 		printf("points -> %d\n\n", points);
@@ -157,13 +157,13 @@ int clearLines() {
 
 	for (i = 0; i < SCREENHEIGHT; ++i) {
 		for (j = 0; j < SCREENWIDTH; ++j) {
-			if (screen[i][j] == ' ') {
+			if (screen[i][j] == L' ') {
 				temp = 0;
 				break;
 			}
 		}
 		if (temp == 1) {
-			memset(screen[i], ' ', SCREENWIDTH);
+			wmemset(screen[i], L' ', SCREENWIDTH);
 			fixLines(i);
 			++res;
 		}
@@ -176,10 +176,10 @@ int clearLines() {
 void fixLines(int row) {
 	int i = 0;
 	for (i = row; i > 0; --i) {
-		memcpy(screen[i], screen[i - 1], SCREENWIDTH);
+		wmemcpy(screen[i], screen[i - 1], SCREENWIDTH);
 	}
 
-	memset(&screen, ' ', SCREENWIDTH);
+	wmemset(&screen[0][0], L' ', SCREENWIDTH);
 }
 
 int calcPoints(int num) {
