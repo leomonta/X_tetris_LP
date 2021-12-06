@@ -21,6 +21,8 @@ const char *g_old_locale = nullptr;
 
 wchar_t screen[SCREENHEIGHT][SCREENWIDTH];
 
+int gameShouldEnd();
+
 /**
  * Inizializza i tetramini iniziali
  */
@@ -43,6 +45,7 @@ void replaceTempTetr(wchar_t replaceWith);
 
 /**
  * Inserisce il tetramino dato alla posizione specificata nello schermo ed alla rotazione specificata
+ * ritorna 0 se l'operazione ha avuto successo, 1 in caso contrario
  * 
  * rotazione:
  * 1 -> su
@@ -50,10 +53,10 @@ void replaceTempTetr(wchar_t replaceWith);
  * 3 -> giu
  * 4 -> sinistra
  */
-void insert(const wchar_t *tetramino, IVec2 pos, int rot);
+int insert(const wchar_t *tetramino, IVec2 pos, int rot);
 
 /**
- * Ritorna 1 se pos risiede nei limiti dello schermo 0 altrimenti
+ * Ritorna 0 se pos risiede nei limiti dello schermo 1 altrimenti
  */
 int checkBounds(IVec2 pos);
 

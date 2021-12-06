@@ -24,7 +24,7 @@ int main() {
 	clearScreen(screen);
 
 	/* loop 1 */
-	while (1) {
+	while (!gameShouldEnd()) {
 
 		drawRemainingTetraminos(runtimeTetraminos);
 
@@ -38,17 +38,23 @@ int main() {
 
 		selectedTetr = allTetraminos[runtimeTetraminos[inputTetr]];
 
-		runtimeTetraminos[inputTetr] = INVALID_TETRAMINO;
-
 		drawSingleTetramino(selectedTetr);
 
 		printf("\n\nScegli la colonna\n");
 		inputPos.x = getIntStdin(0, SCREENWIDTH);
 
-		insert(selectedTetr, inputPos, 1);
+		if (insert(selectedTetr, inputPos, 1)) {
+			/* fallimento */
+			replaceTempTetr(L' ');
+
+			printf("il tetramino selezionato non può essere posizionato dove richiesto\n");
+
+			continue;
+		}
+
+		runtimeTetraminos[inputTetr] = INVALID_TETRAMINO;
 
 		fall();
-
 		replaceTempTetr(selectedTetr[1]);
 
 		points += calcPoints(clearLines());
@@ -56,9 +62,22 @@ int main() {
 		drawScreen(screen);
 		printf("points -> %d\n\n", points);
 	}
-	/* getchar(); */
 
 	return 0;
+}
+
+int gameShouldEnd() {
+	int i				   = 0;
+	int finishedTetraminos = 1;
+
+	for (i = 0; i < INITIAL_TETRAMINOS; ++i) {
+		if (runtimeTetraminos[i] != INVALID_TETRAMINO) {
+			finishedTetraminos = 0;
+			break;
+		}
+	}
+
+	return finishedTetraminos;
 }
 
 void setup() {
@@ -133,7 +152,7 @@ void replaceTempTetr(wchar_t replaceWith) {
  * rot 3 = giù
  * rot 4 = sinistra
  */
-void insert(const wchar_t *tetramino, IVec2 pos, int rot) {
+int insert(const wchar_t *tetramino, IVec2 pos, int rot) {
 
 	IVec2 currPos = pos;
 
@@ -143,16 +162,24 @@ void insert(const wchar_t *tetramino, IVec2 pos, int rot) {
 			currPos.x = pos.x;
 			++currPos.y;
 		} else {
+
+			/* Sto per rimpiazzare un tetramino già presente*/
+			if (screen[currPos.y][currPos.x] != L' ' || checkBounds(currPos)) {
+				return 1;
+			}
+
 			screen[currPos.y][currPos.x] = *tetramino == (wchar_t)('_') ? (wchar_t)(' ') : L'@';
 			++currPos.x;
 		}
 
 		tetramino++;
 	}
+
+	return 0;
 }
 
-int boundCheck(IVec2 pos) {
-	return pos.x < SCREENWIDTH && pos.x >= 0 && pos.y < SCREENHEIGHT && pos.y >= 0;
+int checkBounds(IVec2 pos) {
+	return !(pos.x < SCREENWIDTH && pos.x >= 0 && pos.y < SCREENHEIGHT && pos.y >= 0);
 }
 
 int clearLines() {

@@ -11,7 +11,7 @@
 - [X] riconoscere ed eliminare le linee complete + dare punti per esse 
   - [X] punti = 2^(righe eliminate - 1) * 1.5f arrotondato per difetto
 - [ ] capire quando il gioco finisce
-  - [ ] non ci sono più tetramini
+  - [X] non ci sono più tetramini
   - [ ] non c'è più posto per i tetramini
 
 
