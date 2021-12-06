@@ -36,7 +36,7 @@ void cleanup();
 /**
  * Fa cadere i teramini fluttuanti fino al punto più basso che possono
  */
-void fall();
+void fall(IVec2 pos);
 
 /**
  * Rimpiazza i tetramini temporanei segnati da '@' con il wchar dato come parametro

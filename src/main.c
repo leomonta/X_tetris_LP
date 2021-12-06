@@ -54,7 +54,7 @@ int main() {
 
 		runtimeTetraminos[inputTetr] = INVALID_TETRAMINO;
 
-		fall();
+		fall(inputPos);
 		replaceTempTetr(selectedTetr[1]);
 
 		points += calcPoints(clearLines());
@@ -100,11 +100,10 @@ void cleanup() {
 	setlocale(LC_ALL, g_old_locale);
 }
 
-void fall() {
+void fall(IVec2 pos) {
 	int i = 0;
 	int j = 0;
 
-	int found = 0;
 	int _exit = 0;
 
 	while (!_exit) {
@@ -117,12 +116,13 @@ void fall() {
 						break;
 					}
 					/* la prossima cella è libera? allora sposta! */
-					if (screen[i + 1][j] != ' ') {
+					if (screen[i + 1][j] != ' ' && screen[i + 1][j] != L'@') {
 						_exit = 1;
 					}
 				}
 			}
-
+		}
+		for (i = pos.y + 1; i >= pos.y; --i) {
 			for (j = 0; j < SCREENWIDTH && !_exit; ++j) {
 				if (screen[i][j] == '@') {
 					screen[i + 1][j] = '@';
@@ -130,6 +130,7 @@ void fall() {
 				}
 			}
 		}
+		pos.y++;
 	}
 }
 
