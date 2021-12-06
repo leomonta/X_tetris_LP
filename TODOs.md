@@ -29,9 +29,9 @@
 
 ## Turno
 
-- [ ] Ogni turno bisongna:
+- [X] Ogni turno bisongna:
   - [X] mostrare il campo con i tetramini posizionati
-  - [ ] chiedere al giocatore cosa vuole fare
-  - [ ] inserire il tetramino
-  - [ ] aggiornare il punteggio
-  - [ ] aggiornare i tetramini rimasti
+  - [X] chiedere al giocatore cosa vuole fare
+  - [X] inserire il tetramino
+  - [X] aggiornare il punteggio
+  - [X] aggiornare i tetramini rimasti
