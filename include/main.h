@@ -72,3 +72,13 @@ void fixLines(int row);
  * Calcola il numero di punti per riga elimincate insieme
  */
 int calcPoints(int num);
+
+/**
+ * Rimuove tutti i caratteri presenti nel buffer dell'stdin
+ */
+void clearStdin();
+
+/**
+ * Riceve un input da tastiera e controlla la sua validità rispetto ai bound dati per parametro
+ */
+int getIntStdin(int lowBound, int HighBound);

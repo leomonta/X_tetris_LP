@@ -27,9 +27,14 @@ int main() {
 	while (1) {
 
 		drawRemainingTetraminos(runtimeTetraminos);
-		printf("Scegli il tetramino\nnumero -> ");
 
-		scanf("%d", &inputTetr);
+		printf("Scegli il tetramino\n");
+		inputTetr = getIntStdin(0, INITIAL_TETRAMINOS);
+
+		if (runtimeTetraminos[inputTetr] == INVALID_TETRAMINO) {
+			printf("Il tetramino n. %d è già stato usato, sceglierne un'altro!\n", inputTetr);
+			continue;
+		}
 
 		selectedTetr = allTetraminos[runtimeTetraminos[inputTetr]];
 
@@ -37,8 +42,8 @@ int main() {
 
 		drawSingleTetramino(selectedTetr);
 
-		printf("\n\ncolonna -> ");
-		scanf("%d", &inputPos.x);
+		printf("\n\nScegli la colonna\n");
+		inputPos.x = getIntStdin(0, SCREENWIDTH);
 
 		insert(selectedTetr, inputPos, 1);
 
@@ -187,4 +192,31 @@ void fixLines(int row) {
 int calcPoints(int num) {
 	/*2^(righe eliminate - 1) * 1.5f arrotondato per difetto*/
 	return (int)(pow(2, num - 1) * 1.5);
+}
+
+void clearStdin() {
+	int c;
+	while ((c = getchar()) != '\n' && c != EOF) {
+	}
+}
+
+int getIntStdin(int lowBound, int highBound) {
+	int retVal;
+	int inputTetr;
+
+	while (1) {
+
+		printf("numero -> ");
+		retVal = scanf("%d", &inputTetr);
+
+		clearStdin();
+
+		if (retVal == 1 && inputTetr >= lowBound && inputTetr <= highBound - 1) {
+			break;
+		}
+
+		printf("Devi inserire un valore tra 0 e %d\n", highBound - 1);
+	}
+
+	return inputTetr;
 }
