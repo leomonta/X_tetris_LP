@@ -19,7 +19,7 @@ unsigned char runtimeTetraminos[INITIAL_TETRAMINOS];
 
 const char *g_old_locale = nullptr;
 
-wchar_t screen[SCREENHEIGHT][SCREENWIDTH];
+wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH];
 
 int gameShouldEnd();
 

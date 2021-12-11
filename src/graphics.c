@@ -102,14 +102,14 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos) {
 	}
 }
 
-void drawScreen(wchar_t screen[SCREENHEIGHT][SCREENWIDTH]) {
+void drawScreen(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 	char i, j;
 
 	printf("╔═════════════════════╗\n");
 
-	for (i = 0; i < SCREENHEIGHT; ++i) {
+	for (i = 0; i < SCREEN_HEIGHT; ++i) {
 		printf("%lc ", L'║');
-		for (j = 0; j < SCREENWIDTH; ++j) {
+		for (j = 0; j < SCREEN_WIDTH; ++j) {
 			printf("%lc ", screen[i][j]);
 		}
 		printf("%lc", L'║');
@@ -118,9 +118,9 @@ void drawScreen(wchar_t screen[SCREENHEIGHT][SCREENWIDTH]) {
 	printf("╚═════════════════════╝\n");
 }
 
-void clearScreen(wchar_t screen[SCREENHEIGHT][SCREENWIDTH]) {
+void clearScreen(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
-	wmemset(&screen[0][0], L' ', SCREENHEIGHT * SCREENWIDTH);
+	wmemset(&screen[0][0], L' ', SCREEN_HEIGHT * SCREEN_WIDTH);
 }
 
 void drawSingleTetramino(const wchar_t *tetramino) {

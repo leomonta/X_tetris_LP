@@ -41,7 +41,7 @@ int main() {
 		drawSingleTetramino(selectedTetr);
 
 		printf("\n\nScegli la colonna\n");
-		inputPos.x = getIntStdin(0, SCREENWIDTH);
+		inputPos.x = getIntStdin(0, SCREEN_WIDTH);
 
 		if (insert(selectedTetr, inputPos, 1)) {
 			/* fallimento */
@@ -67,8 +67,11 @@ int main() {
 }
 
 int gameShouldEnd() {
-	int i				   = 0;
-	int finishedTetraminos = 1;
+	int	  i					 = 0;
+	int	  j					 = 0;
+	int	  finishedTetraminos = 1;
+	int	  spaceLeft			 = 0;
+	IVec2 pos				 = {0, 0};
 
 	for (i = 0; i < INITIAL_TETRAMINOS; ++i) {
 		if (runtimeTetraminos[i] != INVALID_TETRAMINO) {
@@ -77,7 +80,21 @@ int gameShouldEnd() {
 		}
 	}
 
-	return finishedTetraminos;
+	if (finishedTetraminos == 1) {
+		return 1;
+	}
+
+	for (i = 0; i < INITIAL_TETRAMINOS; i++) {
+		for (j = 0; j < SCREEN_WIDTH; j++) {
+			pos.x = j;
+			if (!insert(allTetraminos[runtimeTetraminos[i]], pos, 0)) {
+				spaceLeft = 1;
+				replaceTempTetr(L' ');
+			}
+		}
+	}
+
+	return spaceLeft;
 }
 
 void setup() {
@@ -108,10 +125,10 @@ void fall(IVec2 pos) {
 
 	while (!_exit) {
 
-		for (i = SCREENHEIGHT - 1; i >= 0 && !_exit; --i) {
-			for (j = 0; j < SCREENWIDTH && !_exit; ++j) {
+		for (i = SCREEN_HEIGHT - 1; i >= 0 && !_exit; --i) {
+			for (j = 0; j < SCREEN_WIDTH && !_exit; ++j) {
 				if (screen[i][j] == '@') {
-					if (i == SCREENHEIGHT - 1) {
+					if (i == SCREEN_HEIGHT - 1) {
 						_exit = 1;
 						break;
 					}
@@ -123,7 +140,7 @@ void fall(IVec2 pos) {
 			}
 		}
 		for (i = pos.y + 1; i >= pos.y; --i) {
-			for (j = 0; j < SCREENWIDTH && !_exit; ++j) {
+			for (j = 0; j < SCREEN_WIDTH && !_exit; ++j) {
 				if (screen[i][j] == '@') {
 					screen[i + 1][j] = '@';
 					screen[i][j]	 = ' ';
@@ -138,8 +155,8 @@ void replaceTempTetr(wchar_t replaceWith) {
 
 	int i, j;
 
-	for (i = 0; i < SCREENHEIGHT; ++i) {
-		for (j = 0; j < SCREENWIDTH; ++j) {
+	for (i = 0; i < SCREEN_HEIGHT; ++i) {
+		for (j = 0; j < SCREEN_WIDTH; ++j) {
 			if (screen[i][j] == '@') {
 				screen[i][j] = replaceWith;
 			}
@@ -180,7 +197,7 @@ int insert(const wchar_t *tetramino, IVec2 pos, int rot) {
 }
 
 int checkBounds(IVec2 pos) {
-	return !(pos.x < SCREENWIDTH && pos.x >= 0 && pos.y < SCREENHEIGHT && pos.y >= 0);
+	return !(pos.x < SCREEN_WIDTH && pos.x >= 0 && pos.y < SCREEN_HEIGHT && pos.y >= 0);
 }
 
 int clearLines() {
@@ -190,15 +207,15 @@ int clearLines() {
 
 	int res = 0;
 
-	for (i = 0; i < SCREENHEIGHT; ++i) {
-		for (j = 0; j < SCREENWIDTH; ++j) {
+	for (i = 0; i < SCREEN_HEIGHT; ++i) {
+		for (j = 0; j < SCREEN_WIDTH; ++j) {
 			if (screen[i][j] == L' ') {
 				temp = 0;
 				break;
 			}
 		}
 		if (temp == 1) {
-			wmemset(screen[i], L' ', SCREENWIDTH);
+			wmemset(screen[i], L' ', SCREEN_WIDTH);
 			fixLines(i);
 			++res;
 		}
@@ -211,10 +228,10 @@ int clearLines() {
 void fixLines(int row) {
 	int i = 0;
 	for (i = row; i > 0; --i) {
-		wmemcpy(screen[i], screen[i - 1], SCREENWIDTH);
+		wmemcpy(screen[i], screen[i - 1], SCREEN_WIDTH);
 	}
 
-	wmemset(&screen[0][0], L' ', SCREENWIDTH);
+	wmemset(&screen[0][0], L' ', SCREEN_WIDTH);
 }
 
 int calcPoints(int num) {

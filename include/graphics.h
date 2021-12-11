@@ -7,12 +7,12 @@
 /**
  * Stampa a schermo i tetramini alla posizione corretta
  */
-void drawScreen(wchar_t screen[SCREENHEIGHT][SCREENWIDTH]);
+void drawScreen(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]);
 
 /**
  * Svuota lo schermo dai caratteri precedenti
  */
-void clearScreen(wchar_t screen[SCREENHEIGHT][SCREENWIDTH]);
+void clearScreen(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]);
 
 /**
  * Stampa i tetramini rimanenti in righe da 5
