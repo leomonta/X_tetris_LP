@@ -63,6 +63,8 @@ int main() {
 		printf("points -> %d\n\n", points);
 	}
 
+	printf("Gioco finto!\npunti -> %d", points);
+
 	return 0;
 }
 
@@ -70,7 +72,7 @@ bool gameShouldEnd() {
 	int	  i					 = 0;
 	int	  j					 = 0;
 	bool  finishedTetraminos = true;
-	bool  spaceFinished		 = true;
+	int	  selectedTetramino	 = INVALID_TETRAMINO;
 	IVec2 pos				 = {0, 0};
 
 	for (i = 0; i < INITIAL_TETRAMINOS; ++i) {
@@ -81,21 +83,27 @@ bool gameShouldEnd() {
 	}
 
 	if (finishedTetraminos) {
+		printf("Finiti i tetramini!\n");
 		return true;
 	}
 
 	for (i = 0; i < INITIAL_TETRAMINOS; i++) {
+		selectedTetramino = runtimeTetraminos[i];
+		if (selectedTetramino == INVALID_TETRAMINO) {
+			continue;
+		}
 		for (j = 0; j < SCREEN_WIDTH; j++) {
 			pos.x = j;
-			if (insert(allTetraminos[runtimeTetraminos[i]], pos, 0)) {
-				spaceFinished = false;
+			if (insert(allTetraminos[selectedTetramino], pos, 0)) {
 				replaceTempTetr(L' ');
-				break;
+				return false;
 			}
+			replaceTempTetr(L' ');
 		}
 	}
 
-	return spaceFinished;
+	printf("non c'è più spazio per i tetramini\n");
+	return true;
 }
 
 void setup() {
@@ -176,12 +184,15 @@ bool insert(const wchar_t *tetramino, IVec2 pos, int rot) {
 			++currPos.y;
 		} else {
 
-			/* Sto per rimpiazzare un tetramino già presente o fuori dallo schermo*/
-			if (screen[currPos.y][currPos.x] != L' ' || !checkBounds(currPos)) {
-				return false;
-			}
+			if (*tetramino != L'_') {
 
-			screen[currPos.y][currPos.x] = *tetramino == (wchar_t)('_') ? (wchar_t)(' ') : L'@';
+				/* Sto per rimpiazzare un tetramino già presente o fuori dallo schermo*/
+				if (screen[currPos.y][currPos.x] != L' ' || !checkBounds(currPos)) {
+					return false;
+				}
+
+				screen[currPos.y][currPos.x] = L'@';
+			}
 			++currPos.x;
 		}
 
