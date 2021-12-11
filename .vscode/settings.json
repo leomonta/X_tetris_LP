@@ -7,7 +7,8 @@
 		"graphics.h": "c",
 		"stdio.h": "c",
 		"time.h": "c",
-		"stdlib.h": "c"
+		"stdlib.h": "c",
+		"stdbool.h": "c"
 	},
 	"python.pythonPath": "c:\\Program Files\\Python39\\python.exe"
 }

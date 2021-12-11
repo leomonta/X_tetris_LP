@@ -43,7 +43,7 @@ int main() {
 		printf("\n\nScegli la colonna\n");
 		inputPos.x = getIntStdin(0, SCREEN_WIDTH);
 
-		if (insert(selectedTetr, inputPos, 1)) {
+		if (!insert(selectedTetr, inputPos, 1)) {
 			/* fallimento */
 			replaceTempTetr(L' ');
 
@@ -66,11 +66,11 @@ int main() {
 	return 0;
 }
 
-int gameShouldEnd() {
+bool gameShouldEnd() {
 	int	  i					 = 0;
 	int	  j					 = 0;
-	int	  finishedTetraminos = 1;
-	int	  spaceLeft			 = 0;
+	bool  finishedTetraminos = true;
+	bool  spaceFinished		 = true;
 	IVec2 pos				 = {0, 0};
 
 	for (i = 0; i < INITIAL_TETRAMINOS; ++i) {
@@ -80,21 +80,22 @@ int gameShouldEnd() {
 		}
 	}
 
-	if (finishedTetraminos == 1) {
-		return 1;
+	if (finishedTetraminos) {
+		return true;
 	}
 
 	for (i = 0; i < INITIAL_TETRAMINOS; i++) {
 		for (j = 0; j < SCREEN_WIDTH; j++) {
 			pos.x = j;
-			if (!insert(allTetraminos[runtimeTetraminos[i]], pos, 0)) {
-				spaceLeft = 1;
+			if (insert(allTetraminos[runtimeTetraminos[i]], pos, 0)) {
+				spaceFinished = false;
 				replaceTempTetr(L' ');
+				break;
 			}
 		}
 	}
 
-	return spaceLeft;
+	return spaceFinished;
 }
 
 void setup() {
@@ -164,13 +165,7 @@ void replaceTempTetr(wchar_t replaceWith) {
 	}
 }
 
-/**
- * rot 1 = su
- * rot 2 = destra
- * rot 3 = giù
- * rot 4 = sinistra
- */
-int insert(const wchar_t *tetramino, IVec2 pos, int rot) {
+bool insert(const wchar_t *tetramino, IVec2 pos, int rot) {
 
 	IVec2 currPos = pos;
 
@@ -181,9 +176,9 @@ int insert(const wchar_t *tetramino, IVec2 pos, int rot) {
 			++currPos.y;
 		} else {
 
-			/* Sto per rimpiazzare un tetramino già presente*/
-			if (screen[currPos.y][currPos.x] != L' ' || checkBounds(currPos)) {
-				return 1;
+			/* Sto per rimpiazzare un tetramino già presente o fuori dallo schermo*/
+			if (screen[currPos.y][currPos.x] != L' ' || !checkBounds(currPos)) {
+				return false;
 			}
 
 			screen[currPos.y][currPos.x] = *tetramino == (wchar_t)('_') ? (wchar_t)(' ') : L'@';
@@ -193,11 +188,11 @@ int insert(const wchar_t *tetramino, IVec2 pos, int rot) {
 		tetramino++;
 	}
 
-	return 0;
+	return true;
 }
 
-int checkBounds(IVec2 pos) {
-	return !(pos.x < SCREEN_WIDTH && pos.x >= 0 && pos.y < SCREEN_HEIGHT && pos.y >= 0);
+bool checkBounds(IVec2 pos) {
+	return (pos.x < SCREEN_WIDTH && pos.x >= 0 && pos.y < SCREEN_HEIGHT && pos.y >= 0);
 }
 
 int clearLines() {

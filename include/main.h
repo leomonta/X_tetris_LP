@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdbool.h>
+
 #include "constants.h"
 
 typedef struct IVec2 {
@@ -21,7 +23,10 @@ const char *g_old_locale = nullptr;
 
 wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH];
 
-int gameShouldEnd();
+/**
+ * Ritorna true se non ci sono più tetramini utilizzabili o se non c'è più posto per essi
+ */
+bool gameShouldEnd();
 
 /**
  * Inizializza i tetramini iniziali
@@ -45,7 +50,7 @@ void replaceTempTetr(wchar_t replaceWith);
 
 /**
  * Inserisce il tetramino dato alla posizione specificata nello schermo ed alla rotazione specificata
- * ritorna 0 se l'operazione ha avuto successo, 1 in caso contrario
+ * ritorna true se l'operazione ha avuto successo, false in caso contrario
  * 
  * rotazione:
  * 1 -> su
@@ -53,12 +58,12 @@ void replaceTempTetr(wchar_t replaceWith);
  * 3 -> giu
  * 4 -> sinistra
  */
-int insert(const wchar_t *tetramino, IVec2 pos, int rot);
+bool insert(const wchar_t *tetramino, IVec2 pos, int rot);
 
 /**
- * Ritorna 0 se pos risiede nei limiti dello schermo 1 altrimenti
+ * Ritorna true se pos risiede nei limiti dello schermo true altrimenti
  */
-int checkBounds(IVec2 pos);
+bool checkBounds(IVec2 pos);
 
 /**
  * Cancella le righe piene e ritorna il numero di righe cancellate
@@ -72,7 +77,7 @@ int clearLines();
 void fixLines(int row);
 
 /**
- * Calcola il numero di punti per riga elimincate insieme
+ * Calcola il numero di punti per riga eliminate insieme
  */
 int calcPoints(int num);
 
