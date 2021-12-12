@@ -4,10 +4,6 @@
 
 #include "constants.h"
 
-typedef struct IVec2 {
-	int x, y;
-} IVec2;
-
 /**
  * Indico con un carattere il quadrato pieno e con '_' il quadrato vuoto
  * ogni tetramino e' nel proprio array, ma per la larghezza di un tetramino uso '/' per indicare un "a capo"
@@ -37,33 +33,6 @@ void setup();
  * Usato per restaurare il locale precedente
  */
 void cleanup();
-
-/**
- * Fa cadere i teramini fluttuanti fino al punto più basso che possono
- */
-void fall(IVec2 pos);
-
-/**
- * Rimpiazza i tetramini temporanei segnati da '@' con il wchar dato come parametro
- */
-void replaceTempTetr(wchar_t replaceWith);
-
-/**
- * Inserisce il tetramino dato alla posizione specificata nello schermo ed alla rotazione specificata
- * ritorna true se l'operazione ha avuto successo, false in caso contrario
- * 
- * rotazione:
- * 1 -> su
- * 2 -> destra
- * 3 -> giu
- * 4 -> sinistra
- */
-bool insert(const wchar_t *tetramino, IVec2 pos, int rot);
-
-/**
- * Ritorna true se pos risiede nei limiti dello schermo true altrimenti
- */
-bool checkBounds(IVec2 pos);
 
 /**
  * Cancella le righe piene e ritorna il numero di righe cancellate

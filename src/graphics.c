@@ -3,12 +3,12 @@
 #include <stdio.h>
 
 void drawRemainingTetraminos(unsigned char *runtimeTetraminos) {
-	unsigned	   i		   = 0;
-	unsigned	   j		   = 0;
-	unsigned	   index	   = 0;
-	unsigned	   rowIndex	   = 0;
-	unsigned	   columnIndex = 0;
-	const unsigned numCols	   = 5;
+	unsigned       i           = 0;
+	unsigned       j           = 0;
+	unsigned       index       = 0;
+	unsigned       rowIndex    = 0;
+	unsigned       columnIndex = 0;
+	const unsigned numCols     = 5;
 	wchar_t const *currTetramino;
 	unsigned char  temp;
 
@@ -73,7 +73,7 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos) {
 				*/
 				if (currTetramino[index] == '/') {
 					rowIndex = 1;
-					relOrg	 = index + 1;
+					relOrg   = index + 1;
 				} else {
 					/* Se il carattere corrente e' '_' allora inserisci ' ' */
 					row[rowIndex][columnIndex * 5 + index - relOrg] = currTetramino[index] == L'_' ? L' ' : currTetramino[index];

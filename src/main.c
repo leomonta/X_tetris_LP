@@ -4,20 +4,20 @@
 #include <stdio.h>
 #include <stdlib.h> /* Random */
 #include <string.h> /* memset() */
-#include <time.h>	/* Seme per il random */
-#include <wchar.h>	/* Usato per scrivere caratteri unicode */
+#include <time.h>   /* Seme per il random */
+#include <wchar.h>  /* Usato per scrivere caratteri unicode */
 
-#include "constants.h"
 #include "graphics.h"
 #include "main.h"
+#include "tetramino.h"
 
 int main() {
-	int			   i			= 1;
-	IVec2		   inputPos		= {0, 0};
-	int			   inputTetr	= 0;
+	int            i            = 1;
+	int            inputColumn  = 0;
+	int            inputTetr    = 0;
 	const wchar_t *selectedTetr = nullptr;
-	int			   points		= 0;
-	wchar_t		   charToDraw;
+	int            points       = 0;
+	wchar_t        charToDraw;
 
 	setup();
 
@@ -41,11 +41,11 @@ int main() {
 		drawSingleTetramino(selectedTetr);
 
 		printf("\n\nScegli la colonna\n");
-		inputPos.x = getIntStdin(0, SCREEN_WIDTH);
+		inputColumn = getIntStdin(0, SCREEN_WIDTH);
 
-		if (!insert(selectedTetr, inputPos, 1)) {
+		if (!insert(selectedTetr, screen, inputColumn, 1)) {
 			/* fallimento */
-			replaceTempTetr(L' ');
+			replaceTempTetr(L' ', screen);
 
 			printf("il tetramino selezionato non può essere posizionato dove richiesto\n");
 
@@ -54,8 +54,8 @@ int main() {
 
 		runtimeTetraminos[inputTetr] = INVALID_TETRAMINO;
 
-		fall(inputPos);
-		replaceTempTetr(selectedTetr[1]);
+		fall(screen);
+		replaceTempTetr(selectedTetr[1], screen);
 
 		points += calcPoints(clearLines());
 
@@ -69,11 +69,11 @@ int main() {
 }
 
 bool gameShouldEnd() {
-	int	  i					 = 0;
-	int	  j					 = 0;
-	bool  finishedTetraminos = true;
-	int	  selectedTetramino	 = INVALID_TETRAMINO;
-	IVec2 pos				 = {0, 0};
+	int  i                  = 0;
+	int  j                  = 0;
+	bool finishedTetraminos = true;
+	int  selectedTetramino  = INVALID_TETRAMINO;
+	int  column             = 0;
 
 	for (i = 0; i < INITIAL_TETRAMINOS; ++i) {
 		if (runtimeTetraminos[i] != INVALID_TETRAMINO) {
@@ -93,12 +93,12 @@ bool gameShouldEnd() {
 			continue;
 		}
 		for (j = 0; j < SCREEN_WIDTH; j++) {
-			pos.x = j;
-			if (insert(allTetraminos[selectedTetramino], pos, 0)) {
-				replaceTempTetr(L' ');
+			column = j;
+			if (insert(allTetraminos[selectedTetramino], screen, column, 0)) {
+				replaceTempTetr(L' ', screen);
 				return false;
 			}
-			replaceTempTetr(L' ');
+			replaceTempTetr(L' ', screen);
 		}
 	}
 
@@ -126,89 +126,9 @@ void cleanup() {
 	setlocale(LC_ALL, g_old_locale);
 }
 
-void fall(IVec2 pos) {
-	int i = 0;
-	int j = 0;
-
-	int _exit = 0;
-
-	while (!_exit) {
-
-		for (i = SCREEN_HEIGHT - 1; i >= 0 && !_exit; --i) {
-			for (j = 0; j < SCREEN_WIDTH && !_exit; ++j) {
-				if (screen[i][j] == '@') {
-					if (i == SCREEN_HEIGHT - 1) {
-						_exit = 1;
-						break;
-					}
-					/* la prossima cella è libera? allora sposta! */
-					if (screen[i + 1][j] != ' ' && screen[i + 1][j] != L'@') {
-						_exit = 1;
-					}
-				}
-			}
-		}
-		for (i = pos.y + 1; i >= pos.y; --i) {
-			for (j = 0; j < SCREEN_WIDTH && !_exit; ++j) {
-				if (screen[i][j] == '@') {
-					screen[i + 1][j] = '@';
-					screen[i][j]	 = ' ';
-				}
-			}
-		}
-		pos.y++;
-	}
-}
-
-void replaceTempTetr(wchar_t replaceWith) {
-
-	int i, j;
-
-	for (i = 0; i < SCREEN_HEIGHT; ++i) {
-		for (j = 0; j < SCREEN_WIDTH; ++j) {
-			if (screen[i][j] == '@') {
-				screen[i][j] = replaceWith;
-			}
-		}
-	}
-}
-
-bool insert(const wchar_t *tetramino, IVec2 pos, int rot) {
-
-	IVec2 currPos = pos;
-
-	while (*tetramino != '*') {
-
-		if (*tetramino == '/') {
-			currPos.x = pos.x;
-			++currPos.y;
-		} else {
-
-			if (*tetramino != L'_') {
-
-				/* Sto per rimpiazzare un tetramino già presente o fuori dallo schermo*/
-				if (screen[currPos.y][currPos.x] != L' ' || !checkBounds(currPos)) {
-					return false;
-				}
-
-				screen[currPos.y][currPos.x] = L'@';
-			}
-			++currPos.x;
-		}
-
-		tetramino++;
-	}
-
-	return true;
-}
-
-bool checkBounds(IVec2 pos) {
-	return (pos.x < SCREEN_WIDTH && pos.x >= 0 && pos.y < SCREEN_HEIGHT && pos.y >= 0);
-}
-
 int clearLines() {
-	int i	 = 0;
-	int j	 = 0;
+	int i    = 0;
+	int j    = 0;
 	int temp = 1;
 
 	int res = 0;
