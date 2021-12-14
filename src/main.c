@@ -12,6 +12,23 @@
 #include "tetramino.h"
 
 int main() {
+	printf("Seleziona la modalita' di gioco\n1) Giocatore singolo\n2) Due giocatori\n");
+
+	switch (getIntStdin(1, 3)) {
+	case 1:
+		singlePlayerLoop();
+		break;
+
+	case 2:
+		/**
+		 * multiplayerLoop()
+		 */
+		break;
+	}
+}
+
+void singlePlayerLoop() {
+
 	int            i            = 1;
 	int            inputColumn  = 0;
 	int            inputTetr    = 0;
@@ -65,7 +82,6 @@ int main() {
 
 	printf("Gioco finto!\npunti -> %d", points);
 
-	return 0;
 }
 
 bool gameShouldEnd() {

@@ -19,6 +19,8 @@ const char *g_old_locale = nullptr;
 
 wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH];
 
+void singlePlayerLoop();
+
 /**
  * Ritorna true se non ci sono più tetramini utilizzabili o se non c'è più posto per essi
  */
@@ -57,5 +59,6 @@ void clearStdin();
 
 /**
  * Riceve un input da tastiera e controlla la sua validità rispetto ai bound dati per parametro
+ * lowBound incluso, highBound escluso
  */
-int getIntStdin(int lowBound, int HighBound);
+int getIntStdin(int lowBound, int highBound);

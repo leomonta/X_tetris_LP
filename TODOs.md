@@ -1,7 +1,7 @@
 ## General
 
 - [ ] Menù principale che permette
-  - [ ] Single Player
+  - [X] Single Player
   - [ ] Local (or Network se sono pazzo abbastanza) Multiplayer
 
 - [X] rappresentare i singoli tetramini
