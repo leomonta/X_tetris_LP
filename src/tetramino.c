@@ -48,19 +48,20 @@ void replaceTempTetr(wchar_t replaceWith, wchar_t screen[SCREEN_HEIGHT][SCREEN_W
 	}
 }
 
-bool insert(const wchar_t *tetramino, wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int column, int rot) {
+bool insert(int numTetramino, wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int column, int rot) {
 
-	int currColumn = column;
-	int currRow    = 0;
+	int      currColumn    = column;
+	int      currRow       = 0;
+	const wchar_t *currTetramino = tetraminosRotation[rot][numTetramino];
 
-	while (*tetramino != '*') {
+	while (*currTetramino != '*') {
 
-		if (*tetramino == '/') {
+		if (*currTetramino == '/') {
 			currColumn = column;
 			++currRow;
 		} else {
 
-			if (*tetramino != L'_') {
+			if (*currTetramino != L'_') {
 
 				/* Sto per rimpiazzare un tetramino già presente o fuori dallo schermo*/
 				if (screen[currRow][currColumn] != L' ' || !checkBounds(currColumn, currRow)) {
@@ -72,7 +73,7 @@ bool insert(const wchar_t *tetramino, wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH
 			++currColumn;
 		}
 
-		++tetramino;
+		++currTetramino;
 	}
 
 	return true;

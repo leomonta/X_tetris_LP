@@ -157,3 +157,8 @@ const wchar_t tetr_S_1[8] = {L'▧', L'/',
 							 L'_', L'▧', L'*'};
 
 const wchar_t *const allTetraminos[NUM_TETRAMINOS] = {tetr_I_0, tetr_L_0, tetr_J_0, tetr_Q_0, tetr_Z_0, tetr_S_0, tetr_T_0};
+
+const wchar_t *const tetraminosRotation[4][NUM_TETRAMINOS] = {{tetr_I_0, tetr_L_0, tetr_J_0, tetr_Q_0, tetr_Z_0, tetr_S_0, tetr_T_0},
+															  {tetr_I_1, tetr_L_1, tetr_J_1, tetr_Q_0, tetr_Z_1, tetr_S_1, tetr_T_1},
+															  {tetr_I_0, tetr_L_2, tetr_J_2, tetr_Q_0, tetr_Z_0, tetr_S_0, tetr_T_2},
+															  {tetr_I_1, tetr_L_3, tetr_J_3, tetr_Q_0, tetr_Z_1, tetr_S_1, tetr_T_3}};

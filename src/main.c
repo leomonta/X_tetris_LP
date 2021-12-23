@@ -29,12 +29,12 @@ int main() {
 
 void singlePlayerLoop() {
 
-	int            i            = 1;
-	int            inputColumn  = 0;
-	int            inputTetr    = 0;
-	const wchar_t *selectedTetr = nullptr;
-	int            points       = 0;
-	wchar_t        charToDraw;
+	int            i             = 1;
+	int            inputColumn   = 0;
+	int            inputTetr     = 0;
+	const wchar_t *selectedTetr  = nullptr;
+	int            points        = 0;
+	int            inputRotation = 0;
 
 	setup();
 
@@ -53,14 +53,17 @@ void singlePlayerLoop() {
 			continue;
 		}
 
+		printf("Scegli la rotazione, da 0 a 3\n");
+		inputRotation = getIntStdin(0, 4);
+
 		selectedTetr = allTetraminos[runtimeTetraminos[inputTetr]];
 
-		drawSingleTetramino(selectedTetr);
+		drawSingleTetramino(runtimeTetraminos[inputTetr], inputRotation);
 
 		printf("\n\nScegli la colonna\n");
 		inputColumn = getIntStdin(0, SCREEN_WIDTH);
 
-		if (!insert(selectedTetr, screen, inputColumn, 1)) {
+		if (!insert(runtimeTetraminos[inputTetr], screen, inputColumn, inputRotation)) {
 			/* fallimento */
 			replaceTempTetr(L' ', screen);
 
@@ -81,7 +84,6 @@ void singlePlayerLoop() {
 	}
 
 	printf("Gioco finto!\npunti -> %d", points);
-
 }
 
 bool gameShouldEnd() {
@@ -90,6 +92,7 @@ bool gameShouldEnd() {
 	bool finishedTetraminos = true;
 	int  selectedTetramino  = INVALID_TETRAMINO;
 	int  column             = 0;
+	int  rot                = 0;
 
 	for (i = 0; i < INITIAL_TETRAMINOS; ++i) {
 		if (runtimeTetraminos[i] != INVALID_TETRAMINO) {
@@ -103,18 +106,20 @@ bool gameShouldEnd() {
 		return true;
 	}
 
-	for (i = 0; i < INITIAL_TETRAMINOS; i++) {
+	for (i = 0; i < INITIAL_TETRAMINOS; ++i) {
 		selectedTetramino = runtimeTetraminos[i];
 		if (selectedTetramino == INVALID_TETRAMINO) {
 			continue;
 		}
-		for (j = 0; j < SCREEN_WIDTH; j++) {
+		for (j = 0; j < SCREEN_WIDTH; ++j) {
 			column = j;
-			if (insert(allTetraminos[selectedTetramino], screen, column, 0)) {
+			for (rot = 0; rot < 4; ++rot) {
+				if (insert(selectedTetramino, screen, column, rot)) {
+					replaceTempTetr(L' ', screen);
+					return false;
+				}
 				replaceTempTetr(L' ', screen);
-				return false;
 			}
-			replaceTempTetr(L' ', screen);
 		}
 	}
 
@@ -198,7 +203,7 @@ int getIntStdin(int lowBound, int highBound) {
 
 		clearStdin();
 
-		if (retVal == 1 && inputTetr >= lowBound && inputTetr <= highBound - 1) {
+		if (retVal == 1 && inputTetr >= lowBound && inputTetr < highBound) {
 			break;
 		}
 

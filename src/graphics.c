@@ -123,9 +123,9 @@ void clearScreen(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 	wmemset(&screen[0][0], L' ', SCREEN_HEIGHT * SCREEN_WIDTH);
 }
 
-void drawSingleTetramino(const wchar_t *tetramino) {
+void drawSingleTetramino(int numTetramino, int rotation) {
 
-	wchar_t *curr = (wchar_t *)(tetramino);
+	const wchar_t *curr = tetraminosRotation[rotation][numTetramino];
 
 	while (*curr != L'*') {
 

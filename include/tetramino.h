@@ -20,11 +20,11 @@ void replaceTempTetr(wchar_t replaceWith, wchar_t screen[SCREEN_HEIGHT][SCREEN_W
  * ritorna true se l'operazione ha avuto successo, false in caso contrario
  * 
  * rotazione:
- * 1 -> su
- * 2 -> destra
- * 3 -> giu
- * 4 -> sinistra
+ * 0 -> 0°   in senso orario
+ * 1 -> 90°  in senso orario
+ * 2 -> 180° in senso orario
+ * 3 -> 270° in senso orario
  */
-bool insert(const wchar_t *tetramino, wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int column, int rot);
+bool insert(int numTetramino, wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int column, int rot);
 
 bool checkBounds(int column, int row);

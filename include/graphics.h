@@ -22,4 +22,4 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos);
 /**
  * Stampa un singolo tetramino
  */
-void drawSingleTetramino(const wchar_t *tetramino);
+void drawSingleTetramino(int numTetramino, int rotation);
