@@ -1,5 +1,7 @@
 #pragma once
 
+#include <wchar.h>
+
 #define SCREEN_WIDTH  10
 #define SCREEN_HEIGHT 15
 #define nullptr 0x0
