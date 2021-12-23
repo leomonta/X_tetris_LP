@@ -3,7 +3,6 @@
 void fall(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 	int i       = 0;
 	int j       = 0;
-	int currRow = 0;
 
 	bool _exit = 0;
 
@@ -23,7 +22,7 @@ void fall(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 				}
 			}
 		}
-		for (i = currRow + 1; i >= currRow; --i) {
+		for (i = SCREEN_HEIGHT - 1; i >= 0; --i) {
 			for (j = 0; j < SCREEN_WIDTH && !_exit; ++j) {
 				if (screen[i][j] == '@') {
 					screen[i + 1][j] = '@';
@@ -31,7 +30,6 @@ void fall(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 				}
 			}
 		}
-		currRow++;
 	}
 }
 
@@ -80,5 +78,5 @@ bool insert(int numTetramino, wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int c
 }
 
 bool checkBounds(int column, int row) {
-	return (column >= 0 && column < SCREEN_HEIGHT && row >= 0 && row < SCREEN_WIDTH);
+	return (column >= 0 && column < SCREEN_WIDTH && row >= 0 && row < SCREEN_HEIGHT);
 }

@@ -80,7 +80,7 @@ void singlePlayerLoop() {
 		points += calcPoints(clearLines());
 
 		drawScreen(screen);
-		printf("points -> %d\n\n", points);
+		printf("punti -> %d\n\n", points);
 	}
 
 	printf("Gioco finto!\npunti -> %d", points);
