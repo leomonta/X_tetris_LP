@@ -123,7 +123,7 @@ void setup(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTet
 	srand(temp);
 
 	for (i = 0; i < INITIAL_TETRAMINOS; i++) {
-		runtimeTetraminos[i] = (char)(i % NUM_TETRAMINOS);
+		runtimeTetraminos[i] = (char)(rand() % NUM_TETRAMINOS);
 	}
 }
 
