@@ -115,6 +115,8 @@ void drawScreen(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 		printf("%lc", L'║');
 		printf("\n");
 	}
+	printf("╠═════════════════════╣\n");
+	printf("║ 0 1 2 3 4 5 6 7 8 9 ║\n");
 	printf("╚═════════════════════╝\n");
 }
 
