@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "multiplayer.h"
 #include "singleplayer.h"
 #include "utils.h"
 
@@ -15,9 +16,7 @@ int main() {
 		break;
 
 	case 2:
-		/**
-		 * multiplayerLoop()
-		 */
+		multiPlayerLoop();
 		break;
 	}
 

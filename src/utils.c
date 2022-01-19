@@ -38,8 +38,10 @@ int getIntStdin(int lowBound, int highBound) {
 
 char* setupLocale() {
 
-	char* g_old_locale = setlocale(LC_ALL, NULL);
+	char* old_locale = setlocale(LC_ALL, NULL);
 	setlocale(LC_ALL, "C.UTF-8");
+
+	return old_locale;
 }
 
 void cleanupLocale(char* locale) {

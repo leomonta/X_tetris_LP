@@ -2,9 +2,8 @@
 
 #include <stdbool.h>
 
-#include "utils.h"
 #include "constants.h"
-
+#include "utils.h"
 
 void singlePlayerLoop();
 
@@ -16,12 +15,7 @@ bool gameShouldEnd(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char ru
 /**
  * Inizializza i tetramini iniziali
  */
-void setup(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]);
-
-/**
- * Usato per restaurare il locale precedente
- */
-void cleanup();
+void setup(unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]);
 
 /**
  * Cancella le righe piene e ritorna il numero di righe cancellate
@@ -29,7 +23,7 @@ void cleanup();
 int clearLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]);
 
 /**
- * Sposta le linee minore (quindi sopra) al valore dato di uno un giù
+ * Sposta le linee minori (quindi sopra) del valore dato di uno in giù
  * eliminando lo spazio vuoto
  */
 void fixLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int row);

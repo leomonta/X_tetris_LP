@@ -8,7 +8,6 @@
 
 void singlePlayerLoop() {
 
-	int            i             = 1;
 	int            inputColumn   = 0;
 	int            inputTetr     = 0;
 	const wchar_t *selectedTetr  = nullptr;
@@ -17,11 +16,11 @@ void singlePlayerLoop() {
 	wchar_t        screen[SCREEN_HEIGHT][SCREEN_WIDTH];
 
 	/**
-	 * Indice rispetto a allTetramino per indicare i tetramini disponibili al giocatore
+	 * Indice rispetto a allTetraminos per indicare i tetramini disponibili al giocatore
 	 */
 	unsigned char runtimeTetraminos[INITIAL_TETRAMINOS];
 
-	setup(screen, runtimeTetraminos);
+	setup(runtimeTetraminos);
 
 	clearScreen(screen);
 
@@ -112,12 +111,10 @@ bool gameShouldEnd(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char ru
 	return true;
 }
 
-void setup(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]) {
+void setup(unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]) {
 
 	unsigned i = 0;
 	unsigned temp;
-
-	setupLocale();
 
 	temp = (unsigned)(time(0));
 	srand(temp);
@@ -125,9 +122,6 @@ void setup(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTet
 	for (i = 0; i < INITIAL_TETRAMINOS; i++) {
 		runtimeTetraminos[i] = (char)(rand() % NUM_TETRAMINOS);
 	}
-}
-
-void cleanup() {
 }
 
 int clearLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
