@@ -12,7 +12,8 @@
 		"tetramino.h": "c",
 		"singleplayer.h": "c",
 		"wchar.h": "c",
-		"multiplayer.h": "c"
+		"multiplayer.h": "c",
+		"utils.h": "c"
 	},
 	"python.pythonPath": "c:\\Program Files\\Python39\\python.exe"
 }

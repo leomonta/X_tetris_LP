@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-void drawRemainingTetraminos(unsigned char *runtimeTetraminos) {
+void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size) {
 	unsigned       i           = 0;
 	unsigned       j           = 0;
 	unsigned       index       = 0;
@@ -41,7 +41,7 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos) {
 	*/
 
 	/* numero delle righe rispetto al numero di colonne */
-	for (i = 0; i < INITIAL_TETRAMINOS / numCols; ++i) {
+	for (i = 0; i < size / numCols; ++i) {
 
 		/* svuoto la riga */
 		wmemset(&row[0][0], L' ', 25 * 2);
@@ -118,6 +118,33 @@ void drawScreen(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 	printf("╠═════════════════════╣\n");
 	printf("║ 0 1 2 3 4 5 6 7 8 9 ║\n");
 	printf("╚═════════════════════╝\n");
+}
+
+void multiDrawScreen(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t screenG2[SCREEN_HEIGHT][SCREEN_WIDTH], int pointsG1, int pointsG2) {
+
+	char i, j;
+
+	printf("╔═════════════════════╗    ╔═════════════════════╗\n");
+	printf("║     Giocatore 1     ║    ║     Giocatore 2     ║\n");
+	printf("╠═════════════════════╣    ╠═════════════════════╣\n");
+
+	for (i = 0; i < SCREEN_HEIGHT; ++i) {
+		printf("%lc ", L'║');
+		for (j = 0; j < SCREEN_WIDTH; ++j) {
+			printf("%lc ", screenG1[i][j]);
+		}
+		printf("%lc    %lc ", L'║', L'║');
+		for (j = 0; j < SCREEN_WIDTH; ++j) {
+			printf("%lc ", screenG2[i][j]);
+		}
+		printf("%lc", L'║');
+		printf("\n");
+	}
+	printf("╠═════════════════════╣    ╠═════════════════════╣\n");
+	printf("║ 0 1 2 3 4 5 6 7 8 9 ║    ║ 0 1 2 3 4 5 6 7 8 9 ║\n");
+	printf("╚═════════════════════╝    ╚═════════════════════╝\n\n");
+
+	printf("Punti ->             %-5d                      %-5d\n\n", pointsG1, pointsG2); /* %5d dovrebbe agguingere il padding necessario ad allineare tutto*/
 }
 
 void clearScreen(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {

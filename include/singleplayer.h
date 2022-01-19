@@ -3,7 +3,6 @@
 #include <stdbool.h>
 
 #include "constants.h"
-#include "utils.h"
 
 void singlePlayerLoop();
 

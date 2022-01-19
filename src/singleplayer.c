@@ -5,15 +5,17 @@
 #include "graphics.h"
 #include "singleplayer.h"
 #include "tetramino.h"
+#include "utils.h"
 
 void singlePlayerLoop() {
 
 	int            inputColumn   = 0;
 	int            inputTetr     = 0;
 	const wchar_t *selectedTetr  = nullptr;
-	int            points        = 0;
 	int            inputRotation = 0;
-	wchar_t        screen[SCREEN_HEIGHT][SCREEN_WIDTH];
+
+	int     points = 0;
+	wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH];
 
 	/**
 	 * Indice rispetto a allTetraminos per indicare i tetramini disponibili al giocatore
@@ -27,7 +29,7 @@ void singlePlayerLoop() {
 	/* loop 1 */
 	while (!gameShouldEnd(screen, runtimeTetraminos)) {
 
-		drawRemainingTetraminos(runtimeTetraminos);
+		drawRemainingTetraminos(runtimeTetraminos, INITIAL_TETRAMINOS);
 
 		printf("Scegli il tetramino\n");
 		inputTetr = getIntStdin(0, INITIAL_TETRAMINOS);

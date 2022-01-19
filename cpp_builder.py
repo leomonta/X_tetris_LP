@@ -51,6 +51,7 @@ def print_stdout(mexage: tuple) -> bool:
 	for i in range(len(out)):
 		if "error" in out[i]:
 			print(Fore.RED, out[i])
+			print(Fore.WHITE)
 			return False
 		elif "warning" in out[i]:
 			print(Fore.BLUE, out[i])
