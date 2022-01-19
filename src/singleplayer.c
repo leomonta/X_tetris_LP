@@ -120,7 +120,7 @@ void setup(unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]) {
 	srand(temp);
 
 	for (i = 0; i < INITIAL_TETRAMINOS; i++) {
-		runtimeTetraminos[i] = (char)(rand() % NUM_TETRAMINOS);
+		runtimeTetraminos[i] = (unsigned char)(rand() % NUM_TETRAMINOS);
 	}
 }
 
