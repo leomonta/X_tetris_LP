@@ -10,7 +10,9 @@
 		"stdlib.h": "c",
 		"stdbool.h": "c",
 		"tetramino.h": "c",
-		"singleplayer.h": "c"
+		"singleplayer.h": "c",
+		"wchar.h": "c",
+		"multiplayer.h": "c"
 	},
 	"python.pythonPath": "c:\\Program Files\\Python39\\python.exe"
 }

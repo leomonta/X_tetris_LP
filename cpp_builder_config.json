@@ -1,6 +1,7 @@
 {
 	"projectDir": ".",
 	"exeName": "Game.bin",
+	"compilerExe" : "gcc",
 	"Directories": {
 		"includeDir": [
 			"include",
@@ -18,10 +19,11 @@
 	"libraries": [
 		"raylib",
 		"dl",
-		"pthread"
+		"pthread",
+		"m"
 	],
 	"Arguments": {
-		"Compiler": "-g3 -ansi -pedantic-errors -Wno-missing-field-initializers -Wconversion -Wshadow -Wextra -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak -fno-stack-protector",
+		"Compiler": "-g3 -ansi -pedantic-errors -Wno-missing-field-initializers -Wconversion -Wshadow -Wextra -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak",
 		"Linker": "-fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak"
 	}
 }
