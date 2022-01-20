@@ -13,11 +13,10 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 	int  j                  = 0;
 	bool finishedTetraminos = true;
 	int  selectedTetramino  = INVALID_TETRAMINO;
-	int  column             = 0;
 	int  rot                = 0;
 	int  G1Full             = 1; /* indica se il campo del giocatore 1 ha spazio */
 
-	for (i = 0; i < INITIAL_TETRAMINOS; ++i) {
+	for (i = 0; i < INITIAL_TETRAMINOS_2X; ++i) {
 		if (runtimeTetraminos[i] != INVALID_TETRAMINO) {
 			finishedTetraminos = 0;
 			break;
@@ -43,9 +42,8 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 
 		/* G1 */
 		for (j = 0; j < SCREEN_WIDTH; ++j) {
-			column = j;
 			for (rot = 0; rot < 4; ++rot) {
-				if (insert(selectedTetramino, screenG1, column, rot)) {
+				if (insert(selectedTetramino, screenG1, j, rot)) {
 					replaceTempTetr(L' ', screenG1);
 					G1Full = 0; /* il campo del G1 ha ancora spazio */
 					/* salto il loop for esterno */
@@ -72,13 +70,12 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 
 		/* G2 */
 		for (j = 0; j < SCREEN_WIDTH; ++j) {
-			column = j;
 			for (rot = 0; rot < 4; ++rot) {
-				if (insert(selectedTetramino, screenG1, column, rot)) {
-					replaceTempTetr(L' ', screenG1);
+				if (insert(selectedTetramino, screenG2, j, rot)) {
+					replaceTempTetr(L' ', screenG2);
 					return false; /* c'è spazio in entrambi i campi, il gioco continua */
 				}
-				replaceTempTetr(L' ', screenG1);
+				replaceTempTetr(L' ', screenG2);
 			}
 		}
 	}
@@ -126,7 +123,7 @@ void multiPlayerLoop() {
 		drawRemainingTetraminos(runtimeTetraminos, INITIAL_TETRAMINOS_2X);
 
 		printf("Scegli il tetramino\n");
-		inputTetr = getIntStdin(0, INITIAL_TETRAMINOS);
+		inputTetr = getIntStdin(0, INITIAL_TETRAMINOS_2X);
 
 		if (runtimeTetraminos[inputTetr] == INVALID_TETRAMINO) {
 			printf("Il tetramino n. %d è già stato usato, sceglierne un'altro!\n", inputTetr);

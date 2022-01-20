@@ -76,8 +76,8 @@ const wchar_t tetr_L_1[9] = {L'□', L'□', L'/',
 const wchar_t tetr_L_2[8] = {L'_', L'_', L'□', L'/',
 							 L'□', L'□', L'□', L'*'};
 
-const wchar_t tetr_L_3[9] = {L'_', L'□', L'/',
-							 L'_', L'□', L'/',
+const wchar_t tetr_L_3[9] = {L'□', L'/',
+							 L'□', L'/',
 							 L'□', L'□', L'*'};
 
 /**
