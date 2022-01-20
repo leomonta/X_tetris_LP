@@ -13,6 +13,8 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 
 void multiSetup(unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X]);
 
-int multiClearLines();
+int multiClearLines(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t screenG2[SCREEN_HEIGHT][SCREEN_WIDTH]);
 
-void multiFixLines();
+void multiFixLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int line);
+
+void multiInvertLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int count);

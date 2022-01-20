@@ -17,11 +17,11 @@
 
 ## Multi-player
 
-- [ ] Gestire due giocatori quindi:
-  - [ ] un set condiviso di tetramini con il doppio dei pezzi
-  - [ ] due schermi 
-  - [ ] due contatori per il punteggio
-  - [ ] turni alterni
+- [X] Gestire due giocatori quindi:
+  - [X] un set condiviso di tetramini con il doppio dei pezzi
+  - [X] due schermi 
+  - [X] due contatori per il punteggio
+  - [X] turni alterni
 - [ ] invertire (1 -> 0, 0 -> 1) le righe del giocatore opposto in caso di 2-3 linee eliminate con un solo tetramino
 - [ ] se i pezzi finiscono, il giocatore con il punteggio più alto vince
 - [ ] implementare una IA da giocare contro

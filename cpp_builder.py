@@ -265,7 +265,7 @@ def main():
 
 	if not to_compile:
 		print("  --- Compilation and linking skipped due to no new or modified files ---")
-		sys.exit(1)
+		return
 
 
 	# compile each file and show the output,

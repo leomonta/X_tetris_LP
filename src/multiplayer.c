@@ -26,11 +26,6 @@ void multiPlayerLoop() {
 	int     pointsG2 = 0;
 	wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH];
 	wchar_t screenG2[SCREEN_HEIGHT][SCREEN_WIDTH];
-	/**
-	 * utilizzo un puntatore alla variabile points corretta
-	 * ogni turno la imposto in modo che punti alla variabile del giocatore corretto
-	 */
-	int *currPoints;
 
 	/**
 	 * Indice rispetto a allTetraminos per indicare i tetramini disponibili al giocatore
@@ -46,10 +41,8 @@ void multiPlayerLoop() {
 
 		/* in base al turno stampo chi dovrebbe giocare questo turno e imposto al variabile currPoints */
 		if (turn == 1) {
-			currPoints = &pointsG1;
 			printf(" --- Turno G1 --- \n");
 		} else {
-			currPoints = &pointsG2;
 			printf(" --- Turno G2 --- \n");
 		}
 
@@ -101,10 +94,18 @@ void multiPlayerLoop() {
 		replaceTempTetr(selectedTetr[1], turn == 1 ? screenG1 : screenG2);
 
 		/* calcolo i punti da assegnare in base alle linee che sono state eliminate in questo turno*/
-		*currPoints += calcPoints(clearLines(turn == 1 ? screenG1 : screenG2));
+		if (turn == 1) {
+
+			pointsG1 += calcPoints(multiClearLines(screenG1, screenG2));
+		} else {
+
+			pointsG2 += calcPoints(multiClearLines(screenG2, screenG1));
+		}
 
 		/* mostro la situazione corrente per entrambi i giocatori */
 		multiDrawScreen(screenG1, screenG2, pointsG1, pointsG2);
+
+		getchar();
 
 		/* passo continuamente da 0 a 1 */
 		turn = !turn;
@@ -121,5 +122,58 @@ void multiSetup(unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X]) {
 
 	for (i = 0; i < INITIAL_TETRAMINOS_2X; i++) {
 		runtimeTetraminos[i] = (unsigned char)(rand() % NUM_TETRAMINOS);
+	}
+}
+
+int multiClearLines(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t screenG2[SCREEN_HEIGHT][SCREEN_WIDTH]) {
+
+	int i    = 0;
+	int j    = 0;
+	int temp = 1;
+
+	int res = 0;
+
+	for (i = 0; i < SCREEN_HEIGHT; ++i) {
+		for (j = 0; j < SCREEN_WIDTH; ++j) {
+			if (screenG1[i][j] == L' ') {
+				temp = 0;
+				break;
+			}
+		}
+		if (temp == 1) {
+			wmemset(screenG1[i], L' ', SCREEN_WIDTH);
+			multiFixLines(screenG1, i);
+			++res;
+		}
+		temp = 1;
+	}
+
+	multiInvertLines(screenG2, res);
+	return res;
+}
+
+void multiFixLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int line) {
+
+	int i = 0;
+	for (i = line; i > 0; --i) {
+		wmemcpy(screen[i], screen[i - 1], SCREEN_WIDTH);
+	}
+
+	wmemset(&screen[0][0], L' ', SCREEN_WIDTH);
+}
+
+void multiInvertLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int count) {
+
+	int i = 0;
+	int j = 0;
+	for (i = SCREEN_HEIGHT - count; i < SCREEN_HEIGHT; ++i) {
+		for (j = 0; j < SCREEN_WIDTH; ++j) {
+
+			if (screen[i][j] == L' ') {
+				screen[i][j] = L'▣';
+			} else {
+				screen[i][j] = L' ';
+			}
+		}
 	}
 }
