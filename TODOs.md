@@ -1,8 +1,8 @@
 ## General
 
-- [ ] Menù principale che permette
+- [X] Menù principale che permette
   - [X] Single Player
-  - [ ] Local (or Network se sono pazzo abbastanza) Multiplayer
+  - [X] Local Multiplayer
 
 - [X] rappresentare i singoli tetramini
 - [X] metodo per inserire i tetramini nel campo ad una posizione e rotazione specifica controllando gli estremi
@@ -22,8 +22,8 @@
   - [X] due schermi 
   - [X] due contatori per il punteggio
   - [X] turni alterni
-- [ ] invertire (1 -> 0, 0 -> 1) le righe del giocatore opposto in caso di 2-3 linee eliminate con un solo tetramino
-- [ ] se i pezzi finiscono, il giocatore con il punteggio più alto vince
+- [X] invertire (1 -> 0, 0 -> 1) le righe del giocatore opposto in caso di 2-3 linee eliminate con un solo tetramino
+- [X] se i pezzi finiscono, il giocatore con il punteggio più alto vince
 - [ ] implementare una IA da giocare contro
 
 

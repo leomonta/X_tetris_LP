@@ -9,7 +9,82 @@
 #include "utils.h"
 
 int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t screenG2[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X]) {
-	return 0;
+	int  i                  = 0;
+	int  j                  = 0;
+	bool finishedTetraminos = true;
+	int  selectedTetramino  = INVALID_TETRAMINO;
+	int  column             = 0;
+	int  rot                = 0;
+	int  G1Full             = 1; /* indica se il campo del giocatore 1 ha spazio */
+
+	for (i = 0; i < INITIAL_TETRAMINOS; ++i) {
+		if (runtimeTetraminos[i] != INVALID_TETRAMINO) {
+			finishedTetraminos = 0;
+			break;
+		}
+	}
+
+	if (finishedTetraminos) {
+		printf("Finiti i tetramini!\n");
+		return -1;
+	}
+
+	for (i = 0; i < INITIAL_TETRAMINOS_2X; ++i) {
+		selectedTetramino = runtimeTetraminos[i];
+		/* salta i tetramini non presenti */
+		if (selectedTetramino == INVALID_TETRAMINO) {
+			continue;
+		}
+
+		/**
+		 * provo ad inserire ogni tetramino in ogni posizione in ogni rotazione possibile, 
+		 * se è possibile che succeda anche una volta significa che il gioco per questo giocatore può continuare
+		 */
+
+		/* G1 */
+		for (j = 0; j < SCREEN_WIDTH; ++j) {
+			column = j;
+			for (rot = 0; rot < 4; ++rot) {
+				if (insert(selectedTetramino, screenG1, column, rot)) {
+					replaceTempTetr(L' ', screenG1);
+					G1Full = 0; /* il campo del G1 ha ancora spazio */
+					/* salto il loop for esterno */
+					j = SCREEN_WIDTH;
+					i = INITIAL_TETRAMINOS_2X;
+					break;
+				}
+				replaceTempTetr(L' ', screenG1);
+			}
+		}
+	}
+
+	/* se non c'è più spazio nel campo del G1, deve aver vinto il G2 */
+	if (G1Full) {
+		return 2;
+	}
+
+	for (i = 0; i < INITIAL_TETRAMINOS_2X; ++i) {
+		selectedTetramino = runtimeTetraminos[i];
+		/* salta i tetramini non presenti */
+		if (selectedTetramino == INVALID_TETRAMINO) {
+			continue;
+		}
+
+		/* G2 */
+		for (j = 0; j < SCREEN_WIDTH; ++j) {
+			column = j;
+			for (rot = 0; rot < 4; ++rot) {
+				if (insert(selectedTetramino, screenG1, column, rot)) {
+					replaceTempTetr(L' ', screenG1);
+					return false; /* c'è spazio in entrambi i campi, il gioco continua */
+				}
+				replaceTempTetr(L' ', screenG1);
+			}
+		}
+	}
+
+	/* c'è spazio nel campo del G1, non c'è spazio nel campo del G2, vince G1*/
+	return 1;
 }
 
 void multiPlayerLoop() {
@@ -19,6 +94,7 @@ void multiPlayerLoop() {
 	int            inputTetr     = 0;
 	const wchar_t *selectedTetr  = nullptr;
 	int            inputRotation = 0;
+	int            winner        = 0; /* indica il vincitore, 1 -> G1, 2 -> G2, 0 -> nessun ed il gioco continua, -1 -> dipende dal punteggio */
 
 	/* Variabili dei giocatori */
 	int     turn     = 1;
@@ -37,13 +113,13 @@ void multiPlayerLoop() {
 	clearScreen(screenG1);
 	clearScreen(screenG2);
 
-	while (!multiGameShouldEnd(screenG1, screenG2, runtimeTetraminos)) {
+	while (!(winner = multiGameShouldEnd(screenG1, screenG2, runtimeTetraminos))) {
 
 		/* in base al turno stampo chi dovrebbe giocare questo turno e imposto al variabile currPoints */
 		if (turn == 1) {
-			printf(" --- Turno G1 --- \n");
+			printf(" --- Turno G1 --- \n\n");
 		} else {
-			printf(" --- Turno G2 --- \n");
+			printf(" --- Turno G2 --- \n\n");
 		}
 
 		/* presento tutti i tetramini disponibili con relativi indici */
@@ -109,6 +185,33 @@ void multiPlayerLoop() {
 
 		/* passo continuamente da 0 a 1 */
 		turn = !turn;
+	}
+
+	switch (winner) {
+	case 1:
+		printf("Vince il giocatore 1");
+		break;
+
+	case 2:
+		printf("Vince il giocatore 2");
+		break;
+
+	case -1:
+		if (pointsG1 > pointsG2) {
+			printf("Vince il giocatore 1");
+			break;
+		}
+
+		if (pointsG1 < pointsG2) {
+			printf("Vince il giocatore 2");
+			break;
+		}
+
+		printf("Pareggio");
+		break;
+
+	default:
+		break;
 	}
 }
 
