@@ -6,6 +6,8 @@
 
 void singlePlayerLoop();
 
+void playerTurn(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]);
+
 /**
  * Ritorna true se non ci sono più tetramini utilizzabili o se non c'è più posto per essi
  */

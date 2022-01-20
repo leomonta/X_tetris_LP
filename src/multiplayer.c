@@ -8,6 +8,220 @@
 #include "tetramino.h"
 #include "utils.h"
 
+void multiPlayerLoopAI() {
+
+	/* variabili per gestire gli input */
+	int winner = 0; /* indica il vincitore, 1 -> G1, 2 -> G2, 0 -> nessun ed il gioco continua, -1 -> dipende dal punteggio */
+
+	/* Variabili dei giocatori */
+	int     currTurn = 1;
+	int     pointsG1 = 0;
+	int     pointsG2 = 0;
+	wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH];
+	wchar_t screenG2[SCREEN_HEIGHT][SCREEN_WIDTH];
+
+	/**
+	 * Indice rispetto a allTetraminos per indicare i tetramini disponibili al giocatore
+	 */
+	unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X];
+
+	multiSetup(runtimeTetraminos);
+
+	clearScreen(screenG1);
+	clearScreen(screenG2);
+
+	while (!(winner = multiGameShouldEnd(screenG1, screenG2, runtimeTetraminos))) {
+
+		/**
+		 * In base al turno stampo chi dovrebbe giocare questo turno e aggiorno il punteggio
+		 * calcolo i punti da assegnare in base alle linee che sono state eliminate in questo turno 
+		 */
+		if (currTurn == 1) {
+			printf(" --- Turno G1 --- \n\n");
+			multiPlayerTurn(screenG1, runtimeTetraminos);
+			pointsG1 += calcPoints(multiClearLines(screenG1, screenG2));
+		} else {
+			AITurn(screenG2, runtimeTetraminos);
+			pointsG2 += calcPoints(multiClearLines(screenG2, screenG1));
+		}
+
+		/* mostro la situazione corrente per entrambi i giocatori */
+		multiDrawScreen(screenG1, screenG2, pointsG1, pointsG2);
+
+		getchar();
+
+		/* passo continuamente da 0 a 1 */
+		currTurn = !currTurn;
+	}
+
+	switch (winner) {
+	case 1:
+		printf("Vince il giocatore 1");
+		break;
+
+	case 2:
+		printf("Vince il giocatore 2");
+		break;
+
+	case -1:
+		if (pointsG1 > pointsG2) {
+			printf("Vince il giocatore 1");
+			break;
+		}
+
+		if (pointsG1 < pointsG2) {
+			printf("Vince il giocatore 2");
+			break;
+		}
+
+		printf("Pareggio");
+		break;
+
+	default:
+		break;
+	}
+}
+
+void multiPlayerLoop() {
+
+	/* variabili per gestire gli input */
+	int winner = 0; /* indica il vincitore, 1 -> G1, 2 -> G2, 0 -> nessun ed il gioco continua, -1 -> dipende dal punteggio */
+
+	/* Variabili dei giocatori */
+	int     currTurn = 1;
+	int     pointsG1 = 0;
+	int     pointsG2 = 0;
+	wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH];
+	wchar_t screenG2[SCREEN_HEIGHT][SCREEN_WIDTH];
+
+	/**
+	 * Indice rispetto a allTetraminos per indicare i tetramini disponibili al giocatore
+	 */
+	unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X];
+
+	multiSetup(runtimeTetraminos);
+
+	clearScreen(screenG1);
+	clearScreen(screenG2);
+
+	while (!(winner = multiGameShouldEnd(screenG1, screenG2, runtimeTetraminos))) {
+
+		/**
+		 * In base al turno stampo chi dovrebbe giocare questo turno e aggiorno il punteggio
+		 * calcolo i punti da assegnare in base alle linee che sono state eliminate in questo turno 
+		 */
+		if (currTurn == 1) {
+			printf(" --- Turno G1 --- \n\n");
+			multiPlayerTurn(screenG1, runtimeTetraminos);
+			pointsG1 += calcPoints(multiClearLines(screenG1, screenG2));
+		} else {
+			printf(" --- Turno G2 --- \n\n");
+			playerTurn(screenG2, runtimeTetraminos);
+			pointsG2 += calcPoints(multiClearLines(screenG2, screenG1));
+		}
+
+		/* mostro la situazione corrente per entrambi i giocatori */
+		multiDrawScreen(screenG1, screenG2, pointsG1, pointsG2);
+
+		/* pausa per permettere di vedere bene la situazione sui due schermi */
+		getchar();
+
+		/* passo continuamente da 0 a 1 */
+		currTurn = !currTurn;
+	}
+
+	switch (winner) {
+	case 1:
+		printf("Vince il giocatore 1");
+		break;
+
+	case 2:
+		printf("Vince il giocatore 2");
+		break;
+
+	case -1:
+		if (pointsG1 > pointsG2) {
+			printf("Vince il giocatore 1");
+			break;
+		}
+
+		if (pointsG1 < pointsG2) {
+			printf("Vince il giocatore 2");
+			break;
+		}
+
+		printf("Pareggio");
+		break;
+
+	default:
+		break;
+	}
+}
+
+void multiPlayerTurn(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X]) {
+
+	int            inputColumn   = 0;
+	int            inputTetr     = 0;
+	int            inputRotation = 0;
+	const wchar_t *selectedTetr  = nullptr;
+
+	while (1) {
+
+		/* presento tutti i tetramini disponibili con relativi indici */
+		drawRemainingTetraminos(runtimeTetraminos, INITIAL_TETRAMINOS_2X);
+
+		printf("Scegli il tetramino\n");
+		inputTetr = getIntStdin(0, INITIAL_TETRAMINOS_2X);
+
+		if (runtimeTetraminos[inputTetr] == INVALID_TETRAMINO) {
+			printf("Il tetramino n. %d è già stato usato, sceglierne un'altro!\n", inputTetr);
+			continue;
+		}
+
+		/* il numero intero indica quante volta il tetramino deve essere girato in senso orario */
+		printf("Scegli la rotazione, da 0 a 3\n");
+		inputRotation = getIntStdin(0, 4);
+
+		selectedTetr = allTetraminos[runtimeTetraminos[inputTetr]];
+
+		/* stampo il singolo tetramino ruotato correttamente per mostrarlo all'utente */
+		drawSingleTetramino(runtimeTetraminos[inputTetr], inputRotation);
+
+		printf("\n\nScegli la colonna\n");
+		inputColumn = getIntStdin(0, SCREEN_WIDTH);
+
+		/**
+		 * Provo a inserire il tetramino nella posizione specificata.
+		 * In caso di successo faccio cadere il tetramino e lo rimuovo dalla lista di tetramini disponibili
+		 * In caso di fallimento comunico l'errore e ricomincio il ciclo
+		 */
+
+		if (!insert(runtimeTetraminos[inputTetr], screen, inputColumn, inputRotation)) {
+			/* fallimento */
+			replaceTempTetr(L' ', screen);
+
+			printf("il tetramino selezionato non può essere posizionato dove richiesto\n");
+
+			/* riparti da inizio ciclo senza cambiare il turno */
+			continue;
+		}
+
+		break;
+	}
+
+	/* rimuovo il tetramino dalla lista di quelli disponibili */
+	runtimeTetraminos[inputTetr] = INVALID_TETRAMINO;
+
+	/* faccio cadere il tetramino appena inserito, segnato come @, fino al punto più basso */
+	fall(screen);
+	/* poi sostituisco i segnalini @ con i caratteri corretti */
+	replaceTempTetr(selectedTetr[1], screen);
+}
+
+void AITurn(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X]) {
+
+}
+
 int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t screenG2[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X]) {
 	int  i                  = 0;
 	int  j                  = 0;
@@ -84,134 +298,6 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 	return 1;
 }
 
-void multiPlayerLoop() {
-
-	/* variabili per gestire gli input */
-	int            inputColumn   = 0;
-	int            inputTetr     = 0;
-	const wchar_t *selectedTetr  = nullptr;
-	int            inputRotation = 0;
-	int            winner        = 0; /* indica il vincitore, 1 -> G1, 2 -> G2, 0 -> nessun ed il gioco continua, -1 -> dipende dal punteggio */
-
-	/* Variabili dei giocatori */
-	int     turn     = 1;
-	int     pointsG1 = 0;
-	int     pointsG2 = 0;
-	wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH];
-	wchar_t screenG2[SCREEN_HEIGHT][SCREEN_WIDTH];
-
-	/**
-	 * Indice rispetto a allTetraminos per indicare i tetramini disponibili al giocatore
-	 */
-	unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X];
-
-	multiSetup(runtimeTetraminos);
-
-	clearScreen(screenG1);
-	clearScreen(screenG2);
-
-	while (!(winner = multiGameShouldEnd(screenG1, screenG2, runtimeTetraminos))) {
-
-		/* in base al turno stampo chi dovrebbe giocare questo turno e imposto al variabile currPoints */
-		if (turn == 1) {
-			printf(" --- Turno G1 --- \n\n");
-		} else {
-			printf(" --- Turno G2 --- \n\n");
-		}
-
-		/* presento tutti i tetramini disponibili con relativi indici */
-		drawRemainingTetraminos(runtimeTetraminos, INITIAL_TETRAMINOS_2X);
-
-		printf("Scegli il tetramino\n");
-		inputTetr = getIntStdin(0, INITIAL_TETRAMINOS_2X);
-
-		if (runtimeTetraminos[inputTetr] == INVALID_TETRAMINO) {
-			printf("Il tetramino n. %d è già stato usato, sceglierne un'altro!\n", inputTetr);
-			continue;
-		}
-
-		/* il numero intero indica quante volta il tetramino deve essere girato in senso orario */
-		printf("Scegli la rotazione, da 0 a 3\n");
-		inputRotation = getIntStdin(0, 4);
-
-		selectedTetr = allTetraminos[runtimeTetraminos[inputTetr]];
-
-		/* stampo il singolo tetramino ruotato correttamente per mostrarlo all'utente */
-		drawSingleTetramino(runtimeTetraminos[inputTetr], inputRotation);
-
-		printf("\n\nScegli la colonna\n");
-		inputColumn = getIntStdin(0, SCREEN_WIDTH);
-
-		/**
-		 * Provo a inserire il tetramino nella posizione specificata.
-		 * In caso di successo faccio cadere il tetramino e lo rimuovo dalla lista di tetramini disponibili
-		 * In caso di fallimento comunico l'errore e ricomincio il ciclo
-		 */
-
-		if (!insert(runtimeTetraminos[inputTetr], turn == 1 ? screenG1 : screenG2, inputColumn, inputRotation)) {
-			/* fallimento */
-			replaceTempTetr(L' ', turn == 1 ? screenG1 : screenG2);
-
-			printf("il tetramino selezionato non può essere posizionato dove richiesto\n");
-
-			/* riparti da inizio ciclo senza cambiare il turno */
-			continue;
-		}
-
-		/* rimuovo il tetramino dalla lista di quelli disponibili */
-		runtimeTetraminos[inputTetr] = INVALID_TETRAMINO;
-
-		/* faccio cadere il tetramino appena inserito, segnato come @, fino al punto più basso */
-		fall(turn == 1 ? screenG1 : screenG2);
-		/* poi sostituisco i segnalini @ con i caratteri corretti */
-		replaceTempTetr(selectedTetr[1], turn == 1 ? screenG1 : screenG2);
-
-		/* calcolo i punti da assegnare in base alle linee che sono state eliminate in questo turno*/
-		if (turn == 1) {
-
-			pointsG1 += calcPoints(multiClearLines(screenG1, screenG2));
-		} else {
-
-			pointsG2 += calcPoints(multiClearLines(screenG2, screenG1));
-		}
-
-		/* mostro la situazione corrente per entrambi i giocatori */
-		multiDrawScreen(screenG1, screenG2, pointsG1, pointsG2);
-
-		getchar();
-
-		/* passo continuamente da 0 a 1 */
-		turn = !turn;
-	}
-
-	switch (winner) {
-	case 1:
-		printf("Vince il giocatore 1");
-		break;
-
-	case 2:
-		printf("Vince il giocatore 2");
-		break;
-
-	case -1:
-		if (pointsG1 > pointsG2) {
-			printf("Vince il giocatore 1");
-			break;
-		}
-
-		if (pointsG1 < pointsG2) {
-			printf("Vince il giocatore 2");
-			break;
-		}
-
-		printf("Pareggio");
-		break;
-
-	default:
-		break;
-	}
-}
-
 void multiSetup(unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X]) {
 
 	unsigned i = 0;
@@ -248,7 +334,9 @@ int multiClearLines(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t scree
 		temp = 1;
 	}
 
-	multiInvertLines(screenG2, res);
+	if (res > 2) {
+		multiInvertLines(screenG2, res);
+	}
 	return res;
 }
 

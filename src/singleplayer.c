@@ -29,6 +29,27 @@ void singlePlayerLoop() {
 	/* loop 1 */
 	while (!gameShouldEnd(screen, runtimeTetraminos)) {
 
+		playerTurn(screen, runtimeTetraminos);
+
+		points += calcPoints(clearLines(screen));
+
+		drawScreen(screen);
+		printf("punti -> %d\n\n", points);
+	}
+
+	printf("Gioco finto!\npunti -> %d", points);
+}
+
+void playerTurn(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]) {
+
+	int            inputColumn   = 0;
+	int            inputTetr     = 0;
+	int            inputRotation = 0;
+	const wchar_t *selectedTetr  = nullptr;
+
+	while (1) {
+
+		/* presento tutti i tetramini disponibili con relativi indici */
 		drawRemainingTetraminos(runtimeTetraminos, INITIAL_TETRAMINOS);
 
 		printf("Scegli il tetramino\n");
@@ -39,15 +60,23 @@ void singlePlayerLoop() {
 			continue;
 		}
 
+		/* il numero intero indica quante volta il tetramino deve essere girato in senso orario */
 		printf("Scegli la rotazione, da 0 a 3\n");
 		inputRotation = getIntStdin(0, 4);
 
 		selectedTetr = allTetraminos[runtimeTetraminos[inputTetr]];
 
+		/* stampo il singolo tetramino ruotato correttamente per mostrarlo all'utente */
 		drawSingleTetramino(runtimeTetraminos[inputTetr], inputRotation);
 
 		printf("\n\nScegli la colonna\n");
 		inputColumn = getIntStdin(0, SCREEN_WIDTH);
+
+		/**
+		 * Provo a inserire il tetramino nella posizione specificata.
+		 * In caso di successo faccio cadere il tetramino e lo rimuovo dalla lista di tetramini disponibili
+		 * In caso di fallimento comunico l'errore e ricomincio il ciclo
+		 */
 
 		if (!insert(runtimeTetraminos[inputTetr], screen, inputColumn, inputRotation)) {
 			/* fallimento */
@@ -55,21 +84,20 @@ void singlePlayerLoop() {
 
 			printf("il tetramino selezionato non può essere posizionato dove richiesto\n");
 
+			/* riparti da inizio ciclo senza cambiare il turno */
 			continue;
 		}
 
-		runtimeTetraminos[inputTetr] = INVALID_TETRAMINO;
-
-		fall(screen);
-		replaceTempTetr(selectedTetr[1], screen);
-
-		points += calcPoints(clearLines(screen));
-
-		drawScreen(screen);
-		printf("punti -> %d\n\n", points);
+		break;
 	}
 
-	printf("Gioco finto!\npunti -> %d", points);
+	/* rimuovo il tetramino dalla lista di quelli disponibili */
+	runtimeTetraminos[inputTetr] = INVALID_TETRAMINO;
+
+	/* faccio cadere il tetramino appena inserito, segnato come @, fino al punto più basso */
+	fall(screen);
+	/* poi sostituisco i segnalini @ con i caratteri corretti */
+	replaceTempTetr(selectedTetr[1], screen);
 }
 
 bool gameShouldEnd(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]) {

@@ -16,7 +16,14 @@ int main() {
 		break;
 
 	case 2:
-		multiPlayerLoop();
+		printf("Contro chi vuoi giocare?\n1) Un altro giocatore locale\n2) CPU");
+		if (getIntStdin(1, 3) == 1) {
+
+			multiPlayerLoop();
+		} else {
+			multiPlayerLoopAI();
+		}
+
 		break;
 	}
 
