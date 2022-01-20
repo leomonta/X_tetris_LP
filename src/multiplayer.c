@@ -170,7 +170,7 @@ void multiInvertLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int count) {
 		for (j = 0; j < SCREEN_WIDTH; ++j) {
 
 			if (screen[i][j] == L' ') {
-				screen[i][j] = L'▣';
+				screen[i][j] = L'▩';
 			} else {
 				screen[i][j] = L' ';
 			}

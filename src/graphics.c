@@ -3,48 +3,49 @@
 #include <stdio.h>
 
 void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size) {
-	unsigned       i           = 0;
-	unsigned       j           = 0;
-	unsigned       index       = 0;
-	unsigned       rowIndex    = 0;
-	unsigned       columnIndex = 0;
-	const unsigned numCols     = 5;
+	unsigned       i              = 0;
+	unsigned       j              = 0;
+	unsigned       index          = 0;
+	unsigned       rowIndex       = 0;
+	unsigned       columnIndex    = 0;
+	const unsigned numCols        = 10;
+	const unsigned tetraminoWidth = 5;
 	wchar_t const *currTetramino;
 	unsigned char  temp;
 
-	wchar_t row[2][25];
+	wchar_t row[2][10 * 5];
 
-	/*
-
-	dato che ogni tetramino occupa un massimo di 4*2
-	faccio colonne grandi 5 (massima lunghezza + spazio)
-	per un arbitrario numero di righe
-
-	per fare ciò, prima 'stampo' i tetramini su un array, 
-	dopo stampo l'array
-
-			col1 col2 col3 col4 col5
-
-	riga 1  #### #### #### #### #### <- sottoriga superiore
-	        #### #### #### #### #### <- sottoriga inferiore
-
-	riga 2  #### #### #### #### ####
-	        #### #### #### #### ####
-
-	riga 3  #### #### #### #### ####
-	        #### #### #### #### ####
-
-	riga 4  #### #### #### #### ####
-	        #### #### #### #### ####
-			^
-			sottocolonna singola
-	*/
+	/**
+	 *
+	 *	dato che ogni tetramino occupa un massimo di 4*2
+	 *	faccio colonne grandi 5 (massima lunghezza + spazio)
+	 *	per un arbitrario numero di righe
+	 *
+	 *	per fare ciò, prima 'stampo' i tetramini su un array, 
+	 *	dopo stampo l'array
+	 *
+	 *			col0 col1 col2 col3 col4 col5 col6 col7 col8 col9
+	 *
+	 *	riga 1  #### #### #### #### #### #### #### #### #### #### <- sottoriga superiore
+	 *			#### #### #### #### #### #### #### #### #### #### <- sottoriga inferiore
+	 *
+	 *	riga 2  #### #### #### #### #### #### #### #### #### ####
+	 *			#### #### #### #### #### #### #### #### #### ####
+	 *
+	 *	riga 3  #### #### #### #### #### #### #### #### #### ####
+	 *			#### #### #### #### #### #### #### #### #### ####
+	 *
+	 *	riga 4  #### #### #### #### #### #### #### #### #### ####
+	 *			#### #### #### #### #### #### #### #### #### ####
+	 *			^
+	 *			sottocolonna singola
+	 */
 
 	/* numero delle righe rispetto al numero di colonne */
 	for (i = 0; i < size / numCols; ++i) {
 
 		/* svuoto la riga */
-		wmemset(&row[0][0], L' ', 25 * 2);
+		wmemset(&row[0][0], L' ', numCols * tetraminoWidth * 2);
 
 		/* per il numero di colonne in una singola riga */
 		for (columnIndex = 0; columnIndex < numCols; ++columnIndex) {
@@ -76,17 +77,17 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size
 					relOrg   = index + 1;
 				} else {
 					/* Se il carattere corrente e' '_' allora inserisci ' ' */
-					row[rowIndex][columnIndex * 5 + index - relOrg] = currTetramino[index] == L'_' ? L' ' : currTetramino[index];
+					row[rowIndex][columnIndex * tetraminoWidth + index - relOrg] = currTetramino[index] == L'_' ? L' ' : currTetramino[index];
 				}
 			}
 		}
 
 		for (j = 0; j < 2; ++j) {
-			for (index = 0; index < 25; ++index) {
+			for (index = 0; index < tetraminoWidth * numCols; ++index) {
 
-				if (index % 5 == 0) {
+				if (index % tetraminoWidth == 0) {
 					if (j == 0) {
-						printf("%2d) ", index / 5 + i * 5);
+						printf("%2d) ", index / 5 + i * numCols);
 					} else {
 						printf("    ");
 					}
