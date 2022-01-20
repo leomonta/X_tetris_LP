@@ -60,29 +60,29 @@ Dovrete consegnare un unico file zip contenente:
 
 3. Documentazione delle funzioni, dei tipi e dei file generata con Doxygen
 	Requisiti
-	Per i progetti di gruppo:
+	Per i progetti di gruppo
 
-		* progetto sufficiente se permette a due utenti di giocare alternando l’inserimento delle proprie mosse
-			tramite input da tastiera (modalità a 2 giocatori interattiva); l’implementazione delle regole del gioco
-			deve essere corretta.
+	* progetto sufficiente se permette a due utenti di giocare alternando l’inserimento delle proprie mosse
+		tramite input da tastiera (modalità a 2 giocatori interattiva); l’implementazione delle regole del gioco
+		deve essere corretta.
 
-		* progetto buono se implementa la modalità giocatore contro computer utilizzando un algoritmo semplice;
-			avete piena libertà di definire una strategia.
+	* progetto buono se implementa la modalità giocatore contro computer utilizzando un algoritmo semplice;
+		avete piena libertà di definire una strategia.
 
-		* progetto ottimo se implementa una strategia più interessante, come ad esempio un algoritmo ricorsivo,
-			per il computer.
-			Tutti i membri del gruppo devono conoscere e saper leggere ogni riga del codice!
+	* progetto ottimo se implementa una strategia più interessante, come ad esempio un algoritmo ricorsivo,
+		per il computer.
+		Tutti i membri del gruppo devono conoscere e saper leggere ogni riga del codice!
 
-	Nel caso di progetti individuali, ad esempio per studenti lavoratori:
+	Nel caso di progetti individuali, ad esempio per studenti lavoratori
 
-		* progetto sufficiente se permette a due utenti di giocare alternando l’inserimento delle proprie mosse
-			tramite input da tastiera; l’implementazione delle regole del gioco può essere ragionevolmente parziale.
+	* progetto sufficiente se permette a due utenti di giocare alternando l’inserimento delle proprie mosse
+		tramite input da tastiera; l’implementazione delle regole del gioco può essere ragionevolmente parziale.
 
-		* progetto buono se permette a due utenti di giocare alternando l’inserimento delle proprie mosse tramite
-			input da tastiera; l’implementazione delle regole deve essere corretta.
+	* progetto buono se permette a due utenti di giocare alternando l’inserimento delle proprie mosse tramite
+		input da tastiera; l’implementazione delle regole deve essere corretta.
 
-		* progetto ottimo se implementa una strategia in grado di giocare contro l’utente; avete piena libertà
-			di definire una strategia.
+	* progetto ottimo se implementa una strategia in grado di giocare contro l’utente; avete piena libertà
+		di definire una strategia.
 
 ## Valutazione
 
