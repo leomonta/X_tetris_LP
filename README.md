@@ -39,3 +39,56 @@ un tetramino fuori dal campo di gioco, dovrà aggiornare il punteggio e l lista 
 passi si ripetono fino alla fine della partita.
 Nel caso multiplayer, il programma dovrà visualizzare entrambi i campi di gioco e chiedere ai due giocatori
 a turno le loro mosse.
+
+## Consegna
+
+Quando?
+Il progetto deve essere consegnato 4 giorni prima la data di ciascun appello. E’ sempre obbligatorio
+iscriversi all’appello di “Esercizi” prof. Spanò per sostenere la discussione del progetto.
+
+Dove?
+Il docente abiliterà la consegna tramite Moodle secondo le scadenze previste.
+
+Cosa?
+Dovrete consegnare un unico file zip contenente:
+1. Una relazione scritta di al massimo 3 pagine che descriva la struttura del vostro progetto,
+	l’organizzazione del lavoro tra i componenti del gruppo, le principali difficoltà incontrate. Relazioni
+	più lunghe verranno penalizzate.
+
+2. Il codice sorgente del progetto in linguaggio ANSI C; eventuali parti di codice scritto in altri dialetti
+	vanno isolati in sorgenti separati ed il progetto dovrà compilare opportunamente.
+
+3. Documentazione delle funzioni, dei tipi e dei file generata con Doxygen
+	Requisiti
+	Per i progetti di gruppo:
+
+		* progetto sufficiente se permette a due utenti di giocare alternando l’inserimento delle proprie mosse
+			tramite input da tastiera (modalità a 2 giocatori interattiva); l’implementazione delle regole del gioco
+			deve essere corretta.
+
+		* progetto buono se implementa la modalità giocatore contro computer utilizzando un algoritmo semplice;
+			avete piena libertà di definire una strategia.
+
+		* progetto ottimo se implementa una strategia più interessante, come ad esempio un algoritmo ricorsivo,
+			per il computer.
+			Tutti i membri del gruppo devono conoscere e saper leggere ogni riga del codice!
+
+	Nel caso di progetti individuali, ad esempio per studenti lavoratori:
+
+		* progetto sufficiente se permette a due utenti di giocare alternando l’inserimento delle proprie mosse
+			tramite input da tastiera; l’implementazione delle regole del gioco può essere ragionevolmente parziale.
+
+		* progetto buono se permette a due utenti di giocare alternando l’inserimento delle proprie mosse tramite
+			input da tastiera; l’implementazione delle regole deve essere corretta.
+
+		* progetto ottimo se implementa una strategia in grado di giocare contro l’utente; avete piena libertà
+			di definire una strategia.
+
+## Valutazione
+
+I criteri di valutazione sono i seguenti:
+	• qualità della relazione:
+		– è completa e chiara come potrebbe esserlo un libro di testo?
+	• qualità del codice:
+		– è ben strutturato in funzioni che risolvono task ben definiti?
+		– è stato fatto un uso dei tipi appropriato?
