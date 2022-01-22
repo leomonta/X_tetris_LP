@@ -24,7 +24,7 @@
   - [X] turni alterni
 - [X] invertire (1 -> 0, 0 -> 1) le righe del giocatore opposto in caso di 2-3 linee eliminate con un solo tetramino
 - [X] se i pezzi finiscono, il giocatore con il punteggio più alto vince
-- [ ] implementare una IA da giocare contro
+- [X] implementare una IA da giocare contro
 
 
 ## Turno
