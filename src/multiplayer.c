@@ -30,6 +30,8 @@ void multiPlayerLoopAI() {
 	clearScreen(screenG1);
 	clearScreen(screenG2);
 
+	multiDrawScreen(screenG1, screenG2, 0, 0);
+
 	while (!(winner = multiGameShouldEnd(screenG1, screenG2, runtimeTetraminos))) {
 
 		/**
@@ -379,6 +381,16 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 		selectedTetramino = runtimeTetraminos[i];
 		/* salta i tetramini non presenti */
 		if (selectedTetramino == INVALID_TETRAMINO) {
+			continue;
+		}
+
+		/**
+		 * provo ad inserire ogni tetramino in ogni posizione in ogni rotazione possibile, 
+		 * se è possibile che succeda anche una volta significa che il gioco per questo giocatore può continuare
+		 */
+
+		/* G1 */
+		for (j = 0; j < SCREEN_WIDTH; ++j) {
 			for (rot = 0; rot < 4; ++rot) {
 				if (insert(selectedTetramino, screenG1, j, rot)) {
 					replaceTempTetr(L' ', screenG1);
