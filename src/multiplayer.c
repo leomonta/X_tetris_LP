@@ -214,12 +214,145 @@ void multiPlayerTurn(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char 
 
 	/* faccio cadere il tetramino appena inserito, segnato come @, fino al punto più basso */
 	fall(screen);
-	/* poi sostituisco i segnalini @ con i caratteri corretti */
+
+	/* poi sostituisco i segnalini @ con il carattere corretto */
 	replaceTempTetr(selectedTetr[1], screen);
 }
 
-void AITurn(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X]) {
+void AITurn(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X]) {
 
+	int indexTetr         = 0;
+	int column            = 0;
+	int rot               = 0;
+	int selectedTetramino = INVALID_TETRAMINO;
+
+	int highScore    = 0;
+	int currScore    = 0;
+	int currStats[4] = {0, 0, 0, 0};
+
+	/**
+	 * parametri da usare per inserire un singolo tetramino 
+	 * 
+	 * 0 -> indice rispetto a runtime tetramino
+	 * 1 -> colonna in cui inserire il tetramino
+	 * 2 -> rotazione del tetramino
+	 */
+	int selected[3] = {0, 0, 0};
+
+	/* faccio tre loop per passare tutti possibili tetramini per ogni rotazione per ogni colonna */
+	for (indexTetr = 0; indexTetr < INITIAL_TETRAMINOS_2X; ++indexTetr) {
+
+		selectedTetramino = runtimeTetraminos[indexTetr];
+
+		/* salta i tetramini non disponibli */
+		if (selectedTetramino == INVALID_TETRAMINO) {
+			continue;
+		}
+
+		for (column = 0; column < SCREEN_WIDTH; ++column) {
+			for (rot = 0; rot < 4; ++rot) {
+
+				/* provo ad inserire il tetramino */
+				if (insert(selectedTetramino, screen, column, rot)) {
+					fall(screen);
+
+					/* il tetramino è inseribile in questa posizione, quindi calcolo le statistiche utili alla CPU per fare le decisioni */
+					multiCalcStats(screen, currStats);
+
+					currScore = calcScore(currStats);
+
+					if (currScore > highScore) {
+						selected[0] = indexTetr;
+						selected[1] = column;
+						selected[2] = rot;
+						highScore   = currScore;
+					}
+				}
+				replaceTempTetr(L' ', screen);
+			}
+		}
+	}
+
+	/* Ho ottenuto la mossa migliore, la eseguo */
+	selectedTetramino = runtimeTetraminos[selected[0]];
+
+	insert(selectedTetramino, screen, selected[1], selected[2]);
+
+	/* rimuovo il tetramino dalla lista di quelli disponibili */
+	runtimeTetraminos[selected[0]] = INVALID_TETRAMINO;
+
+	/* faccio cadere il tetramino appena inserito, segnato come @, fino al punto più basso */
+	fall(screen);
+
+	/* poi sostituisco i segnalini @ con il carattere corretto */
+	replaceTempTetr(allTetraminos[selectedTetramino][1], screen);
+}
+
+void multiCalcStats(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int result[4]) {
+
+	int row    = 0;
+	int column = 0;
+
+	bool highestFound = false;
+	/* controllo per confermare se una riga è completa */
+	bool isEmpty = false;
+
+	result[0] = 0;
+	result[1] = 0;
+	result[2] = 0;
+	result[3] = 0;
+
+	for (row = 0; row < SCREEN_HEIGHT; ++row) {
+		for (column = 0; column < SCREEN_WIDTH; ++column) {
+
+			if (screen[row][column] == L' ') {
+
+				isEmpty = true;
+
+				if (isAHole(screen, row, column)) {
+					++result[3];
+					/* se non è un buco significa che sopra ha solo spazi liberi, quindi può essere il punto più basso accessibile */
+				} else {
+					/* se row == SCREEN_HEIGHT significa che sono alla base del campo, quindi una posizione valida */
+					if (row + 1 == SCREEN_HEIGHT || screen[row + 1][column]) {
+						result[1] = row + 1 > result[1] ? row + 1 : result[1];
+					}
+				}
+				/* se questo è uno spazio vuoto, non può essere il punto più alto, ne il più basso raggiongibile, ne può essere un riga completa */
+				continue;
+			}
+
+			/* il punto più è semplicemente il primo carattere non vuoto che trovo visto che controllo dallìalto al basso*/
+			if (screen[row][column] != L' ') {
+
+				if (!highestFound) {
+					result[0]    = row;
+					highestFound = true;
+				}
+			}
+		}
+
+		if (!isEmpty) {
+			++result[2];
+		}
+		isEmpty = false;
+	}
+}
+
+int calcScore(int stats[4]) {
+	return stats[0] * HIGH_WEIGHT + stats[1] * LOW_WEIGHT + stats[2] * LINES_WEIGHT + stats[3] * HOLES_WEIGHT + abs(stats[1] - stats[0]) * DIFF_WEIGHT;
+}
+
+bool isAHole(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int row, int column) {
+
+	/* avanzo verso l'alto, se trovo un tetramino allora questo è un buco */
+	for (row; row > 0; --row) {
+		if (screen[row][column] != L' ') {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t screenG2[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X]) {
@@ -246,16 +379,6 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 		selectedTetramino = runtimeTetraminos[i];
 		/* salta i tetramini non presenti */
 		if (selectedTetramino == INVALID_TETRAMINO) {
-			continue;
-		}
-
-		/**
-		 * provo ad inserire ogni tetramino in ogni posizione in ogni rotazione possibile, 
-		 * se è possibile che succeda anche una volta significa che il gioco per questo giocatore può continuare
-		 */
-
-		/* G1 */
-		for (j = 0; j < SCREEN_WIDTH; ++j) {
 			for (rot = 0; rot < 4; ++rot) {
 				if (insert(selectedTetramino, screenG1, j, rot)) {
 					replaceTempTetr(L' ', screenG1);

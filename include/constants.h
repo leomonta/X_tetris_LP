@@ -11,6 +11,12 @@
 #define INITIAL_TETRAMINOS_2X INITIAL_TETRAMINOS * 2
 #define INVALID_TETRAMINO  0xff
 
+#define HIGH_WEIGHT 2
+#define LOW_WEIGHT 1
+#define LINES_WEIGHT 10
+#define HOLES_WEIGHT -1
+#define DIFF_WEIGHT -1
+
 /**
  * 0x2550 -> 0x256C
  * 0x2550 ═ ║ ╒ ╓ ╔ ╕ ╖ ╗ ╘ ╙ ╚ ╛ ╜ ╝ ╞ ╟ 
