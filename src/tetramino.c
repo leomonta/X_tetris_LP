@@ -20,7 +20,7 @@ void fall(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 						_exit = true;
 						break;
 					}
-					/* Se la prossima cella non è libera e non è un'altro carattere temporaneo esco */
+					/* Se la prossima cella non e' libera e non e' un'altro carattere temporaneo esco */
 					if (screen[i + 1][j] != ' ' && screen[i + 1][j] != L'@') {
 						_exit = true;
 					}
@@ -73,9 +73,9 @@ bool insert(int numTetramino, wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int c
 
 			if (*currTetramino != L'_') {
 
-				/* Controllo se sto per rimpiazzare un tetramino già presente o fuori dallo schermo */
+				/* Controllo se sto per rimpiazzare un tetramino gia' presente o fuori dallo schermo */
 				if (screen[currRow][currColumn] != L' ' || !checkBounds(currColumn, currRow)) {
-					/* Sto tentando di inserire un tetramino dove non c'è spazio, ritorno false */
+					/* Sto tentando di inserire un tetramino dove non c'e' spazio, ritorno false */
 					return false;
 				}
 
@@ -116,7 +116,7 @@ void playerTurn(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char *runt
 		inputTetr = getIntStdin(0, size);
 
 		if (runtimeTetraminos[inputTetr] == INVALID_TETRAMINO) {
-			printf("Il tetramino n. %d è già stato usato, sceglierne un'altro!\n", inputTetr);
+			printf("Il tetramino n. %d e' gia' stato usato, sceglierne un'altro!\n", inputTetr);
 			continue;
 		}
 
@@ -140,7 +140,7 @@ void playerTurn(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char *runt
 			/* Fallimento */
 			replaceTempTetr(L' ', screen);
 
-			printf("il tetramino selezionato non può essere posizionato dove richiesto\n");
+			printf("il tetramino selezionato non puo' essere posizionato dove richiesto\n");
 
 			/* Riparti da inizio ciclo senza cambiare il turno */
 			continue;
@@ -154,7 +154,7 @@ void playerTurn(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char *runt
 	/* Rimuovo il tetramino dalla lista di quelli disponibili */
 	runtimeTetraminos[inputTetr] = INVALID_TETRAMINO;
 
-	/* Faccio cadere il tetramino appena inserito, segnato come @, fino al punto più basso */
+	/* Faccio cadere il tetramino appena inserito, segnato come @, fino al punto piu' basso */
 	fall(screen);
 
 	/* Poi sostituisco i segnalini @ con il carattere corretto */

@@ -10,9 +10,9 @@
 void singlePlayerLoop();
 
 /**
- * Decide se la partita è ancora giocabile e ritorna un vaore booleano appropriato
- * true(1)  -> non ci sono più tetramini utilizzabili o se non c'è più spazio per inserirli nel campo
- * false(0) -> la partita è ancora giocabile
+ * Decide se la partita e' ancora giocabile e ritorna un vaore booleano appropriato
+ * true(1)  -> non ci sono piu' tetramini utilizzabili o se non c'e' piu' spazio per inserirli nel campo
+ * false(0) -> la partita e' ancora giocabile
  * 
  */
 bool gameShouldEnd(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]);

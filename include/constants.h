@@ -6,12 +6,11 @@
 #define SCREEN_HEIGHT 15
 #define nullptr 0x0
 
-
 /* Costanti per i tetramini */
-#define NUM_TETRAMINOS        7  /* Tipi diversi di tetramini esistenti */
-#define INITIAL_TETRAMINOS    20 /* Numero di tetramini disponibili nelle partite a giocatore singolo */
+#define NUM_TETRAMINOS        7                      /* Tipi diversi di tetramini esistenti */
+#define INITIAL_TETRAMINOS    20                     /* Numero di tetramini disponibili nelle partite a giocatore singolo */
 #define INITIAL_TETRAMINOS_2X INITIAL_TETRAMINOS * 2 /* Numero di tetramini disponibili nella partite multigiocatore */
-#define INVALID_TETRAMINO     0xff /* Indice a tetramino invalido */
+#define INVALID_TETRAMINO     0xff                   /* Indice a tetramino invalido */
 
 /* Coefficenti per calcolare lo score di una mossa */
 #define HIGH_WEIGHT  2
@@ -35,7 +34,7 @@
  * / indica a capo
  * * indica fine del tetramino
  * 
- * Rappresento già i tetramini ruotati, così non devo calcolarli al volo
+ * Rappresento gia' i tetramini ruotati, cosi' non devo calcolarli al volo
  */
 
 /**

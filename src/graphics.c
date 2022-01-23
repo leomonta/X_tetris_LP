@@ -20,7 +20,7 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size
 	 *	faccio colonne grandi 5 (massima lunghezza + spazio)
 	 *	per un arbitrario numero di righe
 	 *
-	 *	per fare ciò, prima 'stampo' i tetramini su un array, 
+	 *	per fare cio', prima 'stampo' i tetramini su un array, 
 	 *	dopo stampo l'array
 	 *
 	 *			col0 col1 col2 col3 col4 col5 col6 col7 col8 col9
@@ -68,7 +68,7 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size
 			for (index = 0, minorRow = 0; currTetramino[index] != L'*'; ++index, ++offset) {
 
 				/**
-				 * Se il carattere corrente è un 'a capo' -> '/' mi sposto sulla sottoriga inferiore, aggiorno l'offet di sottocolonna
+				 * Se il carattere corrente e' un 'a capo' -> '/' mi sposto sulla sottoriga inferiore, aggiorno l'offet di sottocolonna
 				 * altrimenti inserisco il carattere corrente 
 				 */
 				if (currTetramino[index] == L'/') {

@@ -57,7 +57,7 @@ bool gameShouldEnd(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char ru
 	for (i = 0; i < INITIAL_TETRAMINOS; ++i) {
 		selectedTetramino = runtimeTetraminos[i];
 
-		/* Salta i tetramini già usati */
+		/* Salta i tetramini gia' usati */
 		if (selectedTetramino == INVALID_TETRAMINO) {
 			continue;
 		}
@@ -77,7 +77,7 @@ bool gameShouldEnd(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char ru
 		}
 	}
 
-	printf("non c'è più spazio per i tetramini\n");
+	printf("non c'e' piu' spazio per i tetramini\n");
 	return true;
 }
 
@@ -95,8 +95,8 @@ void setup(unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]) {
 }
 
 int clearLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
-	int i    = 0;
-	int j    = 0;
+	int i      = 0;
+	int j      = 0;
 	int isFull = 1;
 
 	int res = 0;
@@ -104,7 +104,7 @@ int clearLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 	for (i = 0; i < SCREEN_HEIGHT; ++i) {
 		for (j = 0; j < SCREEN_WIDTH; ++j) {
 
-			/* Se c'è un carattere vuoto non è una riga piena, esco dal loop segnalandolo con isFull = 0  */
+			/* Se c'e' un carattere vuoto non e' una riga piena, esco dal loop segnalandolo con isFull = 0  */
 			if (screen[i][j] == L' ') {
 				isFull = 0;
 				break;

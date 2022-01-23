@@ -1,18 +1,18 @@
 ## General
 
-- [X] Menù principale che permette
+- [X] Menu' principale che permette
   - [X] Single Player
   - [X] Local Multiplayer
 
 - [X] rappresentare i singoli tetramini
 - [X] metodo per inserire i tetramini nel campo ad una posizione e rotazione specifica controllando gli estremi
-- [X] decidere i 20 (o più) tetramini iniziali
+- [X] decidere i 20 (o piu') tetramini iniziali
 - [X] far cadere i tetramini
 - [X] riconoscere ed eliminare le linee complete + dare punti per esse 
   - [X] punti = 2^(righe eliminate - 1) * 1.5f arrotondato per difetto
 - [X] capire quando il gioco finisce
-  - [X] non ci sono più tetramini
-  - [X] non c'è più posto per i tetramini
+  - [X] non ci sono piu' tetramini
+  - [X] non c'e' piu' posto per i tetramini
 
 
 ## Multi-player
@@ -23,7 +23,7 @@
   - [X] due contatori per il punteggio
   - [X] turni alterni
 - [X] invertire (1 -> 0, 0 -> 1) le righe del giocatore opposto in caso di 2-3 linee eliminate con un solo tetramino
-- [X] se i pezzi finiscono, il giocatore con il punteggio più alto vince
+- [X] se i pezzi finiscono, il giocatore con il punteggio piu' alto vince
 - [X] implementare una IA da giocare contro
 
 

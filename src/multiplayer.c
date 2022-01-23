@@ -154,7 +154,7 @@ void AITurn(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTe
 				if (insert(selectedTetramino, screen, column, rot)) {
 					fall(screen);
 
-					/* Il tetramino è inseribile in questa posizione, quindi calcolo le statistiche utili alla CPU per fare le decisioni */
+					/* Il tetramino e' inseribile in questa posizione, quindi calcolo le statistiche utili alla CPU per fare le decisioni */
 					multiCalcStats(screen, currStats);
 
 					currScore = calcScore(currStats);
@@ -180,7 +180,7 @@ void AITurn(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTe
 	/* Rimuovo il tetramino dalla lista di quelli disponibili */
 	runtimeTetraminos[selected[0]] = INVALID_TETRAMINO;
 
-	/* Faccio cadere il tetramino appena inserito, segnato come @, fino al punto più basso */
+	/* Faccio cadere il tetramino appena inserito, segnato come @, fino al punto piu' basso */
 	fall(screen);
 
 	/* Poi sostituisco i segnalini @ con il carattere corretto */
@@ -193,7 +193,7 @@ void multiCalcStats(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int result[4]) 
 	int column = 0;
 
 	bool highestFound = false;
-	/* Controllo per confermare se una riga è completa */
+	/* Controllo per confermare se una riga e' completa */
 	bool isEmpty = false;
 
 	result[0] = 0;
@@ -206,13 +206,13 @@ void multiCalcStats(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int result[4]) 
 
 			if (screen[row][column] == L' ') {
 
-				/* Ho trovato uno spazio, la riga non è piena */
+				/* Ho trovato uno spazio, la riga non e' piena */
 				isEmpty = true;
 
 				if (isAHole(screen, row, column)) {
 					++result[3];
 
-					/* Se non è un buco significa che sopra ha solo spazi liberi, quindi può essere il punto più basso accessibile */
+					/* Se non e' un buco significa che sopra ha solo spazi liberi, quindi puo' essere il punto piu' basso accessibile */
 				} else {
 					/* Se row + 1 == SCREEN_HEIGHT significa che sono alla base del campo, quindi una posizione valida */
 					if (row + 1 == SCREEN_HEIGHT || screen[row + 1][column]) {
@@ -220,11 +220,11 @@ void multiCalcStats(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int result[4]) 
 					}
 				}
 
-				/* Se questo è uno spazio vuoto, non può essere il punto più alto */
+				/* Se questo e' uno spazio vuoto, non puo' essere il punto piu' alto */
 				continue;
 			}
 
-			/* Il punto più alto è semplicemente il primo carattere non vuoto che trovo visto che controllo dall'alto al basso*/
+			/* Il punto piu' alto e' semplicemente il primo carattere non vuoto che trovo visto che controllo dall'alto al basso*/
 			if (screen[row][column] != L' ') {
 
 				if (!highestFound) {
@@ -248,7 +248,7 @@ int calcScore(int stats[4]) {
 
 bool isAHole(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int row, int column) {
 
-	/* Avanzo verso l'alto, se trovo un tetramino allora questo è un buco */
+	/* Avanzo verso l'alto, se trovo un tetramino allora questo e' un buco */
 	for (row; row > 0; --row) {
 		if (screen[row][column] != L' ') {
 			return true;
@@ -289,7 +289,7 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 
 		/**
 		 * Provo ad inserire ogni tetramino in ogni posizione e in ogni rotazione possibile
-		 * Se è possibile che succeda anche una volta significa che il gioco per questo giocatore può continuare
+		 * Se e' possibile che succeda anche una volta significa che il gioco per questo giocatore puo' continuare
 		 */
 
 		/* G1 */
@@ -316,7 +316,7 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 		}
 	}
 
-	/* se non c'è più spazio nel campo del G1, deve aver vinto il G2 */
+	/* se non c'e' piu' spazio nel campo del G1, deve aver vinto il G2 */
 	if (G1Full) {
 		return 2;
 	}
@@ -338,7 +338,7 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 
 					/**
 					 * Successo 
-					 * il campo del G2 ha ancora spazio quindi il gioco può continuare per entrambi i giocatore 
+					 * il campo del G2 ha ancora spazio quindi il gioco puo' continuare per entrambi i giocatore 
 					 * posso uscire direttamente dalla funzione
 					 */
 
@@ -350,7 +350,7 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 		}
 	}
 
-	/* c'è spazio nel campo del G1, non c'è spazio nel campo del G2, vince G1*/
+	/* c'e' spazio nel campo del G1, non c'e' spazio nel campo del G2, vince G1*/
 	return 1;
 }
 
@@ -378,7 +378,7 @@ int multiClearLines(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t scree
 	for (i = 0; i < SCREEN_HEIGHT; ++i) {
 		for (j = 0; j < SCREEN_WIDTH; ++j) {
 
-			/* Se c'è un carattere vuoto non è una riga piena, esco dal loop segnalandolo con isFull = 0  */
+			/* Se c'e' un carattere vuoto non e' una riga piena, esco dal loop segnalandolo con isFull = 0  */
 			if (screenG1[i][j] == L' ') {
 				isFull = 0;
 				break;

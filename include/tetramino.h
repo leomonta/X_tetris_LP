@@ -6,7 +6,7 @@
 #include "constants.h"
 
 /**
- * Fa cadere i teramini fluttuanti, segnati da '@', fino al punto più basso che possono
+ * Fa cadere i teramini fluttuanti, segnati da '@', fino al punto piu' basso che possono
  */
 void fall(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]);
 
@@ -19,7 +19,7 @@ void replaceTempTetr(wchar_t replaceWith, wchar_t screen[SCREEN_HEIGHT][SCREEN_W
  * Inserisce il tetramino dato alla posizione specificata nello schermo ed alla rotazione specificata
  * Ritorna
  * true(1)  -> l'operazione ha avuto successo
- * false(0) -> l'operazione non può essere effettuata
+ * false(0) -> l'operazione non puo' essere effettuata
  * 
  * rotazione:
  * 0 -> 0°   in senso orario
