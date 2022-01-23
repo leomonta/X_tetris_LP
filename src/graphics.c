@@ -3,13 +3,12 @@
 #include <stdio.h>
 
 void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size) {
-	unsigned       i              = 0;
-	unsigned       j              = 0;
-	unsigned       index          = 0;
-	unsigned       rowIndex       = 0;
-	unsigned       columnIndex    = 0;
-	const unsigned numCols        = 10;
-	const unsigned tetraminoWidth = 5;
+	unsigned       rowIndex    = 0;  /* indice di Riga, scorre le N righe trovate da  size(numero totale tetramini) / numCols */
+	unsigned       columnIndex = 0;  /* indice di Colonna, scorre da 0 a numCols, usato per stampare nell'array e sullo schermo */
+	unsigned       index       = 0;  /* indice per scorrere la stringa del tetramino */
+	unsigned       minorRow    = 0;  /* indice di sottoriga, usato per stampare nell'array e sullo schermo */
+	const unsigned numCols     = 10; /* massimo numero di colonne per righe*/
+	const unsigned columnWidth = 5;  /* larghezza di ogni colonna */
 	wchar_t const *currTetramino;
 	unsigned char  temp;
 
@@ -26,8 +25,8 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size
 	 *
 	 *			col0 col1 col2 col3 col4 col5 col6 col7 col8 col9
 	 *
-	 *	riga 1  #### #### #### #### #### #### #### #### #### #### <- sottoriga superiore
-	 *			#### #### #### #### #### #### #### #### #### #### <- sottoriga inferiore
+	 *	riga 1  #### #### #### #### #### #### #### #### #### #### <- sottoriga superiore (0)
+	 *			#### #### #### #### #### #### #### #### #### #### <- sottoriga inferiore (1)
 	 *
 	 *	riga 2  #### #### #### #### #### #### #### #### #### ####
 	 *			#### #### #### #### #### #### #### #### #### ####
@@ -42,20 +41,20 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size
 	 */
 
 	/* numero delle righe rispetto al numero di colonne */
-	for (i = 0; i < size / numCols; ++i) {
+	for (rowIndex = 0; rowIndex < size / numCols; ++rowIndex) {
 
 		/* svuoto la riga */
-		wmemset(&row[0][0], L' ', numCols * tetraminoWidth * 2);
+		wmemset(&row[0][0], L' ', numCols * columnWidth * 2);
 
 		/* per il numero di colonne in una singola riga */
 		for (columnIndex = 0; columnIndex < numCols; ++columnIndex) {
-			/* 
-			offset negativo per scrivere alla posizione corretta della riga inferiore quando
-			avviene il cambiamento della sottoriga
+			/**
+			 * Scostamento dall'inizio della colonna dove stampare
 			 */
-			unsigned relOrg = 0;
+			unsigned offset = 0;
 
-			temp = runtimeTetraminos[i * numCols + columnIndex];
+			/* ottenfo l'indice del tetramino */
+			temp = runtimeTetraminos[rowIndex * numCols + columnIndex];
 
 			/* in caso di tetramino rimosso salta */
 			if (temp == INVALID_TETRAMINO) {
@@ -65,35 +64,43 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size
 			/* Ottengo la stringa del tetramino */
 			currTetramino = allTetraminos[temp];
 
-			/* Fa il loop per ogni carattere della stringa */
-			for (index = 0, rowIndex = 0; currTetramino[index] != '*'; ++index) {
+			/* Fa il loop per ogni carattere della stringa del tetramino */
+			for (index = 0, minorRow = 0; currTetramino[index] != L'*'; ++index, ++offset) {
 
-				/* 
-				Se il carattere corrente è un 'a capo' -> '/' mi sposto sulla riga inferiore, aggiorno l'offet di sottocolonna
-				altrimenti inserisce il carattere corrente 
-				*/
-				if (currTetramino[index] == '/') {
-					rowIndex = 1;
-					relOrg   = index + 1;
+				/**
+				 * Se il carattere corrente è un 'a capo' -> '/' mi sposto sulla sottoriga inferiore, aggiorno l'offet di sottocolonna
+				 * altrimenti inserisco il carattere corrente 
+				 */
+				if (currTetramino[index] == L'/') {
+					minorRow = 1;  /* mi sposto sulla sottoriga inferiore */
+					offset   = -1; /* correggo il ++offset del ciclo for*/
 				} else {
-					/* Se il carattere corrente e' '_' allora inserisci ' ' */
-					row[rowIndex][columnIndex * tetraminoWidth + index - relOrg] = currTetramino[index] == L'_' ? L' ' : currTetramino[index];
+
+					/**
+					 * row[minorRow]			-> accedo alla sottoriga corretta
+					 * columnIndex * columWidth -> mi posiziono all'inizio della sottocolonna corretta
+					 * + offset					-> mi sposto di quanti caratteri ho stampato dopo l'inizio / a capo
+					 * 
+					 * Se il carattere corrente e' '_' allora inserisci ' '
+					 */
+					row[minorRow][columnIndex * columnWidth + offset] = currTetramino[index] == L'_' ? L' ' : currTetramino[index];
 				}
 			}
 		}
 
-		for (j = 0; j < 2; ++j) {
-			for (index = 0; index < tetraminoWidth * numCols; ++index) {
+		/* Stampo l'array a schermo */
+		for (minorRow = 0; minorRow < 2; ++minorRow) {
+			for (columnIndex = 0; columnIndex < columnWidth * numCols; ++columnIndex) {
 
-				if (index % tetraminoWidth == 0) {
-					if (j == 0) {
-						printf("%2d) ", index / 5 + i * numCols);
+				if (columnIndex % columnWidth == 0) {
+					if (minorRow == 0) {
+						printf("%2d) ", columnIndex / 5 + rowIndex * numCols);
 					} else {
 						printf("    ");
 					}
 				}
 
-				printf("%lc ", row[j][index]);
+				printf("%lc ", row[minorRow][columnIndex]);
 			}
 
 			printf("\n");
@@ -121,7 +128,7 @@ void drawScreen(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 	printf("╚═════════════════════╝\n");
 }
 
-void multiDrawScreen(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t screenG2[SCREEN_HEIGHT][SCREEN_WIDTH], int pointsG1, int pointsG2) {
+void multiDrawScreen(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t screenG2[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 
 	char i, j;
 
@@ -130,26 +137,27 @@ void multiDrawScreen(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t scre
 	printf("╠═════════════════════╣    ╠═════════════════════╣\n");
 
 	for (i = 0; i < SCREEN_HEIGHT; ++i) {
+		/* campo G1 */
 		printf("%lc ", L'║');
 		for (j = 0; j < SCREEN_WIDTH; ++j) {
 			printf("%lc ", screenG1[i][j]);
 		}
+
+		/* campo G2 */
 		printf("%lc    %lc ", L'║', L'║');
 		for (j = 0; j < SCREEN_WIDTH; ++j) {
 			printf("%lc ", screenG2[i][j]);
 		}
 		printf("%lc", L'║');
+
 		printf("\n");
 	}
 	printf("╠═════════════════════╣    ╠═════════════════════╣\n");
 	printf("║ 0 1 2 3 4 5 6 7 8 9 ║    ║ 0 1 2 3 4 5 6 7 8 9 ║\n");
 	printf("╚═════════════════════╝    ╚═════════════════════╝\n\n");
-
-	printf("Punti ->             %-5d                      %-5d\n\n", pointsG1, pointsG2); /* %5d dovrebbe agguingere il padding necessario ad allineare tutto*/
 }
 
 void clearScreen(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
-
 	wmemset(&screen[0][0], L' ', SCREEN_HEIGHT * SCREEN_WIDTH);
 }
 
@@ -157,14 +165,18 @@ void drawSingleTetramino(int numTetramino, int rotation) {
 
 	const wchar_t *curr = tetraminosRotation[rotation][numTetramino];
 
+	/* '*' significa fine tetramino */
 	while (*curr != L'*') {
 
+		/* '/' significa a capo */
 		if (*curr == L'/') {
 			printf("\n");
 		} else {
+			/* al posto di '_' stampa ' ' */
 			printf("%lc ", *curr == L'_' ? L' ' : *curr);
 		}
 
+		/* prossimo carattere */
 		++curr;
 	}
 }

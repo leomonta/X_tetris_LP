@@ -5,12 +5,13 @@
 #include "utils.h"
 
 int calcPoints(int num) {
-	/*2^(righe eliminate - 1) * 1.5f arrotondato per difetto*/
+	/* 2^(righe eliminate - 1) * 1.5f arrotondato per difetto */
 	return (int)(pow(2, num - 1) * 1.5);
 }
 
 void clearStdin() {
 	int c;
+	/* leggo caratteri fino a che non trovo un \n o un fine File EOF */
 	while ((c = getchar()) != '\n' && c != EOF) {
 	}
 }
@@ -22,8 +23,13 @@ int getIntStdin(int lowBound, int highBound) {
 	while (1) {
 
 		printf("numero -> ");
+		/**
+		 * scanf ritorna il numero di parametri correttamente assegnati alle variabili date
+		 * uso questo numero per controllare che l'operazione di input sia stata effettuata correttamente
+		 */
 		retVal = scanf("%d", &inputTetr);
 
+		/* Rimuovo eventuali caratteri rimasti */
 		clearStdin();
 
 		if (retVal == 1 && inputTetr >= lowBound && inputTetr < highBound) {

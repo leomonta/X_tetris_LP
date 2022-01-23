@@ -4,17 +4,21 @@
 
 #include "constants.h"
 
+/**
+ * Gestisce il gioco a giocatore singolo
+ */
 void singlePlayerLoop();
 
-void playerTurn(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]);
-
 /**
- * Ritorna true se non ci sono più tetramini utilizzabili o se non c'è più posto per essi
+ * Decide se la partita è ancora giocabile e ritorna un vaore booleano appropriato
+ * true(1)  -> non ci sono più tetramini utilizzabili o se non c'è più spazio per inserirli nel campo
+ * false(0) -> la partita è ancora giocabile
+ * 
  */
 bool gameShouldEnd(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]);
 
 /**
- * Inizializza i tetramini iniziali
+ * Inizializza il generatore di numeri casuali e sceglie i tetramini che saranno usati nella partita
  */
 void setup(unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]);
 
@@ -24,7 +28,7 @@ void setup(unsigned char runtimeTetraminos[INITIAL_TETRAMINOS]);
 int clearLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]);
 
 /**
- * Sposta le linee minori (quindi sopra) del valore dato di uno in giù
- * eliminando lo spazio vuoto
+ * Sposta in basso di una posizione tutte le linee da line in su
+ * effettivamente cancellando la linea all'indice line
  */
 void fixLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int row);

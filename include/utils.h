@@ -4,9 +4,8 @@
 
 #include "constants.h"
 
-
 /**
- * Calcola il numero di punti per riga eliminate insieme
+ * Calcola il numero di punti dati dalle righe eliminate insieme
  */
 int calcPoints(int num);
 
@@ -16,17 +15,18 @@ int calcPoints(int num);
 void clearStdin();
 
 /**
- * Riceve un input da tastiera e controlla la sua validità rispetto ai bound dati per parametro
+ * Riceve un input da tastiera e controlla la sua validità rispetto ai limiti dati per parametro
  * lowBound incluso, highBound escluso
  */
 int getIntStdin(int lowBound, int highBound);
 
 /**
- *  imposta il locale, praticamente il charset utilizzato, a utf-8 per poter disegnare i simboli speciali
+ * Imposta il locale, il charset utilizzato, a UTF-8 per poter stampare i simboli speciali
+ * Ritorna il vecchio locale per poterlo riutillzarlo
  */
 char* setupLocale();
 
 /**
- *  rimuove il locale, praticamente il charset utilizzato, reimpostando quello presente precedentemente
+ * rimuove il locale, il charset utilizzato, reimpostando quello presente precedentemente
  */
 void cleanupLocale(char* locale);

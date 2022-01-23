@@ -6,6 +6,7 @@
 
 int main() {
 
+	/* salva il vecchio locale per ristabilirlo in seguito*/
 	char *old_locale = setupLocale();
 
 	printf("Seleziona la modalita' di gioco\n1) Giocatore singolo\n2) Due giocatori\n");
@@ -17,12 +18,8 @@ int main() {
 
 	case 2:
 		printf("Contro chi vuoi giocare?\n1) Un altro giocatore locale\n2) CPU\n");
-		if (getIntStdin(1, 3) == 1) {
 
-			multiPlayerLoop();
-		} else {
-			multiPlayerLoopAI();
-		}
+		multiPlayerLoop(getIntStdin(1, 3) == 2);
 
 		break;
 	}

@@ -48,8 +48,8 @@ const wchar_t tetr_T_3[9] = {L'_', L'■', L'/',
  * # # /
  * # # *
  */
-const wchar_t tetr_Q_0[6] = {L'◲', L'◱', L'/',
-							 L'◳', L'◰', L'*'};
+const wchar_t tetr_Q_0[6] = {L'◱', L'◱', L'/',
+							 L'◱', L'◱', L'*'};
 
 /**
  * # # # /
