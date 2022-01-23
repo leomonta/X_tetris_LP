@@ -30,6 +30,15 @@
 				"kind": "build",
 				"isDefault": true
 			}
+		},
+		{
+			"type": "shell",
+			"label": "Doxygen Genarate documentation",
+			"command": "doxygen",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		}
 	]
 }

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <wchar.h>
 
 #include "graphics.h"
 #include "multiplayer.h"
@@ -10,7 +9,7 @@
 
 void multiPlayerLoop(bool AI) {
 
-	/**
+	/*
 	 * indica il vincitore 
 	 * 1 -> G1
 	 * 2 -> G2
@@ -26,7 +25,7 @@ void multiPlayerLoop(bool AI) {
 	wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH];
 	wchar_t screenG2[SCREEN_HEIGHT][SCREEN_WIDTH];
 
-	/**
+	/*
 	 * Indici rispetto a allTetraminos per indicare i tetramini disponibili al giocatore
 	 */
 	unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X];
@@ -41,7 +40,7 @@ void multiPlayerLoop(bool AI) {
 	/* Assegna e conmporaneamente controlla il vincitore */
 	while (!(winner = multiGameShouldEnd(screenG1, screenG2, runtimeTetraminos))) {
 
-		/**
+		/*
 		 * In base al turno:
 		 * 
 		 * Stampo chi dovrebbe giocare questo turno
@@ -128,7 +127,7 @@ void AITurn(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char runtimeTe
 	int currScore    = 0;
 	int currStats[4] = {0, 0, 0, 0};
 
-	/**
+	/*
 	 * Parametri da usare per inserire un singolo tetramino 
 	 * 
 	 * 0 -> indice rispetto a runtime tetramino
@@ -287,7 +286,7 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 			continue;
 		}
 
-		/**
+		/*
 		 * Provo ad inserire ogni tetramino in ogni posizione e in ogni rotazione possibile
 		 * Se e' possibile che succeda anche una volta significa che il gioco per questo giocatore puo' continuare
 		 */
@@ -299,7 +298,7 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 				/* Provo ad inserire il tetramino */
 				if (insert(selectedTetramino, screenG1, j, rot)) {
 
-					/**
+					/*
 					 * Successo 
 					 * il campo del G1 ha ancora spazio quindi posso controllare il campo del G2
 					 * spingo gli indici oltre i limiti per uscire dal loop
@@ -336,7 +335,7 @@ int multiGameShouldEnd(wchar_t screenG1[SCREEN_HEIGHT][SCREEN_WIDTH], wchar_t sc
 				/* Provo ad inserire il tetramino */
 				if (insert(selectedTetramino, screenG2, j, rot)) {
 
-					/**
+					/*
 					 * Successo 
 					 * il campo del G2 ha ancora spazio quindi il gioco puo' continuare per entrambi i giocatore 
 					 * posso uscire direttamente dalla funzione

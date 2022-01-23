@@ -12,7 +12,7 @@ void singlePlayerLoop() {
 	int     points = 0;
 	wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH];
 
-	/**
+	/*
 	 * Indice rispetto a allTetraminos per indicare i tetramini disponibili al giocatore
 	 */
 	unsigned char runtimeTetraminos[INITIAL_TETRAMINOS];

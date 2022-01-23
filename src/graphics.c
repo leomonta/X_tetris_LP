@@ -14,7 +14,8 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size
 
 	wchar_t row[2][10 * 5];
 
-	/**
+	/*
+	 * Per Rappresentare più tetramini in una riga seguo questo schema
 	 *
 	 *	dato che ogni tetramino occupa un massimo di 4*2
 	 *	faccio colonne grandi 5 (massima lunghezza + spazio)
@@ -48,7 +49,7 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size
 
 		/* per il numero di colonne in una singola riga */
 		for (columnIndex = 0; columnIndex < numCols; ++columnIndex) {
-			/**
+			/*
 			 * Scostamento dall'inizio della colonna dove stampare
 			 */
 			unsigned offset = 0;
@@ -67,8 +68,12 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size
 			/* Fa il loop per ogni carattere della stringa del tetramino */
 			for (index = 0, minorRow = 0; currTetramino[index] != L'*'; ++index, ++offset) {
 
-				/**
+				/*
 				 * Se il carattere corrente e' un 'a capo' -> '/' mi sposto sulla sottoriga inferiore, aggiorno l'offet di sottocolonna
+				 * altrimenti inserisco il carattere corrente 
+				 * altrimenti inserisco il carattere corrente 
+				 * altrimenti inserisco il carattere corrente 
+				 * altrimenti inserisco il carattere corrente 
 				 * altrimenti inserisco il carattere corrente 
 				 */
 				if (currTetramino[index] == L'/') {
@@ -76,10 +81,14 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size
 					offset   = -1; /* correggo il ++offset del ciclo for*/
 				} else {
 
-					/**
+					/*
 					 * row[minorRow]			-> accedo alla sottoriga corretta
 					 * columnIndex * columWidth -> mi posiziono all'inizio della sottocolonna corretta
 					 * + offset					-> mi sposto di quanti caratteri ho stampato dopo l'inizio / a capo
+					 * 
+					 * 
+					 * 
+					 * 
 					 * 
 					 * Se il carattere corrente e' '_' allora inserisci ' '
 					 */

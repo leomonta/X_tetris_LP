@@ -1,3 +1,21 @@
+/**
+ * @file
+ * Dichiaro tutte le costanti necessarie nel programma come misure varie e tetramini
+ * 
+ * Rappresentazione dei tetramini come array
+ * * ' _ ' indica uno spazio vuoto
+ * * ' / ' indica a capo
+ * * ' * ' indica fine del tetramino
+ * 
+ * Rappresento gia' i tetramini ruotati, cosi' non devo calcolarli al volo
+ *
+ * Vari simboli UTF-8 usati \n
+ * 0x2550 ═ ║ ╒ ╓ ╔ ╕ ╖ ╗ ╘ ╙ ╚ ╛ ╜ ╝ ╞ ╟ \n
+ * 0x2560 ╠ ╡ ╢ ╣ ╤ ╥ ╦ ╧ ╨ ╩ ╪ ╫ ╬ \n
+ * 0x25a0 ■ □ ▢ ▣ ▤ ▥ ▦ ▧ ▨ ▩ ◰ ◱ ◲ ◳ \n
+ * 0x2b10 ⬐ ⬑ ⬒ ⬓ ⬔ ⬕ ⬖ ⬗ ⬘ ⬙ ⬚   ⬝ ⬞ ⬟ \n
+ */
+
 #pragma once
 
 #include <wchar.h>
@@ -7,35 +25,51 @@
 #define nullptr 0x0
 
 /* Costanti per i tetramini */
-#define NUM_TETRAMINOS        7                      /* Tipi diversi di tetramini esistenti */
-#define INITIAL_TETRAMINOS    20                     /* Numero di tetramini disponibili nelle partite a giocatore singolo */
-#define INITIAL_TETRAMINOS_2X INITIAL_TETRAMINOS * 2 /* Numero di tetramini disponibili nella partite multigiocatore */
-#define INVALID_TETRAMINO     0xff                   /* Indice a tetramino invalido */
 
-/* Coefficenti per calcolare lo score di una mossa */
-#define HIGH_WEIGHT  2
-#define LOW_WEIGHT   1
+/**
+ * Tipi diversi di tetramini esistenti 
+ */
+#define NUM_TETRAMINOS 7
+
+/**
+ * Numero di tetramini disponibili nelle partite a giocatore singolo 
+ */
+#define INITIAL_TETRAMINOS 20
+
+/**
+ * Numero di tetramini disponibili nella partite multigiocatore 
+ */
+#define INITIAL_TETRAMINOS_2X INITIAL_TETRAMINOS * 2
+
+/**
+ * Indice a tetramino invalido 
+ */
+#define INVALID_TETRAMINO 0xff
+
+/**
+ * Quanta importanza ha l'altezza massima risultate da una mossa
+ */
+#define HIGH_WEIGHT 2
+
+/**
+ * Quanta importanza ha l'altezza minima risultate da una mossa
+ */
+#define LOW_WEIGHT 1
+
+/**
+ * Quanta importanza ha la quantita' di linee cancellate risultante da una mossa
+ */
 #define LINES_WEIGHT 10
+
+/**
+ * Quanta importanza ha la quantita' di buchi risultati da una mossa
+ */
 #define HOLES_WEIGHT -1
-#define DIFF_WEIGHT  -1
 
 /**
- * Vari simboli UTF-8 usati
- * 0x2550 ═ ║ ╒ ╓ ╔ ╕ ╖ ╗ ╘ ╙ ╚ ╛ ╜ ╝ ╞ ╟ 
- * 0x2560 ╠ ╡ ╢ ╣ ╤ ╥ ╦ ╧ ╨ ╩ ╪ ╫ ╬ 
- * 0x25a0 ■ □ ▢ ▣ ▤ ▥ ▦ ▧ ▨ ▩ 
- * ◰ ◱ ◲ ◳
- * 0x2b10 ⬐ ⬑ ⬒ ⬓ ⬔ ⬕ ⬖ ⬗ ⬘ ⬙ ⬚   ⬝ ⬞ ⬟
+ * Quanta importanza ha la differenza tra punto piu' e quello piu' basso risultate da una mossa
  */
-
-/**
- * Rappresentazione dei tetramini come array
- * _ indica uno spazio vuoto
- * / indica a capo
- * * indica fine del tetramino
- * 
- * Rappresento gia' i tetramini ruotati, cosi' non devo calcolarli al volo
- */
+#define DIFF_WEIGHT -1
 
 /**
  * # # # # *

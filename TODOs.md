@@ -1,4 +1,6 @@
-## General
+# CheckList delle cose da fare
+
+## Generale
 
 - [X] Menu' principale che permette
   - [X] Single Player

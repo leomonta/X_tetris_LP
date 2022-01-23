@@ -130,7 +130,7 @@ void playerTurn(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char *runt
 		printf("\n\nScegli la colonna\n");
 		inputColumn = getIntStdin(0, SCREEN_WIDTH);
 
-		/**
+		/*
 		 * Provo a inserire il tetramino nella posizione specificata.
 		 * In caso di successo faccio cadere il tetramino e lo rimuovo dalla lista di tetramini disponibili
 		 * In caso di fallimento comunico l'errore e ricomincio il ciclo
