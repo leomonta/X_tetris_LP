@@ -1,7 +1,7 @@
 /**
  * @file
  * Funzioni di utilita' varia: \n
- * I\O \n
+ * I/O \n
  * setup \n
  */
 #pragma once

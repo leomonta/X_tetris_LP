@@ -34,7 +34,8 @@ void replaceTempTetr(wchar_t replaceWith, wchar_t screen[SCREEN_HEIGHT][SCREEN_W
  * 
  * @param numTetramino indice del tetramino rispetto a allTetraminos che deve essere inserito
  * @param screen matrice 15 * 10 rappresentante il campo di gioco del giocatore nel quale inserire il tetramino
- * @param column,row coordinate dalle quali iniziare a inserire il tetramino
+ * @param column coordinate dalle quali iniziare a inserire il tetramino
+ * @param rot rotazione del tetramino da inserire
  * 
  * @return true se l'operazione ha avuto successo, false altrimenti
  */
