@@ -89,8 +89,8 @@ Nel caso di progetti individuali, ad esempio per studenti lavoratori
 ## Valutazione
 
 I criteri di valutazione sono i seguenti:
-	* qualita' della relazione:
-		– e' completa e chiara come potrebbe esserlo un libro di testo?
-	* qualita' del codice:
-		– e' ben strutturato in funzioni che risolvono task ben definiti?
-		– e' stato fatto un uso dei tipi appropriato?
+* qualita' della relazione:
+	* e' completa e chiara come potrebbe esserlo un libro di testo?
+* qualita' del codice:
+	* e' ben strutturato in funzioni che risolvono task ben definiti?
+	* e' stato fatto un uso dei tipi appropriato?
