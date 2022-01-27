@@ -24,7 +24,6 @@ int main() {
 		break;
 
 	case 3:
-
 		multiPlayerLoop(1, 1);
 	}
 

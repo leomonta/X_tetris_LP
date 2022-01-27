@@ -52,11 +52,6 @@
 #define HIGH_WEIGHT 2
 
 /**
- * Quanta importanza ha l'altezza minima risultate da una mossa
- */
-#define LOW_WEIGHT 2
-
-/**
  * Quanta importanza ha la quantita' di linee cancellate risultante da una mossa
  */
 #define LINES_WEIGHT 10

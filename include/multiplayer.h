@@ -61,18 +61,16 @@ void multiCalcStats(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int result[4]);
 /**
  * Combino le statische di una mossa insieme per ottenere quanto ottimale sia:
  * 1.  2 * results[0] \n
- *   visto che esprimo l'altezza come distanza dall'alto, un numero maggiore indica una posizione bassa, quindi miglire \n
- * 2.  2 * results[1] \n
- *   piu' bassi posso tenere i tetramini meglio e' \n
- * 3. 10 * results[2] \n
+ *   visto che esprimo l'altezza come distanza dall'alto, un numero maggiore indica una posizione bassa, quindi migliore \n
+ * 2. 10 * results[2] \n
  *   le righe eliminate sono le piu' importanti visto che migliorano tutti le altre statistiche \n
- * 4. -1 * results[3] \n
+ * 3. -2 * results[3] \n
  *    piu' alto e' il numero di buchi piu' grande sara' il numero negativo, disincentivando le mosse che ne creano \n
- * 5. -1 * abs(results[1] - results[0]) \n
+ * 4. -1 * (results[1] - results[0]) \n
  *   la differenza tra il punto piu' alto ed il punto piu' basso mi da' una stima di quanto e' irregolare il campo \n
  * 
  * 
- * Lo score di una mossa e' quindi -> (1 + 2 + 3 + 4 + 5), piu' alto e' lo score, migliore e' la mossa
+ * Lo score di una mossa e' quindi -> (1 + 2 + 3 + 4), piu' alto e' lo score, migliore e' la mossa
  * 
  * @param stats le statistiche dalle quali calcolare lo score
  * 

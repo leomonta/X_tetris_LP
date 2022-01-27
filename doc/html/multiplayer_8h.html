@@ -185,22 +185,19 @@ Funzioni</h2></td></tr>
 </div><div class="memdoc">
 <p>Combino le statische di una mossa insieme per ottenere quanto ottimale sia:</p><ol type="1">
 <li>2 * results[0] <br  />
- visto che esprimo l'altezza come distanza dall'alto, un numero maggiore indica una posizione bassa, quindi miglire <br  />
-</li>
-<li>2 * results[1] <br  />
- piu' bassi posso tenere i tetramini meglio e' <br  />
+ visto che esprimo l'altezza come distanza dall'alto, un numero maggiore indica una posizione bassa, quindi migliore <br  />
 </li>
 <li>10 * results[2] <br  />
  le righe eliminate sono le piu' importanti visto che migliorano tutti le altre statistiche <br  />
 </li>
-<li>-1 * results[3] <br  />
+<li>-2 * results[3] <br  />
  piu' alto e' il numero di buchi piu' grande sara' il numero negativo, disincentivando le mosse che ne creano <br  />
 </li>
-<li>-1 * abs(results[1] - results[0]) <br  />
+<li>-1 * (results[1] - results[0]) <br  />
  la differenza tra il punto piu' alto ed il punto piu' basso mi da' una stima di quanto e' irregolare il campo <br  />
 </li>
 </ol>
-<p>Lo score di una mossa e' quindi -&gt; (1 + 2 + 3 + 4 + 5), piu' alto e' lo score, migliore e' la mossa</p>
+<p>Lo score di una mossa e' quindi -&gt; (1 + 2 + 3 + 4), piu' alto e' lo score, migliore e' la mossa</p>
 <dl class="params"><dt>Parametri</dt><dd>
   <table class="params">
     <tr><td class="paramname">stats</td><td>le statistiche dalle quali calcolare lo score</td></tr>

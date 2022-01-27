@@ -239,7 +239,7 @@ void multiCalcStats(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int result[4]) 
 }
 
 int calcScore(int stats[4]) {
-	return stats[0] * HIGH_WEIGHT + stats[1] * LOW_WEIGHT + stats[2] * LINES_WEIGHT + stats[3] * HOLES_WEIGHT + abs(stats[1] - stats[0]) * DIFF_WEIGHT;
+	return stats[0] * HIGH_WEIGHT + stats[2] * LINES_WEIGHT + stats[3] * HOLES_WEIGHT + (stats[1] - stats[0]) * DIFF_WEIGHT;
 }
 
 bool isAHole(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int row, int column) {
