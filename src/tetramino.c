@@ -3,18 +3,35 @@
 #include "tetramino.h"
 
 void fall(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
+	/*
+	Dato che il metodo insert inserisci i tetramini dall'alto ho sempre la certezza che sulla prima riga c'e' un tetramino temporaneo.
+	Quindi posso partire dall'alto a controllare se il tetamino può essere spostato verso il basso tenendo conto che:
+	se trovo una riga vuota sono al di sotto del tetramino e quindi posso fermare il ciclo preventivamente
+	posso abbassare il punto di inizio ogni volta che completo lo spostamento
+	*/
+
 	int i = 0;
 	int j = 0;
 
-	bool _exit = 0;
+	/* lavoro su una finestra alta 4 tetramini, visto che è l'altezza massima che un tetramino può avere */
+	int start = 0;
+
+	/* variabile di controllo per capire quando il tetramino è sceso al punto più basso */
+	bool _exit = false;
+	/* variabile di controllo per capire se ho trovato caratteri tetramini in una riga, se non ne ho trovato neanche uno ricomincia il loop */
+	bool tempFound = false;
 
 	while (!_exit) {
 
-		for (i = SCREEN_HEIGHT - 1; i >= 0 && !_exit; --i) {
+		/* controllo se l'intero tetramino ha uno spazio libero sotto di esso per essere spostato */
+		for (i = start; i < SCREEN_HEIGHT && !_exit; ++i) {
 			for (j = 0; j < SCREEN_WIDTH && !_exit; ++j) {
 
-				/* Se sono su un carattere temporaneo*/
+				/* Se sono su un carattere temporaneo */
 				if (screen[i][j] == '@') {
+
+					tempFound = true;
+
 					/* Se sono all'ultima casella prima della base esco */
 					if (i == SCREEN_HEIGHT - 1) {
 						_exit = true;
@@ -26,17 +43,26 @@ void fall(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 					}
 				}
 			}
+
+			if (!tempFound) {
+				/* se non ci sono tetramini temporanei in questa linea significa che non devo controllarne altri */
+				break;
+			}
+			tempFound = false;
 		}
 
 		/* Se in questo ciclo non devo uscire posso spostare tutti i caratteri temporanei verso il basso */
-		for (i = SCREEN_HEIGHT - 1; i >= 0; --i) {
+		for (i = SCREEN_HEIGHT - 1; i >= start; --i) {
 			for (j = 0; j < SCREEN_WIDTH && !_exit; ++j) {
 				if (screen[i][j] == '@') {
+
 					screen[i + 1][j] = '@';
 					screen[i][j]     = ' ';
 				}
 			}
 		}
+
+		++start;
 	}
 }
 
