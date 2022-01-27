@@ -36,21 +36,21 @@ int getIntStdin(int lowBound, int highBound) {
 			break;
 		}
 
-		printf("Devi inserire un valore tra 0 e %d\n", highBound - 1);
+		printf("Devi inserire un valore tra %d e %d\n", lowBound, highBound - 1);
 	}
 
 	return inputTetr;
 }
 
-char* setupLocale() {
+char *setupLocale() {
 
-	char* old_locale = setlocale(LC_ALL, NULL);
+	char *old_locale = setlocale(LC_ALL, NULL);
 	setlocale(LC_ALL, "C.UTF-8");
 
 	return old_locale;
 }
 
-void cleanupLocale(char* locale) {
+void cleanupLocale(char *locale) {
 
 	setlocale(LC_ALL, locale);
 }

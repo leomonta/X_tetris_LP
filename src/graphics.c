@@ -71,10 +71,6 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size
 				/*
 				 * Se il carattere corrente e' un 'a capo' -> '/' mi sposto sulla sottoriga inferiore, aggiorno l'offet di sottocolonna
 				 * altrimenti inserisco il carattere corrente 
-				 * altrimenti inserisco il carattere corrente 
-				 * altrimenti inserisco il carattere corrente 
-				 * altrimenti inserisco il carattere corrente 
-				 * altrimenti inserisco il carattere corrente 
 				 */
 				if (currTetramino[index] == L'/') {
 					minorRow = 1;  /* mi sposto sulla sottoriga inferiore */
@@ -85,9 +81,6 @@ void drawRemainingTetraminos(unsigned char *runtimeTetraminos, unsigned int size
 					 * row[minorRow]			-> accedo alla sottoriga corretta
 					 * columnIndex * columWidth -> mi posiziono all'inizio della sottocolonna corretta
 					 * + offset					-> mi sposto di quanti caratteri ho stampato dopo l'inizio / a capo
-					 * 
-					 * 
-					 * 
 					 * 
 					 * 
 					 * Se il carattere corrente e' '_' allora inserisci ' '

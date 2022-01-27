@@ -38,7 +38,7 @@ void fall(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH]) {
 						break;
 					}
 					/* Se la prossima cella non e' libera e non e' un'altro carattere temporaneo esco */
-					if (screen[i + 1][j] != ' ' && screen[i + 1][j] != L'@') {
+					if (screen[i + 1][j] != L' ' && screen[i + 1][j] != L'@') {
 						_exit = true;
 					}
 				}

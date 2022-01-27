@@ -54,7 +54,7 @@
 /**
  * Quanta importanza ha l'altezza minima risultate da una mossa
  */
-#define LOW_WEIGHT 1
+#define LOW_WEIGHT 2
 
 /**
  * Quanta importanza ha la quantita' di linee cancellate risultante da una mossa
@@ -64,7 +64,7 @@
 /**
  * Quanta importanza ha la quantita' di buchi risultati da una mossa
  */
-#define HOLES_WEIGHT -1
+#define HOLES_WEIGHT -2
 
 /**
  * Quanta importanza ha la differenza tra punto piu' e quello piu' basso risultate da una mossa

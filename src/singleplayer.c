@@ -39,7 +39,6 @@ bool gameShouldEnd(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char ru
 	int  j                  = 0;
 	bool finishedTetraminos = true;
 	int  selectedTetramino  = INVALID_TETRAMINO;
-	int  column             = 0;
 	int  rot                = 0;
 
 	for (i = 0; i < INITIAL_TETRAMINOS; ++i) {
@@ -63,12 +62,11 @@ bool gameShouldEnd(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], unsigned char ru
 		}
 
 		for (j = 0; j < SCREEN_WIDTH; ++j) {
-			column = j;
 			for (rot = 0; rot < 4; ++rot) {
 
 				/* Provo ad inserire il tetramino */
-				if (insert(selectedTetramino, screen, column, rot)) {
-					/* Successo rimuovo il tetramino temporanea ed esco */
+				if (insert(selectedTetramino, screen, j, rot)) {
+					/* Successo, rimuovo il tetramino temporaneo ed esco */
 					replaceTempTetr(L' ', screen);
 					return false;
 				}

@@ -211,7 +211,7 @@ void multiCalcStats(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int result[4]) 
 					/* Se non e' un buco significa che sopra ha solo spazi liberi, quindi puo' essere il punto piu' basso accessibile */
 				} else {
 					/* Se row + 1 == SCREEN_HEIGHT significa che sono alla base del campo, quindi una posizione valida */
-					if (row + 1 == SCREEN_HEIGHT || screen[row + 1][column]) {
+					if (row + 1 == SCREEN_HEIGHT || screen[row + 1][column] != L' ') {
 						result[1] = row + 1 > result[1] ? row + 1 : result[1];
 					}
 				}
