@@ -11,6 +11,6 @@ var searchData=
   ['multiinvertlines_39',['multiInvertLines',['../multiplayer_8h.html#ad7eaf7560a4014e90785fdf9019fcb9e',1,'multiInvertLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int count):&#160;multiplayer.c'],['../multiplayer_8c.html#ad7eaf7560a4014e90785fdf9019fcb9e',1,'multiInvertLines(wchar_t screen[SCREEN_HEIGHT][SCREEN_WIDTH], int count):&#160;multiplayer.c']]],
   ['multiplayer_2ec_40',['multiplayer.c',['../multiplayer_8c.html',1,'']]],
   ['multiplayer_2eh_41',['multiplayer.h',['../multiplayer_8h.html',1,'']]],
-  ['multiplayerloop_42',['multiPlayerLoop',['../multiplayer_8h.html#a6cd0adfe20a20d73d312f96f2810942f',1,'multiPlayerLoop(bool AI):&#160;multiplayer.c'],['../multiplayer_8c.html#a6cd0adfe20a20d73d312f96f2810942f',1,'multiPlayerLoop(bool AI):&#160;multiplayer.c']]],
+  ['multiplayerloop_42',['multiPlayerLoop',['../multiplayer_8h.html#a06cf345cc6237f047dab21222b262914',1,'multiPlayerLoop(bool AI1, bool A12):&#160;multiplayer.c'],['../multiplayer_8c.html#a4d8e6587789eba1e40fc5f05d20e6179',1,'multiPlayerLoop(bool AI1, bool AI2):&#160;multiplayer.c']]],
   ['multisetup_43',['multiSetup',['../multiplayer_8h.html#ab32945d41bc3a86252c487196dfb6ded',1,'multiSetup(unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X]):&#160;multiplayer.c'],['../multiplayer_8c.html#ab32945d41bc3a86252c487196dfb6ded',1,'multiSetup(unsigned char runtimeTetraminos[INITIAL_TETRAMINOS_2X]):&#160;multiplayer.c']]]
 ];

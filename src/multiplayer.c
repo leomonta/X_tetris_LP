@@ -7,7 +7,7 @@
 #include "tetramino.h"
 #include "utils.h"
 
-void multiPlayerLoop(bool AI) {
+void multiPlayerLoop(bool AI1, bool AI2) {
 
 	/*
 	 * indica il vincitore 
@@ -49,13 +49,18 @@ void multiPlayerLoop(bool AI) {
 		 * 
 		 */
 		if (currTurn == 1) {
-			printf(" ------- Turno G1 ------- \n\n");
-			playerTurn(screenG1, runtimeTetraminos, INITIAL_TETRAMINOS_2X);
+			if (AI1) {
+				printf(" ------- Turno AI1 ------ \n\n");
+				AITurn(screenG1, runtimeTetraminos);
+			} else {
+				printf(" ------- Turno G1 ------- \n\n");
+				playerTurn(screenG1, runtimeTetraminos, INITIAL_TETRAMINOS_2X);
+			}
 			pointsG1 += calcPoints(multiClearLines(screenG1, screenG2));
 		} else {
 
-			if (AI) {
-				printf(" ------- Turno AI ------- \n\n");
+			if (AI2) {
+				printf(" ------- Turno AI2 ------ \n\n");
 				AITurn(screenG2, runtimeTetraminos);
 			} else {
 				printf(" ------- Turno G2 ------- \n\n");
@@ -84,11 +89,7 @@ void multiPlayerLoop(bool AI) {
 		break;
 
 	case 2:
-		if (AI) {
-			printf("Vince la AI");
-		} else {
-			printf("Vince il giocatore 2");
-		}
+		printf("Vince il giocatore 2");
 		break;
 
 	case -1:
@@ -98,11 +99,7 @@ void multiPlayerLoop(bool AI) {
 		}
 
 		if (pointsG1 < pointsG2) {
-			if (AI) {
-				printf("Vince la AI");
-			} else {
-				printf("Vince il giocatore 2");
-			}
+			printf("Vince il giocatore 2");
 			break;
 		}
 

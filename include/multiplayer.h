@@ -9,11 +9,12 @@
 #include "constants.h"
 
 /**
- * Gestisce il gioco tra due giocatori da tastiera o un giocatore e una AI
+ * Gestisce il gioco tra due giocatori da tastiera o un giocatore e una AI o due AI
  * 
- * @param AI true se deve essere utilizzata la AI come giocatore 2
+ * @param AI1 true se deve essere utilizzata la AI come giocatore 1
+ * @param AI2 true se deve essere utilizzata la AI come giocatore 2
  */
-void multiPlayerLoop(bool AI);
+void multiPlayerLoop(bool AI1, bool A12);
 
 /**
  * La Cpu esplora ogni possibilita' per i tetramini \n 

@@ -101,8 +101,8 @@ Grafo delle dipendenze di inclusione per multiplayer.c:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Funzioni</h2></td></tr>
-<tr class="memitem:a6cd0adfe20a20d73d312f96f2810942f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="multiplayer_8c.html#a6cd0adfe20a20d73d312f96f2810942f">multiPlayerLoop</a> (bool AI)</td></tr>
-<tr class="separator:a6cd0adfe20a20d73d312f96f2810942f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d8e6587789eba1e40fc5f05d20e6179"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="multiplayer_8c.html#a4d8e6587789eba1e40fc5f05d20e6179">multiPlayerLoop</a> (bool AI1, bool AI2)</td></tr>
+<tr class="separator:a4d8e6587789eba1e40fc5f05d20e6179"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52f9f396631c22fa1ce43855981dd46f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="multiplayer_8c.html#a52f9f396631c22fa1ce43855981dd46f">AITurn</a> (wchar_t screen[<a class="el" href="constants_8h.html#a6974d08a74da681b3957b2fead2608b8">SCREEN_HEIGHT</a>][<a class="el" href="constants_8h.html#a2cd109632a6dcccaa80b43561b1ab700">SCREEN_WIDTH</a>], unsigned char runtimeTetraminos[<a class="el" href="constants_8h.html#af022fe7821e1ce6496c2800062b87a3a">INITIAL_TETRAMINOS_2X</a>])</td></tr>
 <tr class="separator:a52f9f396631c22fa1ce43855981dd46f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a057c204f935edf577ce11a1b667871af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="multiplayer_8c.html#a057c204f935edf577ce11a1b667871af">multiCalcStats</a> (wchar_t screen[<a class="el" href="constants_8h.html#a6974d08a74da681b3957b2fead2608b8">SCREEN_HEIGHT</a>][<a class="el" href="constants_8h.html#a2cd109632a6dcccaa80b43561b1ab700">SCREEN_WIDTH</a>], int result[4])</td></tr>
@@ -462,8 +462,8 @@ alla colonna indice 8 abbiamo due buchi, non importa quanto in alto e' il caratt
 
 </div>
 </div>
-<a id="a6cd0adfe20a20d73d312f96f2810942f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cd0adfe20a20d73d312f96f2810942f">&#9670;&nbsp;</a></span>multiPlayerLoop()</h2>
+<a id="a4d8e6587789eba1e40fc5f05d20e6179"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d8e6587789eba1e40fc5f05d20e6179">&#9670;&nbsp;</a></span>multiPlayerLoop()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -472,15 +472,26 @@ alla colonna indice 8 abbiamo due buchi, non importa quanto in alto e' il caratt
           <td class="memname">void multiPlayerLoop </td>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>AI</em></td><td>)</td>
+          <td class="paramname"><em>AI1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>A12</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Gestisce il gioco tra due giocatori da tastiera o un giocatore e una AI</p>
+<p>Gestisce il gioco tra due giocatori da tastiera o un giocatore e una AI o due AI</p>
 <dl class="params"><dt>Parametri</dt><dd>
   <table class="params">
-    <tr><td class="paramname">AI</td><td>true se deve essere utilizzata la AI come giocatore 2 </td></tr>
+    <tr><td class="paramname">AI1</td><td>true se deve essere utilizzata la AI come giocatore 1 </td></tr>
+    <tr><td class="paramname">AI2</td><td>true se deve essere utilizzata la AI come giocatore 2 </td></tr>
   </table>
   </dd>
 </dl>
