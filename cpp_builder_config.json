@@ -1,7 +1,7 @@
 {
 	"projectDir": ".",
 	"exeName": "Game.bin",
-	"compilerExe" : "gcc",
+	"compilerExe": "gcc",
 	"Directories": {
 		"includeDir": [
 			"include",
@@ -16,16 +16,28 @@
 		"objectsDir": "objs",
 		"exeDir": "bin"
 	},
-	"libraries": [
-		"raylib",
-		"dl",
-		"pthread",
-		"m"
-	],
+	"libraries": {
+		"Debug": [
+			"raylib",
+			"dl",
+			"pthread",
+			"m"
+		],
+		"Release": [
+			"raylib",
+			"dl",
+			"pthread",
+			"m"
+		]
+	},
 	"Arguments": {
-		"Compiler": "-O2 -ansi -pedantic-errors",
-		"Linker": "-O2",
-		"Compiler-": "-g3 -ansi -pedantic-errors -Wno-missing-field-initializers -Wpedantic -Wconversion -Wshadow -Wextra -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak",
-		"Linker-": "-fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak"
+		"Debug": {
+			"Compiler": "-O2 -ansi -pedantic-errors",
+			"Linker": "-O2"
+		},
+		"Release": {
+			"Compiler": "-g3 -ansi -pedantic-errors -Wno-missing-field-initializers -Wpedantic -Wconversion -Wshadow -Wextra -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak",
+			"Linker": "-fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak"
+		}
 	}
 }
